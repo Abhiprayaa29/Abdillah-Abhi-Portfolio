@@ -71,8 +71,11 @@ section[id]{scroll-margin-top:76px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px}
 
 /* Tentang */
-.about-cols{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px}
-.about-cols p{font-size:17px;line-height:1.8;color:var(--text-2)}
+.about-cols{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:48px;margin-top:40px;align-items:start}
+.about-photo{margin:0;max-width:300px}
+.about-photo img{display:block;width:100%;height:auto;border-radius:var(--radius)}
+.about-text p{font-size:17px;line-height:1.8;color:var(--text-2)}
+.about-text p+p{margin-top:20px}
 
 /* Proyek — daftar studi kasus */
 .project-list{border-top:1px solid var(--line);margin-top:40px}
@@ -174,6 +177,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 @media(max-width:600px){
   .container{width:min(var(--max),calc(100% - 28px))}
   .section-pad{padding:64px 0}
+  .about-photo{max-width:220px}
   .hero{padding:128px 0 72px}
   .hero h1{font-size:30px}
   .hero-support{font-size:15.5px}
