@@ -110,6 +110,16 @@ section[id]{scroll-margin-top:76px}
 .achievement p{margin-top:8px;color:var(--muted);font-size:14.5px}
 .achievement-meta{border-left:1px solid var(--line);padding-left:24px;color:var(--muted);font-family:var(--mono);font-size:12px;line-height:1.8}
 
+/* Sertifikat */
+.cert-list{margin-top:40px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.cert-row{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:32px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line);transition:background .2s}
+.cert-row:last-child{border-bottom:0}
+.cert-row:hover{background:var(--bg-soft)}
+.cert-date{font-family:var(--mono);font-size:12.5px;color:var(--muted)}
+.cert-row h3{font-size:17px}
+.cert-issuer{display:block;margin-top:5px;font-size:13.5px;font-weight:600;color:var(--accent)}
+.cert-links{display:flex;gap:24px;justify-content:flex-end}
+
 /* Keahlian */
 .skills-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:40px}
 .skill-col{border-top:1px solid var(--line-strong);padding-top:20px}
@@ -187,6 +197,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   .row-fact{grid-template-columns:1fr;gap:4px}
   .row-actions{flex-direction:column;align-items:flex-start;gap:4px}
   .timeline-row{grid-template-columns:1fr;gap:8px}
+  .cert-row{grid-template-columns:1fr;gap:8px;align-items:start}
+  .cert-links{justify-content:flex-start}
   .footer-inner{flex-direction:column}
   .footer-inner>div{gap:14px;flex-wrap:wrap}
   .dialog-head{padding:15px 16px}
