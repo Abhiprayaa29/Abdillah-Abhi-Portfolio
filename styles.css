@@ -111,7 +111,9 @@ section[id]{scroll-margin-top:76px}
 .skills-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:40px}
 .skill-col{border-top:1px solid var(--line-strong);padding-top:20px}
 .skill-col h3{font-size:14px;font-weight:600}
-.skill-list{margin-top:12px;font-family:var(--mono);font-size:13.5px;line-height:2.1;color:var(--text-2)}
+.skill-list{display:flex;flex-wrap:wrap;gap:12px 22px;margin-top:16px}
+.skill-item{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13.5px;line-height:1.5;color:var(--text-2)}
+.skill-item .ico{width:16px;height:16px;color:var(--muted)}
 
 /* Kontak */
 .contact-wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:start}
