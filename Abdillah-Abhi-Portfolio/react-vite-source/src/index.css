@@ -1,0 +1,99 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #0b0b0a;
+  --surface: #121211;
+  --surface-2: #171715;
+  --line: #2c2a25;
+  --text: #f3f0e9;
+  --muted: #a7a195;
+  --gold: #d7a441;
+  --gold-soft: #efcf8d;
+  --green: #9ac48a;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 80% 0%, rgba(215, 164, 65, 0.07), transparent 30rem),
+    var(--bg);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-width: 320px;
+}
+
+::selection { background: rgba(215, 164, 65, 0.32); color: #fff; }
+
+* { box-sizing: border-box; }
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+a { color: inherit; text-decoration: none; }
+button, a { -webkit-tap-highlight-color: transparent; }
+
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.display {
+  font-family: Georgia, "Times New Roman", serif;
+  letter-spacing: -0.045em;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+}
+
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal.is-visible { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .001ms !important; }
+}
+
+.text-balance { text-wrap: balance; }
+
+.section-rule { border-color: var(--line); }
+
+.code-sheen {
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.05), transparent 45%),
+    linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0));
+}
+
+.project-card {
+  transition: transform .35s ease, border-color .35s ease, background-color .35s ease;
+}
+.project-card:hover { transform: translateY(-5px); border-color: rgba(215,164,65,.52); background-color: #171715; }
+
+.pill { border: 1px solid var(--line); background: rgba(255,255,255,.02); }
+
+.dialog-backdrop {
+  background: rgba(0,0,0,.82);
+  backdrop-filter: blur(8px);
+}
+
+.project-image-fade {
+  background: linear-gradient(to top, rgba(11,11,10,.96), rgba(11,11,10,.08) 55%, rgba(11,11,10,.15));
+}
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, rgba(215,164,65,.035) 49%, transparent 50%);
+  background-size: 100% 8px;
+  pointer-events: none;
+}
