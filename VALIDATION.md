@@ -8,6 +8,7 @@ Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight).
 - All five project records, the rotating featured spotlight, and every case-study dialog interaction are wired (`Buka detail` works from both the spotlight and the rows, on whichever slide is showing).
 - Every project row follows the mini case-study structure: `Masalah · Stack · Dibangun · Teknis · Hasil` + `Repository` / `Buka detail`.
 - All five featured repository links point to the `Abhiprayaa29` GitHub namespace; local asset references resolve.
+- Sertifikat section lists six entries: two Find IT! 2026 awards (Finalis UX Competition, Best Video — KMTETI · FT UGM, Mei 2026) above the four Dicoding certificates. Every row links to a real file under `assets/sertifikat/`; the four Dicoding rows also carry their public verification URLs. Neither Find IT! certificate exposes a verification URL, so those rows link to the source file only (no invented link).
 - JavaScript passes `node --check script.js`.
 - Metadata: canonical URL, Open Graph (1200×630 image), Twitter card, JSON-LD `Person`, `robots.txt`, `sitemap.xml`.
 - Responsive layout at 320 / 375 / 390 / 430 / 768 / 1024 / 1440 px in **light and dark**: no horizontal overflow, no tap target under 24px, heading order correct (headless Chromium via CDP).
@@ -29,6 +30,7 @@ Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight).
 
 - GitHub READMEs of the five project repositories (test counts, feature lists, honesty notes: `FIXTURE TESTED — GRID LIVE CONNECTION NOT VERIFIED`).
 - `cv/Abdillah-Abhi-CV.pdf` (education dates, FTI Cup role, Find IT! UGM 2026 award).
+- Original certificate files in `Documents\Sertif\` (Find IT! 2026 e-certificate PDF and the Best Video image); both inspected — no tokens, keys, or personal data beyond the awardee name already published on the site.
 
 ### Visual asset provenance (this pass)
 
