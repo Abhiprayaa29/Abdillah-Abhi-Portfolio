@@ -79,7 +79,7 @@
   <main id="home">
     <section class="hero">
       <div class="container">
-        <h1>Saya Abdillah Abhi, software developer yang membangun aplikasi web, otomasi, dan sistem <span class="nb">real-time.</span></h1>
+        <h1>Halo, saya Abdillah Abhi. Software developer yang mengintegrasikan perancangan UI/UX intuitif, rekayasa web full-stack, serta standar keamanan aplikasi yang solid.</h1>
         <p class="hero-support">Mahasiswa Teknik Informatika di UPN “Veteran” Yogyakarta. Yang saya bangun belakangan: panel siaran turnamen, bot Telegram untuk jadwal kuliah, dan aplikasi AR di Android.</p>
         <div class="hero-actions">
           <a class="button button-solid" href="#projects">Lihat proyek</a>
@@ -97,7 +97,7 @@
 
         <div class="featured">
           <div class="featured-media">
-            <img src="assets/mlbb-draft-studio-aamon.png" alt="Seni splash hero Aamon dari dataset 133 hero pada repository MLBB Draft Studio" width="500" height="500" loading="lazy" decoding="async">
+            <img src="assets/projects/mlbb/control-panel-operator.webp" alt="Panel operator MLBB Draft Studio pada sesi selftest: fase pick, statistik game, dan grid 133 hero" width="1600" height="1000" loading="eager" fetchpriority="low" decoding="async">
           </div>
           <div class="featured-body">
             <span class="row-label">Proyek unggulan</span>
@@ -118,6 +118,9 @@
         <div class="project-list">
 
           <article class="project-row" data-project="mlbb">
+            <figure class="row-media">
+              <img src="assets/projects/mlbb/overlay-draft.webp" alt="Overlay draft broadcast MLBB Draft Studio 1920x1080: slot pick kedua tim, timer, dan branding turnamen" width="1600" height="900" loading="lazy" decoding="async">
+            </figure>
             <div class="row-top">
               <h3>MLBB Draft Studio</h3>
               <span class="row-peran">Full-stack developer</span>
@@ -172,6 +175,9 @@
           </article>
 
           <article class="project-row" data-project="ar">
+            <figure class="row-media row-media-portrait">
+              <img src="assets/projects/ar/simple-ar-placement-ui.webp" alt="Tangkapan layar SimpleARPlacement di Android: prompt Tap to Place di atas kamera AR dengan palet objek 3D di bawah" width="1080" height="2340" loading="lazy" decoding="async">
+            </figure>
             <div class="row-top">
               <h3>SimpleARPlacement</h3>
               <span class="row-peran">Unity AR developer</span>
@@ -190,6 +196,9 @@
           </article>
 
           <article class="project-row" data-project="cerberus">
+            <figure class="row-media">
+              <img src="assets/projects/cerberus/orchestrator-atlas.webp" alt="Konsol orkestrasi Cerberus: terminal agen dan tabel tugas paralel dengan status eksekusi" width="1600" height="540" loading="lazy" decoding="async">
+            </figure>
             <div class="row-top">
               <h3>Cerberus</h3>
               <span class="row-peran">Kustomisasi &amp; orkestrasi</span>
@@ -350,9 +359,9 @@
 
   <dialog id="projectDialog" class="project-dialog" aria-labelledby="dialogTitle">
     <div class="dialog-head"><h2 id="dialogTitle">Detail proyek</h2><button id="dialogClose" type="button" aria-label="Tutup detail">×</button></div>
+    <div id="dialogVisual" class="dialog-visual" hidden></div>
     <div class="dialog-grid">
       <div class="dialog-aside">
-        <div id="dialogVisual" class="dialog-visual" hidden></div>
         <div class="dialog-meta"><div><small>Peran</small><strong id="dialogRole"></strong></div><div><small>Status</small><strong id="dialogStatus"></strong></div></div>
         <div class="dialog-block"><span class="row-label">Stack</span><p class="dialog-stack" id="dialogStack"></p></div>
         <a id="dialogDemo" class="button button-solid button-small demo-btn" target="_blank" rel="noreferrer" hidden>Demo live <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>

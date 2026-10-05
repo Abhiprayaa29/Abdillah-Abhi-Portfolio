@@ -10,7 +10,13 @@ const data = {
     result:'Dirancang sebagai sumber siaran OBS: control panel di PC operator, overlay draft + scoreboard transparan (1920×1080, aman juga di 1280×720 tanpa scrollbar) di PC siaran lewat LAN. Pengujian otomatis: 131 asersi backend dan 115 asersi E2E lulus; dataset 133 hero tervalidasi 0 error. Status: fixture teruji, koneksi grid live belum terverifikasi.',
     engineering:'Engine draft dijaga tetap terpisah dari UI berupa fungsi transisi state; server memiliki state bersama dan menyiarkan perubahan ke klien.',
     github:'https://github.com/Abhiprayaa29/mlbb-draft-studio',
-    image:'./assets/mlbb-draft-studio-aamon.png', alt:'Seni splash hero Aamon dari dataset 133 hero pada repository MLBB Draft Studio', iw:500, ih:500
+    image:'./assets/projects/mlbb/control-panel-operator.webp', alt:'Panel operator MLBB Draft Studio pada sesi selftest: fase pick, statistik game, dan grid 133 hero', iw:1600, ih:1000,
+    gallery:[
+      {src:'./assets/projects/mlbb/control-panel-operator.webp', alt:'Panel operator MLBB Draft Studio pada sesi selftest: fase pick, statistik game, dan grid 133 hero', iw:1600, ih:1000},
+      {src:'./assets/projects/mlbb/control-panel-grid.webp', alt:'Tab GRID panel operator: sumber data GRID live dengan fixture draft.json pada fase ban', iw:1600, ih:1000},
+      {src:'./assets/projects/mlbb/overlay-draft.webp', alt:'Overlay draft broadcast 1920x1080: slot pick kedua tim, timer, dan branding turnamen', iw:1600, ih:900},
+      {src:'./assets/projects/mlbb/overlay-score.webp', alt:'Overlay scoreboard 1920x1080: skor tim, kill, gold, turret, lord, dan turtle saat menunggu data pertandingan', iw:1600, ih:900}
+    ]
   },
   spada: {
     title:'SPADA Telegram Bot',
@@ -34,8 +40,7 @@ const data = {
     features:['Pencarian vendor dengan filter kategori/lokasi dan pengurutan harga.','Dashboard klien dengan status booking dan alur invoice.','Dashboard vendor dengan CRUD paket, galeri portofolio, dan manajemen order.','Statistik berbasis database serta alur ulasan/rating.'],
     result:'Proyek Pemrograman Web semester 3 — aplikasi full-stack yang berjalan lokal via XAMPP/Laragon (Apache + MySQL/MariaDB), dari landing page sampai alur pembayaran dan ulasan dengan dua alur peran: klien dan vendor.',
     engineering:'Proyek ini menunjukkan pemikiran aplikasi web end-to-end: komposisi UI, penanganan request, alur kerja per peran, unggah file, dan akses data relasional.',
-    github:'https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi',
-    image:'./assets/jogjalensa-malioboro-small.jpg', alt:'Suasana Jalan Malioboro Yogyakarta, visual latar untuk marketplace fotografi JogjaLensa', iw:1400, ih:933
+    github:'https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi'
   },
   ar: {
     title:'SimpleARPlacement',
@@ -48,7 +53,7 @@ const data = {
     result:'APK berhasil dibangun dan berjalan di Samsung Galaxy A54 dengan sesi AR aktif dan UI tampil. Lima skenario pengujian terdokumentasi: permukaan bertekstur/polos, cahaya terang/redup, dan gerakan kamera cepat.',
     engineering:'Proyek memisahkan logika penempatan dari kontrol UI dan memakai Unity Input System + AR Foundation alih-alih satu skrip interaksi monolitik.',
     github:'https://github.com/Abhiprayaa29/simple-ar-placement',
-    image:'./assets/simple-ar-placement-ui.jpg', alt:'Tangkapan layar antarmuka SimpleARPlacement di Android: object menu di bawah dan tombol opsi di atas kamera AR', iw:1080, ih:2340
+    image:'./assets/projects/ar/simple-ar-placement-ui.webp', alt:'Tangkapan layar SimpleARPlacement di Android: prompt Tap to Place di atas kamera AR dengan palet objek 3D di bawah', iw:1080, ih:2340
   },
   cerberus: {
     title:'Cerberus',
@@ -61,7 +66,13 @@ const data = {
     result:'Dikustomisasi dan diadaptasi sebagai bagian kerangka oh-my-open-pentest (bunx oh-my-open-pentest install; verifikasi lewat perintah doctor). Kerangka menyediakan 109+ tools keamanan terintegrasi, 250+ skill playbooks, dan 10 mode engagement dengan laporan ber-CVSS.',
     engineering:'Sinyal terkuat adalah desain orkestrasi: mendekomposisi masalah besar menjadi tanggung jawab spesialis yang terbatas, lalu memverifikasi hasil kerja sebelum dilanjutkan.',
     note:'Hanya untuk pengujian yang berizin di lingkungan lab: sistem milik sendiri, lab pribadi, atau program bug bounty dalam scope — sesuai disclaimer di repository. Tidak untuk menguji sistem pihak lain tanpa izin tertulis.',
-    github:'https://github.com/Abhiprayaa29/Cerberus'
+    github:'https://github.com/Abhiprayaa29/Cerberus',
+    image:'./assets/projects/cerberus/orchestrator-atlas.webp', alt:'Konsol orkestrasi Cerberus: terminal agen dan tabel tugas paralel dengan status eksekusi', iw:1600, ih:540,
+    gallery:[
+      {src:'./assets/projects/cerberus/orchestrator-atlas.webp', alt:'Konsol orkestrasi Cerberus: terminal agen dan tabel tugas paralel dengan status eksekusi', iw:1600, ih:540},
+      {src:'./assets/projects/cerberus/core-loop.webp', alt:'Diagram alur inti Cerberus: Human Intent, Agent Execution, dan Verified Result dengan prinsip minimum intervention', iw:1408, ih:768},
+      {src:'./assets/projects/cerberus/ultrawork-flow.webp', alt:'Diagram alur Ultrawork: jalur langsung ulw dibandingkan alur multi-tahap Prometheus ke Atlas hingga selesai', iw:1408, ih:768}
+    ]
   }
 };
 
@@ -179,11 +190,14 @@ const openCaseStudy = (key) => {
   if (p.demo) { demo.href = p.demo; demo.hidden = false; } else { demo.hidden = true; }
   const list = $('#dialogFeatures'); list.innerHTML = '';
   p.features.forEach(f => { const li = document.createElement('li'); li.textContent = f; list.appendChild(li); });
-  if (p.image) {
+  const gallery = p.gallery && p.gallery.length ? p.gallery : (p.image ? [{src:p.image, alt:p.alt, iw:p.iw, ih:p.ih}] : []);
+  if (gallery.length) {
     dialogVisual.hidden = false;
-    dialogVisual.innerHTML = `<img src="${p.image}" alt="${p.alt}" width="${p.iw}" height="${p.ih}" loading="lazy">`;
+    dialogVisual.classList.toggle('dialog-visual-gallery', gallery.length > 1);
+    dialogVisual.innerHTML = gallery.map(g => `<img src="${g.src}" alt="${g.alt}" width="${g.iw}" height="${g.ih}" loading="lazy">`).join('');
   } else {
     dialogVisual.hidden = true;
+    dialogVisual.classList.remove('dialog-visual-gallery');
     dialogVisual.innerHTML = '';
   }
   $('#dialogGithub').href = p.github;
