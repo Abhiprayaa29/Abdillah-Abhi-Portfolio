@@ -18,9 +18,11 @@ You can also open `index.html` directly, but a local server is recommended so al
 
 - `index.html` / `styles.css` / `script.js` — validated static delivery.
 - `cv/Abdillah-Abhi-CV.pdf` — CV copied unchanged for the download/view action.
-- `favicon.svg` / `og.svg` — lightweight metadata assets.
+- `favicon.svg` / `og.svg` / `og.png` — lightweight metadata assets (Open Graph image is 1200×630).
+- `robots.txt` / `sitemap.xml` — crawl and sitemap hints for https://abhipraya.pages.dev/.
 - `react-vite-source/` — React/Vite/Tailwind implementation source.
-- `AUDIT.md` — source audit and selection rationale.
+- `react-vite-source/AUDIT.md` — source audit and selection rationale.
+- `VALIDATION.md` — current verification results (responsive, accessibility, print, Lighthouse).
 
 ## Notes
 
