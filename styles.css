@@ -155,9 +155,8 @@ html.menu-open{overflow:hidden}
 .project-list{display:grid;gap:20px;margin-top:24px}
 .project-row{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:32px;cursor:pointer;transition:transform .25s,box-shadow .25s}
 .project-row:hover{transform:scale(1.01);box-shadow:var(--shadow-soft)}
-.row-media{margin:0 0 20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-alt);max-width:648px}
-.row-media img{display:block;width:100%;height:auto}
-.row-media-portrait{max-width:260px;margin:0 auto 20px}
+.row-media{margin:0 0 20px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg-alt);max-width:648px;aspect-ratio:16/9}
+.row-media img{display:block;width:100%;height:100%;object-fit:contain}
 .row-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap}
 .row-top h3{font-size:24px;font-weight:600;letter-spacing:-.015em}
 .row-peran{font-size:12px;text-transform:uppercase;letter-spacing:.07em;font-weight:600;color:var(--text-2)}
@@ -238,7 +237,7 @@ html.menu-open{overflow:hidden}
 .dialog-visual:not(.dialog-visual-gallery){border:0;background:none;padding:0}
 .dialog-visual:not(.dialog-visual-gallery) img{width:auto;height:auto;max-width:100%;max-height:min(58vh,480px);border:1px solid var(--line);border-radius:12px;display:block;margin:0 auto}
 .dialog-visual-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;padding:12px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg-alt)}
-.dialog-visual-gallery img{width:100%;height:auto;aspect-ratio:16/10;object-fit:contain;border-radius:8px}
+.dialog-visual-gallery img{width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;border-radius:8px}
 .dialog-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .dialog-meta small{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);font-weight:600}
 .dialog-meta strong{display:block;margin-top:4px;font-size:14px;color:var(--text);font-weight:600}
@@ -288,6 +287,8 @@ html.theme-anim *{transition:background-color .25s ease,color .25s ease,border-c
   .featured-actions{flex-wrap:wrap;gap:18px}
   .featured-title{font-size:22px}
   .project-row{padding:24px 20px;border-radius:20px}
+  .row-media-portrait{aspect-ratio:auto;max-width:260px;margin:0 auto 20px}
+  .row-media-portrait img{height:auto}
   .signals{grid-template-columns:1fr}
   .row-top{flex-direction:column;gap:6px}
   .row-fact{grid-template-columns:1fr;gap:4px}

@@ -19,10 +19,10 @@ Last updated: 2026-10-05 (visual evidence pass).
 - CV copy is byte-identical to the original materialized source.
 - All eight `[ISI: ...]` content placeholders resolved with repository/CV evidence; zero draft markers (`TODO`, `TBD`, `belum diisi`, `placeholder`) remain in `index.html`, `script.js`, `styles.css`.
 - Hero headline replaced with the exact requested copy ("Halo, saya Abdillah Abhi. Software developer yang mengintegrasikan perancangan UI/UX intuitif, rekayasa web full-stack, serta standar keamanan aplikasi yang solid."); long-word overflow fixed at 320px (`overflow-wrap: break-word`).
-- Real, verified project screenshots added: featured card (MLBB control panel, exact 16:10), project rows for MLBB / SimpleARPlacement / Cerberus (zero-crop via natural-height figures), and dialog visuals in `title → visual → content` order. Dialog gallery is a plain CSS grid (MLBB 4 images, Cerberus 3); single-image dialogs center the image; JogjaLensa/SPADA dialogs hide the visual block (no verified asset).
+- Real, verified project screenshots added: featured card (MLBB control panel, exact 16:10), project rows for MLBB / SimpleARPlacement / Cerberus, and dialog visuals in `title → visual → content` order. Every row image sits in an identical 16:9 framed canvas (`aspect-ratio` + `object-fit: contain`, zero crop) so the project list keeps one uniform rhythm; portrait screenshots center on the canvas on desktop and show full-height on mobile. Dialog gallery is a plain CSS grid (MLBB 4 images, Cerberus 3); single-image dialogs center the image; JogjaLensa/SPADA dialogs hide the visual block (no verified asset).
 - All new images are WebP with explicit `width`/`height`; featured image is below the fold and uses `fetchpriority="low"` so it never competes with the LCP element. No crop, no `object-fit: cover` in rows, no fabricated imagery.
 - Dialog keyboard behaviour: opening moves focus to the close button, Escape closes, focus returns to the triggering row button (verified via real CDP mouse click + key dispatch).
-- Lighthouse re-verified after the visual pass (headless Chromium, cold cache): **light 98 / 100 / 100 / 100**, **dark 99 / 100 / 100 / 100** — identical to the pre-visual baseline.
+- Lighthouse re-verified after the visual pass (headless Chromium, cold cache): **light 99 / 100 / 100 / 100**, **dark 99 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO); colour-contrast PASS in both themes.
 
 ## Evidence sources used (this pass)
 
