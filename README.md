@@ -23,7 +23,8 @@ You can also open `index.html` directly, but a local server is recommended so al
 - `robots.txt` / `sitemap.xml` — crawl and sitemap hints for https://abhipraya.pages.dev/.
 - `react-vite-source/` — React/Vite/Tailwind implementation source.
 - `react-vite-source/AUDIT.md` — source audit and selection rationale.
-- `VALIDATION.md` — current verification results (responsive, accessibility, print, Lighthouse).
+- `docs/VALIDATION.md` — current verification results (responsive, accessibility, print, Lighthouse).
+- `.editorconfig` / `.gitattributes` / `.prettierrc.json` — konsistensi format (LF, 2 spasi) agar tidak muncul diff line-ending di Windows.
 
 ## Notes
 
@@ -31,3 +32,9 @@ You can also open `index.html` directly, but a local server is recommended so al
 - LinkedIn is intentionally omitted because it was not verified in the supplied CV/source set.
 - MLBB Draft Studio, SimpleARPlacement, and Cerberus use real screenshots/diagrams taken from their own source repositories (converted to WebP under `assets/projects/`). SPADA and JogjaLensa have no verified visual asset (no screenshots in their repositories and no live demo URL), so those rows stay text-only rather than showing fabricated imagery.
 - The React/Vite scaffold was not installed/built in this sandbox because the npm registry was unreachable from the environment. The static delivery was validated independently with a local HTTP server, file-reference checks, and JavaScript syntax checks.
+
+## Format kode
+
+```bash
+npx prettier --write index.html styles.css script.js
+```
