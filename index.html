@@ -83,16 +83,17 @@
         <p class="hero-support">Mahasiswa Teknik Informatika di UPN “Veteran” Yogyakarta. Yang saya bangun belakangan: panel siaran turnamen, bot Telegram untuk jadwal kuliah, dan aplikasi AR di Android.</p>
         <div class="hero-actions">
           <a class="button button-solid" href="#projects">Lihat proyek</a>
+          <a class="button button-outline" href="#contact">Hubungi saya</a>
           <a class="text-link" href="./cv/Abdillah-Abhi-CV.pdf" download>Unduh CV <span class="chev" aria-hidden="true">›</span></a>
         </div>
-        <p class="hero-note">Terbuka untuk peluang software development, kolaborasi proyek web, dan pekerjaan teknis lain yang sejalan. <a href="#contact">Hubungi saya <span class="chev" aria-hidden="true">›</span></a></p>
+        <p class="hero-note">Terbuka untuk magang, peluang software development, kolaborasi proyek web, dan pekerjaan teknis lain yang sejalan.</p>
       </div>
     </section>
 
     <section id="projects" class="sec-alt section-pad">
       <div class="container">
         <h2 class="section-title">Proyek</h2>
-        <p class="section-intro">Lima proyek dengan masalah, tantangan teknis, dan hasil yang berbeda. Buka barisnya untuk detail lengkap.</p>
+        <p class="section-intro">Lima proyek: masalahnya, yang saya bangun, sisi teknisnya, dan hasilnya. Buka barisnya untuk detail lengkap.</p>
 
         <div class="featured">
           <div class="featured-media">
@@ -101,7 +102,7 @@
           <div class="featured-body">
             <span class="row-label">Proyek unggulan</span>
             <h3 class="featured-title">MLBB Draft Studio</h3>
-            <p class="featured-text">Panel operator dan overlay OBS transparan (1920×1080) yang dipakai sebagai sumber siaran turnamen lewat LAN — draft, timer, dan skor tersinkron real-time tanpa reload.</p>
+            <p class="featured-text">Panel operator dan overlay OBS transparan (1920×1080) yang dirancang sebagai sumber siaran turnamen lewat LAN — draft, timer, dan skor tersinkron real-time tanpa reload.</p>
             <ul class="featured-metrics">
               <li><strong>131</strong><span>asersi backend lulus</span></li>
               <li><strong>115</strong><span>asersi E2E lulus</span></li>
@@ -121,10 +122,12 @@
               <h3>MLBB Draft Studio</h3>
               <span class="row-peran">Full-stack developer</span>
             </div>
-            <p class="row-problem">Operator turnamen membutuhkan satu sumber kebenaran untuk aksi draft, timer, konfigurasi tim, state pertandingan, dan overlay siap siar.</p>
+            <p class="row-problem"><span class="row-label">Masalah</span> Operator turnamen membutuhkan satu sumber kebenaran untuk aksi draft, timer, konfigurasi tim, state pertandingan, dan overlay siap siar.</p>
             <div class="row-facts">
               <div class="row-fact"><span class="row-label">Stack</span><span class="row-value stack">React 18 · Vite · Tailwind CSS v4 · Express · Socket.IO</span></div>
-              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Dipakai sebagai sumber siaran OBS: control panel di PC operator, overlay draft dan scoreboard transparan (1920×1080, aman juga di 1280×720 tanpa scrollbar) di PC siaran lewat LAN. Pengujian otomatis: 131 asersi backend dan 115 asersi E2E lulus; dataset 133 hero tervalidasi 0 error. [ISI: nama turnamen/event yang sudah memakai ini, jika ada]</span></div>
+              <div class="row-fact"><span class="row-label">Dibangun</span><span class="row-value">Panel operator dan dua overlay OBS Browser Source — draft serta scoreboard transparan 1920×1080 — dengan timer otoritatif, preset, dan backup state.</span></div>
+              <div class="row-fact"><span class="row-label">Teknis</span><span class="row-value">State otoritatif di server via Socket.IO tanpa reload; penulisan atomik (.tmp lalu rename) dengan autosave dan retensi backup; engine draft terpisah dari UI.</span></div>
+              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Dirancang sebagai sumber siaran OBS dua PC lewat LAN (operator + siaran). Pengujian otomatis: 131 asersi backend dan 115 asersi E2E lulus; dataset 133 hero tervalidasi 0 error — fixture teruji, koneksi grid live belum terverifikasi.</span></div>
             </div>
             <div class="row-actions">
               <a class="row-link" href="https://github.com/Abhiprayaa29/mlbb-draft-studio" target="_blank" rel="noreferrer">Repository <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -137,10 +140,12 @@
               <h3>SPADA Telegram Bot</h3>
               <span class="row-peran">Developer &amp; automation</span>
             </div>
-            <p class="row-problem">Data mata kuliah, deadline, kehadiran, tugas, dan nilai tersebar di alur LMS yang merepotkan untuk dicek secara manual.</p>
+            <p class="row-problem"><span class="row-label">Masalah</span> Data mata kuliah, deadline, kehadiran, tugas, dan nilai tersebar di alur LMS yang merepotkan untuk dicek secara manual.</p>
             <div class="row-facts">
               <div class="row-fact"><span class="row-label">Stack</span><span class="row-value stack">Python · Telegram Bot · FastAPI · BeautifulSoup</span></div>
-              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Dipakai untuk kebutuhan kuliah sendiri di UPNYK: pengingat deadline, absensi otomatis dengan screenshot bukti ke Telegram, dan briefing harian jam 07:00 WIB. Bisa di-deploy ke GCP e2-micro (1 CPU, 512 MB RAM) dengan systemd yang start otomatis saat reboot.</span></div>
+              <div class="row-fact"><span class="row-label">Dibangun</span><span class="row-value">Bot Telegram: pengingat deadline 24 jam / 1 jam / 15 menit, absensi otomatis dengan screenshot bukti, briefing harian 07.00 WIB, dan dashboard web read-only dengan pairing QR.</span></div>
+              <div class="row-fact"><span class="row-label">Teknis</span><span class="row-value">Scraping LMS dengan BeautifulSoup, pengecekan tiap 30 menit, sesi login disimpan lokal tanpa kredensial di .env; deploy GCP e2-micro (1 CPU, 512 MB) dengan systemd.</span></div>
+              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Dipakai untuk kebutuhan kuliah sendiri di UPNYK. Service systemd (systemctl enable) start otomatis setelah reboot.</span></div>
             </div>
             <div class="row-actions">
               <a class="row-link" href="https://github.com/Abhiprayaa29/bot_spada" target="_blank" rel="noreferrer">Repository <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -153,10 +158,12 @@
               <h3>JogjaLensa</h3>
               <span class="row-peran">Full-stack developer</span>
             </div>
-            <p class="row-problem">Orang yang mencari fotografer membutuhkan cara lebih mudah untuk membandingkan layanan, harga, portofolio, dan informasi booking di satu tempat.</p>
+            <p class="row-problem"><span class="row-label">Masalah</span> Orang yang mencari fotografer membutuhkan cara lebih mudah untuk membandingkan layanan, harga, portofolio, dan informasi booking di satu tempat.</p>
             <div class="row-facts">
               <div class="row-fact"><span class="row-label">Stack</span><span class="row-value stack">PHP 8 · Bootstrap 5.3 · MySQL / MariaDB · Apache</span></div>
-              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Proyek Pemrograman Web semester 3; berjalan lokal via XAMPP/Laragon (Apache + MySQL/MariaDB). [ISI: hasil penggunaan — dipakai di mana, berapa vendor/klien jika sudah dijalankan]</span></div>
+              <div class="row-fact"><span class="row-label">Dibangun</span><span class="row-value">Marketplace dua peran: klien mencari &amp; memfilter vendor, booking, unggah bukti bayar, ulasan bintang, dan invoice; vendor mengelola paket, galeri portofolio, serta order.</span></div>
+              <div class="row-fact"><span class="row-label">Teknis</span><span class="row-value">PHP 8 prosedural + mysqli dengan foreign key, autentikasi login/register/logout, statistik langsung dari database, dan Bootstrap 5.3 di Apache (XAMPP/Laragon).</span></div>
+              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Proyek Pemrograman Web semester 3 — aplikasi full-stack yang berjalan lokal, dari landing page sampai alur pembayaran dan ulasan.</span></div>
             </div>
             <div class="row-actions">
               <a class="row-link" href="https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi" target="_blank" rel="noreferrer">Repository <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -169,10 +176,12 @@
               <h3>SimpleARPlacement</h3>
               <span class="row-peran">Unity AR developer</span>
             </div>
-            <p class="row-problem">Pengguna membutuhkan model interaksi mobile yang langsung untuk menempatkan objek 3D ke permukaan dunia nyata yang terdeteksi.</p>
+            <p class="row-problem"><span class="row-label">Masalah</span> Pengguna membutuhkan model interaksi mobile yang langsung untuk menempatkan objek 3D ke permukaan dunia nyata yang terdeteksi.</p>
             <div class="row-facts">
               <div class="row-fact"><span class="row-label">Stack</span><span class="row-value stack">Unity · AR Foundation 6.5 · ARCore 6.5 · C#</span></div>
-              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">APK berhasil dibangun dan berjalan di Samsung Galaxy A54 dengan sesi AR aktif dan UI tampil. Lima skenario pengujian (permukaan bertekstur/polos, cahaya terang/redup, gerakan kamera cepat) sudah terdokumentasi — tabel hasil dan checklist screenshot/video belum diisi penuh. [ISI: hasil pengisian 5 skenario uji / perangkat lain yang sudah dicoba]</span></div>
+              <div class="row-fact"><span class="row-label">Dibangun</span><span class="row-value">Aplikasi Android AR: tap untuk menempatkan objek 3D di permukaan terdeteksi, lengkap dengan kontrol rotasi, skala, dan reset dari UI.</span></div>
+              <div class="row-fact"><span class="row-label">Teknis</span><span class="row-value">Raycast ke plane terdeteksi + anchor AR di atas Unity Input System; konfigurasi Android IL2CPP/ARM64, minimum API 26, dan OpenGLES3 untuk ARCore.</span></div>
+              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">APK berjalan di Samsung Galaxy A54 dengan sesi AR aktif. Lima skenario pengujian terdokumentasi: permukaan bertekstur/polos, cahaya terang/redup, dan gerakan kamera cepat.</span></div>
             </div>
             <div class="row-actions">
               <a class="row-link" href="https://github.com/Abhiprayaa29/simple-ar-placement" target="_blank" rel="noreferrer">Repository <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -185,10 +194,12 @@
               <h3>Cerberus</h3>
               <span class="row-peran">Kustomisasi &amp; orkestrasi</span>
             </div>
-            <p class="row-problem">Pengujian keamanan yang kompleks diuntungkan dari dekomposisi: perencanaan, riset, eksekusi, verifikasi, dan pelaporan sebaiknya tidak ditangani sebagai satu tugas agen tunggal.</p>
+            <p class="row-problem"><span class="row-label">Masalah</span> Pengujian keamanan yang kompleks diuntungkan dari dekomposisi: perencanaan, riset, eksekusi, verifikasi, dan pelaporan sebaiknya tidak ditangani sebagai satu tugas agen tunggal.</p>
             <div class="row-facts">
               <div class="row-fact"><span class="row-label">Stack</span><span class="row-value stack">Bun · TypeScript · OpenCode · Multi-Agent</span></div>
-              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Dipasang sebagai bagian kerangka oh-my-open-pentest (bunx oh-my-open-pentest install; verifikasi lewat perintah doctor). Mencakup 109+ tools keamanan terintegrasi, 250+ skill playbooks, dan 10 mode engagement dengan laporan ber-CVSS. [ISI: penggunaan nyata — lab atau engagement mana yang sudah dijalankan, jika boleh dicatat]</span></div>
+              <div class="row-fact"><span class="row-label">Dibangun</span><span class="row-value">Kustomisasi dan adaptasi Cerberus sebagai bagian kerangka oh-my-open-pentest: instalasi via bunx, verifikasi lewat perintah doctor, playbook dan agen disesuaikan.</span></div>
+              <div class="row-fact"><span class="row-label">Teknis</span><span class="row-value">Orkestrasi multi-agent berbasis intent: pekerjaan dirutekan ke sub-agent spesialis (Scout, Intel, Sentinel, Talos) yang bisa berjalan paralel, dengan verifikasi tiap temuan sebelum masuk laporan.</span></div>
+              <div class="row-fact"><span class="row-label">Hasil</span><span class="row-value">Kerangka menyediakan 109+ tools keamanan, 250+ skill playbooks, dan 10 mode engagement dengan laporan ber-CVSS — dipakai untuk pengujian yang berizin di lab pribadi.</span></div>
             </div>
             <div class="row-actions">
               <a class="row-link" href="https://github.com/Abhiprayaa29/Cerberus" target="_blank" rel="noreferrer">Repository <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -209,7 +220,13 @@
           </figure>
           <div class="about-text">
             <p>Saya Abdillah Abhi, mahasiswa S1 Teknik Informatika di UPN “Veteran” Yogyakarta. Proyek saya banyak bermula dari masalah nyata di kampus dan organisasi: data kuliah yang tersebar di LMS, dokumentasi event yang harus selesai cepat, dan kebutuhan panel siaran untuk turnamen.</p>
-            <p>Fokus saya sekarang di aplikasi web, otomasi tugas berulang, dan sistem real-time. UI/UX, 3D, dan motion saya pegang sebagai pendukung ketika sebuah proyek perlu desain antarmuka atau aset.</p>
+            <p class="about-lead">Yang saya kerjakan: membangun aplikasi web full-stack, mengotomasi tugas berulang, dan sistem real-time. UI/UX, 3D, dan motion saya pegang sebagai pendukung ketika sebuah proyek perlu desain antarmuka atau aset.</p>
+            <ul class="signals">
+              <li><strong>131 + 115</strong><span>asersi backend &amp; E2E lulus pada MLBB Draft Studio</span></li>
+              <li><strong>5 proyek</strong><span>repository publik: aplikasi web, bot Telegram, AR, dan orkestrasi</span></li>
+              <li><strong>Otomasi kuliah</strong><span>pengingat deadline, absensi otomatis, briefing 07.00 WIB</span></li>
+              <li><strong>Best Video</strong><span>Find IT! UGM 2026 — kompetisi UX nasional</span></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -218,13 +235,18 @@
     <section id="experience" class="sec-alt section-pad">
       <div class="container">
         <h2 class="section-title">Pengalaman</h2>
-        <div class="timeline">
-          <div class="timeline-row"><div class="period">Agu 2026 — Sekarang</div><div><h3>Koordinator PDD</h3><p class="org">Serasehan Jurusan Informatika · Himpunan Mahasiswa Informatika, UPN “Veteran” Yogyakarta</p><p>Memimpin tim dokumentasi dan publikasi visual untuk event yang sedang berlangsung.</p></div></div>
-          <div class="timeline-row"><div class="period">Mei 2026 — Sekarang</div><div><h3>Asisten Dosen</h3><p class="org">Riset Pengembangan Aplikasi Manajemen Keuangan · UPN “Veteran” Yogyakarta</p><p>Analisis kebutuhan, evaluasi arsitektur perangkat lunak, serta wireframe dan prototipe UI/UX dengan Figma.</p></div></div>
-          <div class="timeline-row"><div class="period">Sep 2025 — Sekarang</div><div><h3>Wakil Kepala Departemen Media &amp; Informasi</h3><p class="org">Badan Keluarga Mahasiswa Kebumen (KBMK)</p><p>Koordinasi tim Medinfo, strategi konten, kalender editorial, dan pengawasan aset visual lintas platform.</p></div></div>
-          <div class="timeline-row"><div class="period">Okt 2025 — Jan 2026</div><div><h3>Koordinator PDD</h3><p class="org">Kebumen Campus Festival 2026</p><p>Memimpin 9 anggota dan membagi alur kerja fotografi, videografi, desain grafis, serta copywriting.</p></div></div>
-          <div class="timeline-row"><div class="period">Okt 2025 — Jan 2026</div><div><h3>Koordinator PDD</h3><p class="org">SMANSAKU Campus Expo</p><p>Memimpin 4 anggota untuk strategi publikasi visual end-to-end dan produksi konten multi-platform.</p></div></div>
-        </div>
+          <div class="timeline">
+            <div class="timeline-row"><div class="period">Agu 2026 — Sekarang</div><div><h3>Koordinator PDD</h3><p class="org">Serasehan Jurusan Informatika · Himpunan Mahasiswa Informatika, UPN “Veteran” Yogyakarta</p><p>Memimpin tim dokumentasi dan publikasi visual untuk event yang sedang berlangsung.</p></div></div>
+            <div class="timeline-row"><div class="period">Mei 2026 — Sekarang</div><div><h3>Asisten Dosen</h3><p class="org">Riset Pengembangan Aplikasi Manajemen Keuangan · UPN “Veteran” Yogyakarta</p><p>Analisis kebutuhan, evaluasi arsitektur perangkat lunak, serta wireframe dan prototipe UI/UX dengan Figma.</p></div></div>
+            <div class="timeline-row"><div class="period">Agu 2026 — Sekarang</div><div><h3>Staff PDD</h3><p class="org">FTI Cup · UPN “Veteran” Yogyakarta</p><p>Mendukung dokumentasi dan produksi konten visual acara tingkat fakultas: foto, video, dan aset desain grafis untuk publikasi.</p></div></div>
+            <div class="timeline-row"><div class="period">Sep 2025 — Sekarang</div><div><h3>Wakil Kepala Departemen Media &amp; Informasi</h3><p class="org">Badan Keluarga Mahasiswa Kebumen (KBMK)</p><p>Koordinasi tim Medinfo, strategi konten, kalender editorial, dan pengawasan aset visual lintas platform.</p></div></div>
+            <div class="timeline-row"><div class="period">Okt 2025 — Jan 2026</div><div><h3>Koordinator PDD</h3><p class="org">Kebumen Campus Festival 2026</p><p>Memimpin 9 anggota dan membagi alur kerja fotografi, videografi, desain grafis, serta copywriting untuk event berskala kabupaten.</p></div></div>
+            <div class="timeline-row"><div class="period">Okt 2025 — Jan 2026</div><div><h3>Koordinator PDD</h3><p class="org">SMANSAKU Campus Expo</p><p>Memimpin 4 anggota untuk strategi publikasi visual end-to-end dan produksi konten multi-platform event berskala regional.</p></div></div>
+          </div>
+          <h3 class="block-sub">Pendidikan</h3>
+          <div class="timeline">
+            <div class="timeline-row"><div class="period">2024 — Sekarang</div><div><h3>S1 Teknik Informatika</h3><p class="org">UPN “Veteran” Yogyakarta</p></div></div>
+          </div>
         <div class="achievement"><div><span class="row-label">Pencapaian</span><h3>Finalis &amp; Penerima Best Video — Find IT! UGM 2026</h3><p>Penghargaan pada kompetisi desain UX tingkat nasional.</p></div><div class="achievement-meta">Mei 2026<br>KMTETI · FT UGM</div></div>
       </div>
     </section>
@@ -232,15 +254,15 @@
     <section id="skills" class="section-pad">
       <div class="container">
         <h2 class="section-title">Keahlian</h2>
+        <p class="section-intro">Dikelompokkan per peran: yang saya andalkan untuk membangun produk, yang spesialis, dan yang pendukung.</p>
         <div class="skills-cols">
-          <div class="skill-col"><h3>Bahasa pemrograman</h3><div class="skill-list">
-            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-cplusplus"/></svg>C++</span>
+          <div class="skill-col"><h3>Engineering utama</h3><div class="skill-list">
+            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-javascript"/></svg>JavaScript</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-python"/></svg>Python</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-php"/></svg>PHP</span>
+            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-cplusplus"/></svg>C++</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-java"/></svg>Java</span>
-            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-javascript"/></svg>JavaScript</span>
-          </div></div>
-          <div class="skill-col"><h3>Web &amp; aplikasi</h3><div class="skill-list">
+            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-database"/></svg>SQL / MariaDB</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-html5"/></svg>HTML</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-css3"/></svg>CSS</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-bootstrap"/></svg>Bootstrap</span>
@@ -248,18 +270,20 @@
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-vite"/></svg>Vite</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-tailwindcss"/></svg>Tailwind CSS</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-express"/></svg>Express</span>
-            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-fastapi"/></svg>FastAPI</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-socket"/></svg>Socket.IO</span>
           </div></div>
-          <div class="skill-col"><h3>Interaktif &amp; kreatif</h3><div class="skill-list">
+          <div class="skill-col"><h3>Spesialisasi</h3><div class="skill-list">
+            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-fastapi"/></svg>FastAPI</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-unity"/></svg>Unity 3D</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-cube"/></svg>AR Foundation</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-scan"/></svg>ARCore</span>
-            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-blender"/></svg>Blender 3D</span>
-            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-sketchup"/></svg>SketchUp</span>
+          </div></div>
+          <div class="skill-col"><h3>Desain pendukung</h3><div class="skill-list">
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-figma"/></svg>Figma</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-adobephotoshop"/></svg>Adobe Photoshop</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-adobeaftereffects"/></svg>Adobe After Effects</span>
+            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-blender"/></svg>Blender 3D</span>
+            <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-sketchup"/></svg>SketchUp</span>
             <span class="skill-item"><svg class="ico" aria-hidden="true"><use href="#i-canva"/></svg>Canva</span>
           </div></div>
         </div>
@@ -311,7 +335,7 @@
       <div class="container contact-wrap">
         <div>
           <h2 class="section-title">Kontak</h2>
-          <p class="contact-copy">Terbuka untuk peluang software development, kolaborasi proyek web, dan pekerjaan teknis lain yang sejalan.</p>
+          <p class="contact-copy">Terbuka untuk magang, peluang software development, kolaborasi proyek web, dan pekerjaan teknis lain yang sejalan.</p>
         </div>
         <div class="contact-links">
           <a href="mailto:abdillahabhi12@gmail.com"><span class="with-ico"><svg class="ico" aria-hidden="true"><use href="#i-mail"/></svg>abdillahabhi12@gmail.com</span><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
@@ -375,6 +399,7 @@
 <symbol id="i-unity" viewBox="0 0 24 24" fill="currentColor"><path d="m12.9288 4.2939 3.7997 2.1929c.1366.077.1415.2905 0 .3675l-4.515 2.6076a.4192.4192 0 0 1-.4246 0L7.274 6.8543c-.139-.0745-.1415-.293 0-.3675l3.7972-2.193V0L1.3758 5.5977V16.793l3.7177-2.1456v-4.3858c-.0025-.1565.1813-.2682.318-.1838l4.5148 2.6076a.4252.4252 0 0 1 .2136.3676v5.2127c.0025.1565-.1813.2682-.3179.1838l-3.7996-2.1929-3.7178 2.1457L12 24l9.6954-5.5977-3.7178-2.1457-3.7996 2.1929c-.1341.082-.3229-.0248-.3179-.1838V13.053c0-.1565.087-.2956.2136-.3676l4.5149-2.6076c.134-.082.3228.0224.3179.1838v4.3858l3.7177 2.1456V5.5977L12.9288 0Z"/></symbol>
 <symbol id="i-vite" viewBox="0 0 24 24" fill="currentColor"><path d="M13.056 23.238a.57.57 0 0 1-1.02-.355v-5.202c0-.63-.512-1.143-1.144-1.143H5.148a.57.57 0 0 1-.464-.903l3.777-5.29c.54-.753 0-1.804-.93-1.804H.57a.574.574 0 0 1-.543-.746.6.6 0 0 1 .08-.157L5.008.78a.57.57 0 0 1 .467-.24h14.589a.57.57 0 0 1 .466.903l-3.778 5.29c-.54.755 0 1.806.93 1.806h5.745c.238 0 .424.138.513.322a.56.56 0 0 1-.063.603z"/></symbol>
 <symbol id="i-socket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6.5L14 18l2.5-6H21"/></symbol>
+<symbol id="i-database" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M20 5.5v13c0 1.66-3.58 3-8 3s-8-1.34-8-3v-13"/><path d="M20 12c0 1.66-3.58 3-8 3s-8-1.34-8-3"/></symbol>
 <symbol id="i-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7L12 2.5Z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></symbol>
 <symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V6.5A2.5 2.5 0 0 1 6.5 4H9M15 4h2.5A2.5 2.5 0 0 1 20 6.5V9M20 15v2.5a2.5 2.5 0 0 1-2.5 2.5H15M9 20H6.5A2.5 2.5 0 0 1 4 17.5V15"/><path d="M12 10.3 13.7 12 12 13.7 10.3 12Z"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol>
