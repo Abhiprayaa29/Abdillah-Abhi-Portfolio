@@ -77,11 +77,15 @@ const setMenu = (open) => {
   menuBtn.setAttribute('aria-label', open ? 'Tutup navigasi' : 'Buka navigasi');
   menuBtn.textContent = open ? '×' : '☰';
   mobileNav.classList.toggle('open', open);
+  document.documentElement.classList.toggle('menu-open', open);
 };
 menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
 $$('#mobileNav a').forEach(a => a.addEventListener('click', () => setMenu(false)));
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
+});
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900 && menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
 });
 
 const applyTheme = (t, save) => {
@@ -106,6 +110,41 @@ $$('.theme-toggle').forEach(btn => btn.addEventListener('click', () => {
   }
   applyTheme(next, true);
 }));
+const scheme = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
+scheme?.addEventListener?.('change', e => {
+  let saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (err) {}
+  if (saved !== 'light' && saved !== 'dark') applyTheme(e.matches ? 'dark' : 'light', false);
+});
+
+const sections = [...document.querySelectorAll('main section[id]')];
+const navLinks = $$('.desktop-nav a, .mobile-nav-inner > a[href^="#"]');
+let currentNav = '';
+const markActive = (id) => {
+  if (id === currentNav) return;
+  currentNav = id;
+  navLinks.forEach(a => {
+    if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'true');
+    else a.removeAttribute('aria-current');
+  });
+};
+let spyTick = false;
+const spyScroll = () => {
+  if (spyTick) return;
+  spyTick = true;
+  requestAnimationFrame(() => {
+    spyTick = false;
+    const line = 52 + window.innerHeight * 0.3;
+    let active = '';
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= line) active = s.id;
+    }
+    markActive(active);
+  });
+};
+window.addEventListener('scroll', spyScroll, { passive: true });
+window.addEventListener('resize', spyScroll);
+spyScroll();
 
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const blocks = [...document.querySelectorAll('.hero .container > *, section .container > *')];
@@ -158,7 +197,10 @@ $$('.project-row').forEach(row => {
   });
 });
 $$('.row-open').forEach(btn => {
-  btn.addEventListener('click', () => openCaseStudy(btn.closest('.project-row').dataset.project));
+  btn.addEventListener('click', () => {
+    const key = btn.dataset.open || btn.closest('.project-row')?.dataset.project;
+    if (key) openCaseStudy(key);
+  });
 });
 $('#dialogClose').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
