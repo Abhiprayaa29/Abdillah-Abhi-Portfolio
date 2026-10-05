@@ -1,11 +1,11 @@
 # Validation Report
 
-Last updated: 2026-10-05 (visual evidence pass).
+Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight).
 
 ## Passed
 
 - Static HTML structure: required sections, skip link, and section order `Proyek → Tentang → Pengalaman → Keahlian → Sertifikat → Kontak`.
-- All five project records, the featured-project spotlight, and every case-study dialog interaction are wired (`Buka detail` works from both the spotlight and the rows).
+- All five project records, the rotating featured spotlight, and every case-study dialog interaction are wired (`Buka detail` works from both the spotlight and the rows, on whichever slide is showing).
 - Every project row follows the mini case-study structure: `Masalah · Stack · Dibangun · Teknis · Hasil` + `Repository` / `Buka detail`.
 - All five featured repository links point to the `Abhiprayaa29` GitHub namespace; local asset references resolve.
 - JavaScript passes `node --check script.js`.
@@ -15,14 +15,15 @@ Last updated: 2026-10-05 (visual evidence pass).
 - Mobile menu: body scroll lock while open, Escape closes, auto-closes above 900px.
 - Scrollspy: `aria-current` follows the section in view (desktop and mobile nav).
 - Print stylesheet: header, menu, and dialog hidden; white background in both themes; reveal animations forced visible.
-- Lighthouse (headless Chromium, cold cache): **light 98 / 100 / 100 / 100**, **dark 99 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO); colour-contrast PASS in both themes.
+- Lighthouse (headless Chromium, cold cache, repeated runs): **light 98–100 / 100 / 100 / 100**, **dark 95–99 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO); the performance band tracks first-run LCP variance for the webfont (1.5–2.8 s), every run stays at or above the 95 target; colour-contrast PASS in both themes; CLS 0.008 light / 0 dark.
 - CV copy is byte-identical to the original materialized source.
 - All eight `[ISI: ...]` content placeholders resolved with repository/CV evidence; zero draft markers (`TODO`, `TBD`, `belum diisi`, `placeholder`) remain in `index.html`, `script.js`, `styles.css`.
 - Hero headline replaced with the exact requested copy ("Halo, saya Abdillah Abhi. Software developer yang mengintegrasikan perancangan UI/UX intuitif, rekayasa web full-stack, serta standar keamanan aplikasi yang solid."); long-word overflow fixed at 320px (`overflow-wrap: break-word`).
-- Real, verified project screenshots added: featured card (MLBB control panel, exact 16:10), project rows for MLBB / SimpleARPlacement / Cerberus, and dialog visuals in `title → visual → content` order. Every row image sits in an identical 16:9 framed canvas (`aspect-ratio` + `object-fit: contain`, zero crop) so the project list keeps one uniform rhythm; portrait screenshots center on the canvas on desktop and show full-height on mobile. Dialog gallery is a plain CSS grid (MLBB 4 images, Cerberus 3); single-image dialogs center the image; JogjaLensa/SPADA dialogs hide the visual block (no verified asset).
-- All new images are WebP with explicit `width`/`height`; featured image is below the fold and uses `fetchpriority="low"` so it never competes with the LCP element. No crop, no `object-fit: cover` in rows, no fabricated imagery.
+- Real, verified project screenshots added: project rows for MLBB / SimpleARPlacement / Cerberus and dialog visuals in `title → visual → content` order. Every row image sits in an identical 16:9 framed canvas (`aspect-ratio` + `object-fit: contain`, zero crop) so the project list keeps one uniform rhythm; portrait screenshots center on the canvas on desktop and show full-height on mobile. Dialog gallery is a plain CSS grid (MLBB 4 images, Cerberus 3); single-image dialogs center the image; JogjaLensa/SPADA dialogs hide the visual block (no verified asset). The featured spotlight intentionally carries no screenshot — its image moved to the project row — which is what lets all five projects rotate through it.
+- All images are WebP with explicit `width`/`height`; no crop, no `object-fit: cover` in rows, no fabricated imagery.
 - Dialog keyboard behaviour: opening moves focus to the close button, Escape closes, focus returns to the triggering row button (verified via real CDP mouse click + key dispatch).
-- Lighthouse re-verified after the visual pass (headless Chromium, cold cache): **light 99 / 100 / 100 / 100**, **dark 99 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO); colour-contrast PASS in both themes.
+- Featured spotlight rotates through all five projects so MLBB is no longer the only one shown: auto-advance every 7 s, five dot indicators, prev/next arrow buttons, and touch swipe left/right, all cyclic; auto-advance pauses on hover, on focus inside the card, and while the tab is hidden. `prefers-reduced-motion` removes the fade and stops auto-advance. Arrow targets are 40×40 and dots 24×24 (measured at 320–1440 px), and `touch-action: pan-y` keeps vertical page scrolling intact while a horizontal swipe changes slides.
+- Scroll reveal uses `rootMargin: 0 0 -30px 0` with `threshold: 0`, so a very tall block (the project list, ~3400 px) reveals as soon as it enters that zone instead of waiting for 6% of its own height. Audit confirms `reveal-unfired-in-viewport => 0` when scrolled to `#projects`.
 
 ## Evidence sources used (this pass)
 

@@ -164,7 +164,7 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
     entries.forEach(en => {
       if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
     });
-  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
   blocks.forEach(el => io.observe(el));
 }
 
@@ -218,6 +218,85 @@ $$('.row-open').forEach(btn => {
 });
 $('#dialogClose').addEventListener('click', () => dialog.close());
 dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+
+const featuredSlides = [
+  { key:'mlbb', text:'Panel operator dan overlay OBS transparan (1920×1080) yang dirancang sebagai sumber siaran turnamen lewat LAN — draft, timer, dan skor tersinkron real-time tanpa reload.',
+    metrics:[['131','asersi backend lulus'],['115','asersi E2E lulus'],['133','hero tervalidasi 0 error']] },
+  { key:'spada', text:'Bot Telegram untuk jadwal kuliah: pengingat deadline 24 jam / 1 jam / 15 menit, absensi otomatis dengan screenshot bukti, dan dashboard web read-only dengan pairing QR.',
+    metrics:[['3','pengingat deadline'],['30','menit sekali cek tugas'],['512','MB RAM GCP e2-micro']] },
+  { key:'jogjalensa', text:'Marketplace fotografi dua peran: klien mencari vendor, booking, unggah bukti bayar, dan ulasan bintang; vendor mengelola paket, galeri portofolio, serta order.',
+    metrics:[['2','alur peran: klien & vendor'],['4','modul inti aplikasi'],['PHP 8','prosedural + MySQL (XAMPP)']] },
+  { key:'ar', text:'Aplikasi Android AR: tap untuk menempatkan objek 3D di permukaan yang terdeteksi, dengan kontrol rotasi, skala, dan reset langsung dari UI.',
+    metrics:[['5','skenario pengujian AR'],['26','minimum API Android'],['3','kontrol objek di UI']] },
+  { key:'cerberus', text:'Orkestrasi multi-agent berbasis intent: masalah dipecah untuk sub-agent spesialis, lalu hasilnya diverifikasi sebelum pekerjaan berlanjut.',
+    metrics:[['109+','tools keamanan terintegrasi'],['250+','skill playbooks'],['10','mode engagement']] }
+];
+const featEl = $('.featured');
+if (featEl) {
+  const titleEl = featEl.querySelector('.featured-title');
+  const textEl = featEl.querySelector('.featured-text');
+  const metricsEl = featEl.querySelector('.featured-metrics');
+  const openBtn = featEl.querySelector('.featured-actions .row-open');
+  const repoLink = featEl.querySelector('.featured-actions .row-link');
+  const dotsWrap = featEl.querySelector('.featured-dots');
+  const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
+  let idx = 0, timer = null, paused = false, fadeT = null;
+  const paint = i => {
+    const s = featuredSlides[i], p = data[s.key];
+    titleEl.textContent = p.title;
+    textEl.textContent = s.text;
+    metricsEl.innerHTML = s.metrics.map(m => `<li><strong>${m[0]}</strong><span>${m[1]}</span></li>`).join('');
+    openBtn.dataset.open = s.key;
+    repoLink.href = p.github;
+    [...dotsWrap.children].forEach((d, di) => d.setAttribute('aria-current', di === i ? 'true' : 'false'));
+  };
+  const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+  const go = (i, manual) => {
+    idx = (i + featuredSlides.length) % featuredSlides.length;
+    if (reduceMQ.matches) { paint(idx); }
+    else {
+      clearTimeout(fadeT);
+      featEl.classList.add('is-fading');
+      fadeT = setTimeout(() => { paint(idx); featEl.classList.remove('is-fading'); }, 200);
+    }
+    if (manual) { stop(); start(); }
+  };
+  const start = () => {
+    if (timer || paused || document.hidden || reduceMQ.matches) return;
+    timer = setInterval(() => go(idx + 1, false), 7000);
+  };
+  featuredSlides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'featured-dot';
+    b.setAttribute('aria-label', `Proyek unggulan ${i + 1} dari ${featuredSlides.length}: ${data[s.key].title}`);
+    b.addEventListener('click', () => go(i, true));
+    dotsWrap.appendChild(b);
+  });
+  paint(0);
+  featEl.querySelector('[data-feat="prev"]').addEventListener('click', () => go(idx - 1, true));
+  featEl.querySelector('[data-feat="next"]').addEventListener('click', () => go(idx + 1, true));
+  featEl.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1, true); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1, true); }
+  });
+  const hold = () => { paused = true; stop(); };
+  const release = () => { paused = false; start(); };
+  featEl.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') hold(); });
+  featEl.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') release(); });
+  featEl.addEventListener('focusin', hold);
+  featEl.addEventListener('focusout', e => { if (!featEl.contains(e.relatedTarget)) release(); });
+  document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+  reduceMQ.addEventListener?.('change', () => { stop(); start(); });
+  let sx = 0, sy = 0;
+  featEl.addEventListener('touchstart', e => { if (e.touches.length === 1) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; } }, { passive: true });
+  featEl.addEventListener('touchend', e => {
+    const t = e.changedTouches[0]; if (!t) return;
+    const dx = t.clientX - sx, dy = t.clientY - sy;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) go(dx < 0 ? idx + 1 : idx - 1, true);
+  }, { passive: true });
+  start();
+}
 
 const copyBtn = $('#copyEmail');
 const copyUse = $('#copyIcon')?.querySelector('use');

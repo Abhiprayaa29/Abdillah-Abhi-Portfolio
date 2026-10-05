@@ -139,10 +139,18 @@ html.menu-open{overflow:hidden}
 .signals span{font-size:13.5px;line-height:1.45;color:var(--text-2)}
 
 /* Proyek — sorotan proyek unggulan */
-.featured{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:36px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:28px;margin-top:40px;transition:transform .25s,box-shadow .25s}
+.featured{display:grid;grid-template-columns:1fr;gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:28px;margin-top:40px;transition:transform .25s,box-shadow .25s;touch-action:pan-y}
 .featured:hover{transform:scale(1.005);box-shadow:var(--shadow-soft)}
-.featured-media{border-radius:16px;overflow:hidden;background:var(--bg-alt);aspect-ratio:16/10}
-.featured-media img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.featured-body{transition:opacity .3s ease}
+.featured.is-fading .featured-body{opacity:0}
+.featured-controls{display:flex;align-items:center;justify-content:center;gap:10px}
+.featured-arrow{width:40px;height:40px;flex:none;display:grid;place-items:center;padding:0;border:1px solid var(--line);border-radius:var(--pill);background:transparent;color:var(--text-2);cursor:pointer;transition:color .2s,border-color .2s}
+.featured-arrow:hover{color:var(--accent);border-color:var(--accent)}
+.featured-dots{display:flex;align-items:center;gap:2px}
+.featured-dot{width:24px;height:24px;flex:none;position:relative;padding:0;border:0;background:transparent;cursor:pointer}
+.featured-dot::after{content:"";position:absolute;inset:7px;border-radius:50%;border:1px solid var(--text-2);background:transparent;transition:background .2s,border-color .2s}
+.featured-dot:hover::after{border-color:var(--accent)}
+.featured-dot[aria-current="true"]::after{background:var(--accent);border-color:var(--accent)}
 .featured-title{font-size:26px;font-weight:600;letter-spacing:-.015em;margin-top:8px}
 .featured-text{margin-top:12px;font-size:16px;line-height:1.5;color:var(--text-2);max-width:62ch}
 .featured-metrics{list-style:none;display:flex;flex-wrap:wrap;gap:28px;margin:20px 0 0;padding:0}
@@ -305,6 +313,7 @@ html.theme-anim *{transition:background-color .25s ease,color .25s ease,border-c
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .featured-body{transition:none!important}
   .reveal{opacity:1;transform:none}
   .project-row:hover,.featured:hover{transform:none}
   .button-solid:hover{transform:none}
@@ -319,7 +328,7 @@ html.theme-anim *{transition:background-color .25s ease,color .25s ease,border-c
   }
   html,body{background:#fff!important;color:#333}
   .site-header,.mobile-nav,.skip-link,.hero-actions,.row-actions,.contact-links button,
-  .theme-toggle,.menu-button,.project-dialog,.sprite,.row-media{display:none!important}
+  .theme-toggle,.menu-button,.project-dialog,.sprite,.row-media,.featured-controls{display:none!important}
   .reveal{opacity:1!important;transform:none!important}
   .container{width:100%;max-width:none;padding:0 14mm}
   section[id]{scroll-margin-top:0}

@@ -95,10 +95,7 @@
         <h2 class="section-title">Proyek</h2>
         <p class="section-intro">Lima proyek: masalahnya, yang saya bangun, sisi teknisnya, dan hasilnya. Buka barisnya untuk detail lengkap.</p>
 
-        <div class="featured">
-          <div class="featured-media">
-            <img src="assets/projects/mlbb/control-panel-operator.webp" alt="Panel operator MLBB Draft Studio pada sesi selftest: fase pick, statistik game, dan grid 133 hero" width="1600" height="1000" loading="eager" fetchpriority="low" decoding="async">
-          </div>
+        <div class="featured" role="region" aria-roledescription="carousel" aria-label="Proyek unggulan">
           <div class="featured-body">
             <span class="row-label">Proyek unggulan</span>
             <h3 class="featured-title">MLBB Draft Studio</h3>
@@ -112,6 +109,11 @@
               <button class="row-open" type="button" data-open="mlbb">Buka detail</button>
               <a class="row-link" href="https://github.com/Abhiprayaa29/mlbb-draft-studio" target="_blank" rel="noreferrer">Repository <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur"/></svg></a>
             </div>
+          </div>
+          <div class="featured-controls">
+            <button class="featured-arrow" type="button" data-feat="prev" aria-label="Proyek unggulan sebelumnya"><svg class="ico" aria-hidden="true"><use href="#i-chev-l"/></svg></button>
+            <div class="featured-dots" role="group" aria-label="Pilih proyek unggulan"></div>
+            <button class="featured-arrow" type="button" data-feat="next" aria-label="Proyek unggulan berikutnya"><svg class="ico" aria-hidden="true"><use href="#i-chev-r"/></svg></button>
           </div>
         </div>
 
@@ -413,6 +415,8 @@
 <symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V6.5A2.5 2.5 0 0 1 6.5 4H9M15 4h2.5A2.5 2.5 0 0 1 20 6.5V9M20 15v2.5a2.5 2.5 0 0 1-2.5 2.5H15M9 20H6.5A2.5 2.5 0 0 1 4 17.5V15"/><path d="M12 10.3 13.7 12 12 13.7 10.3 12Z"/></symbol>
 <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol>
 <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></symbol>
+<symbol id="i-chev-l" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></symbol>
   </svg>
   <script src="./script.js" defer></script>
 </body>
