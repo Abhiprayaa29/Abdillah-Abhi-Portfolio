@@ -10,7 +10,7 @@ const data = {
     result:'Dipakai sebagai sumber siaran OBS: control panel di PC operator, overlay draft + scoreboard transparan (1920×1080, aman juga di 1280×720 tanpa scrollbar) di PC siaran lewat LAN. Pengujian otomatis: 131 asersi backend dan 115 asersi E2E lulus; dataset 133 hero tervalidasi 0 error. [ISI: nama turnamen/event yang sudah memakai ini, jika ada]',
     engineering:'Engine draft dijaga tetap terpisah dari UI berupa fungsi transisi state; server memiliki state bersama dan menyiarkan perubahan ke klien.',
     github:'https://github.com/Abhiprayaa29/mlbb-draft-studio',
-    image:'./assets/mlbb-draft-studio-aamon.png', alt:'Seni splash hero Aamon dari dataset 133 hero pada repository MLBB Draft Studio'
+    image:'./assets/mlbb-draft-studio-aamon.png', alt:'Seni splash hero Aamon dari dataset 133 hero pada repository MLBB Draft Studio', iw:500, ih:500
   },
   spada: {
     title:'SPADA Telegram Bot',
@@ -35,7 +35,7 @@ const data = {
     result:'Proyek Pemrograman Web semester 3; berjalan lokal via XAMPP/Laragon (Apache + MySQL/MariaDB). [ISI: hasil penggunaan — dipakai di mana, berapa vendor/klien jika sudah dijalankan]',
     engineering:'Proyek ini menunjukkan pemikiran aplikasi web end-to-end: komposisi UI, penanganan request, alur kerja per peran, unggah file, dan akses data relasional.',
     github:'https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi',
-    image:'./assets/jogjalensa-malioboro-small.jpg', alt:'Suasana Jalan Malioboro Yogyakarta, visual latar untuk marketplace fotografi JogjaLensa'
+    image:'./assets/jogjalensa-malioboro-small.jpg', alt:'Suasana Jalan Malioboro Yogyakarta, visual latar untuk marketplace fotografi JogjaLensa', iw:1400, ih:933
   },
   ar: {
     title:'SimpleARPlacement',
@@ -48,7 +48,7 @@ const data = {
     result:'APK berhasil dibangun dan berjalan di Samsung Galaxy A54 dengan sesi AR aktif dan UI tampil. Lima skenario pengujian (permukaan bertekstur/polos, cahaya terang/redup, gerakan kamera cepat) sudah terdokumentasi — tabel hasil dan checklist screenshot/video belum diisi penuh. [ISI: hasil pengisian 5 skenario uji / perangkat lain yang sudah dicoba]',
     engineering:'Proyek memisahkan logika penempatan dari kontrol UI dan memakai Unity Input System + AR Foundation alih-alih satu skrip interaksi monolitik.',
     github:'https://github.com/Abhiprayaa29/simple-ar-placement',
-    image:'./assets/simple-ar-placement-ui.jpg', alt:'Tangkapan layar antarmuka SimpleARPlacement di Android: object menu di bawah dan tombol opsi di atas kamera AR'
+    image:'./assets/simple-ar-placement-ui.jpg', alt:'Tangkapan layar antarmuka SimpleARPlacement di Android: object menu di bawah dan tombol opsi di atas kamera AR', iw:1080, ih:2340
   },
   cerberus: {
     title:'Cerberus',
@@ -72,19 +72,51 @@ $('#year').textContent = new Date().getFullYear();
 
 const menuBtn = $('#menuBtn');
 const mobileNav = $('#mobileNav');
-menuBtn?.addEventListener('click', () => {
-  const open = menuBtn.getAttribute('aria-expanded') === 'true';
-  menuBtn.setAttribute('aria-expanded', String(!open));
-  menuBtn.setAttribute('aria-label', open ? 'Buka navigasi' : 'Tutup navigasi');
-  mobileNav.hidden = open;
-  menuBtn.textContent = open ? '☰' : '×';
+const setMenu = (open) => {
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open ? 'Tutup navigasi' : 'Buka navigasi');
+  menuBtn.textContent = open ? '×' : '☰';
+  mobileNav.classList.toggle('open', open);
+};
+menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+$$('#mobileNav a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
 });
-$$('#mobileNav a').forEach(a => a.addEventListener('click', () => {
-  menuBtn.setAttribute('aria-expanded','false');
-  menuBtn.setAttribute('aria-label','Buka navigasi');
-  menuBtn.textContent = '☰';
-  mobileNav.hidden = true;
+
+const applyTheme = (t, save) => {
+  document.documentElement.setAttribute('data-theme', t);
+  if (save) { try { localStorage.setItem('theme', t); } catch (e) {} }
+  const dark = t === 'dark';
+  $$('.theme-toggle').forEach(b => {
+    b.setAttribute('aria-pressed', String(dark));
+    b.setAttribute('aria-label', dark ? 'Aktifkan mode terang' : 'Aktifkan mode malam');
+  });
+  const lbl = $('.theme-toggle-label');
+  if (lbl) lbl.textContent = dark ? 'Mode terang' : 'Mode malam';
+  const m = document.querySelector('meta[name="theme-color"]');
+  if (m) m.setAttribute('content', dark ? '#000000' : '#ffffff');
+};
+applyTheme(document.documentElement.getAttribute('data-theme') || 'light', false);
+$$('.theme-toggle').forEach(btn => btn.addEventListener('click', () => {
+  const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('theme-anim');
+    setTimeout(() => document.documentElement.classList.remove('theme-anim'), 320);
+  }
+  applyTheme(next, true);
 }));
+
+if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const blocks = [...document.querySelectorAll('.hero .container > *, section .container > *')];
+  blocks.forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -30px 0px' });
+  blocks.forEach(el => io.observe(el));
+}
 
 const dialog = $('#projectDialog');
 const dialogVisual = $('#dialogVisual');
@@ -110,7 +142,7 @@ const openCaseStudy = (key) => {
   p.features.forEach(f => { const li = document.createElement('li'); li.textContent = f; list.appendChild(li); });
   if (p.image) {
     dialogVisual.hidden = false;
-    dialogVisual.innerHTML = `<img src="${p.image}" alt="${p.alt}" loading="lazy">`;
+    dialogVisual.innerHTML = `<img src="${p.image}" alt="${p.alt}" width="${p.iw}" height="${p.ih}" loading="lazy">`;
   } else {
     dialogVisual.hidden = true;
     dialogVisual.innerHTML = '';

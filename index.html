@@ -9,15 +9,32 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Abdillah Abhi — Software Developer">
   <meta property="og:description" content="Aplikasi web, otomasi, dan sistem real-time. Mahasiswa Teknik Informatika UPN “Veteran” Yogyakarta.">
-  <meta property="og:image" content="https://abdillah-abhi-portfolio.pages.dev/og.png">
+  <meta property="og:image" content="https://abhipraya.pages.dev/og.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('theme'); } catch (e) {}
+      if (t !== 'light' && t !== 'dark') {
+        t = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', t);
+      document.addEventListener('DOMContentLoaded', function () {
+        var m = document.querySelector('meta[name="theme-color"]');
+        if (m) m.setAttribute('content', t === 'dark' ? '#000000' : '#ffffff');
+      });
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+  <a class="skip-link" href="#home">Lewati ke konten</a>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home"><span class="monogram">AA</span><span class="brand-name">Abdillah Abhi</span></a>
@@ -25,13 +42,22 @@
         <a href="#about">Tentang</a><a href="#projects">Proyek</a><a href="#experience">Pengalaman</a><a href="#skills">Keahlian</a><a href="#certificates">Sertifikat</a><a href="#contact">Kontak</a>
       </nav>
       <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Aktifkan mode malam" aria-pressed="false" title="Ganti mode terang/malam">
+          <svg class="ico ico-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="ico ico-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        </button>
         <a class="button button-outline button-small cv-btn" href="./cv/Abdillah-Abhi-CV.pdf" download><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>CV</a>
         <button id="menuBtn" class="menu-button" type="button" aria-controls="mobileNav" aria-expanded="false" aria-label="Buka navigasi">☰</button>
       </div>
     </div>
-    <div id="mobileNav" class="mobile-nav" hidden>
+    <div id="mobileNav" class="mobile-nav">
       <div class="container mobile-nav-inner">
         <a href="#about">Tentang</a><a href="#projects">Proyek</a><a href="#experience">Pengalaman</a><a href="#skills">Keahlian</a><a href="#certificates">Sertifikat</a><a href="#contact">Kontak</a>
+        <button class="theme-toggle theme-toggle-mobile" type="button" aria-label="Aktifkan mode malam" aria-pressed="false">
+          <svg class="ico ico-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+          <svg class="ico ico-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+          <span class="theme-toggle-label">Mode malam</span>
+        </button>
         <a class="mobile-cv" href="./cv/Abdillah-Abhi-CV.pdf" download><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>Unduh CV</a>
       </div>
     </div>
@@ -44,12 +70,12 @@
         <p class="hero-support">Mahasiswa Teknik Informatika di UPN “Veteran” Yogyakarta. Yang saya bangun belakangan: panel siaran turnamen, bot Telegram untuk jadwal kuliah, dan aplikasi AR di Android.</p>
         <div class="hero-actions">
           <a class="button button-solid" href="#projects">Lihat proyek</a>
-          <a class="button button-outline" href="./cv/Abdillah-Abhi-CV.pdf" target="_blank" rel="noreferrer">Unduh CV <svg class="ico" aria-hidden="true"><use href="#i-download"/></svg></a>
+          <a class="text-link" href="./cv/Abdillah-Abhi-CV.pdf" target="_blank" rel="noreferrer">Unduh CV <span class="chev" aria-hidden="true">›</span></a>
         </div>
       </div>
     </section>
 
-    <section id="about" class="border-section section-pad">
+    <section id="about" class="sec-alt section-pad">
       <div class="container">
         <h2 class="section-title">Tentang</h2>
         <div class="about-cols">
@@ -64,7 +90,7 @@
       </div>
     </section>
 
-    <section id="projects" class="border-section section-pad">
+    <section id="projects" class="section-pad">
       <div class="container">
         <h2 class="section-title">Proyek</h2>
         <p class="section-intro">Lima proyek dengan masalah, tantangan teknis, dan hasil yang berbeda. Buka barisnya untuk detail lengkap.</p>
@@ -154,7 +180,7 @@
       </div>
     </section>
 
-    <section id="experience" class="border-section section-pad">
+    <section id="experience" class="sec-alt section-pad">
       <div class="container">
         <h2 class="section-title">Pengalaman</h2>
         <div class="timeline">
@@ -168,7 +194,7 @@
       </div>
     </section>
 
-    <section id="skills" class="border-section section-pad">
+    <section id="skills" class="section-pad">
       <div class="container">
         <h2 class="section-title">Keahlian</h2>
         <div class="skills-cols">
@@ -205,7 +231,7 @@
       </div>
     </section>
 
-    <section id="certificates" class="border-section section-pad">
+    <section id="certificates" class="sec-alt section-pad">
       <div class="container">
         <h2 class="section-title">Sertifikat</h2>
         <p class="section-intro">Empat sertifikat Dicoding, lengkap dengan tautan verifikasi resmi dan berkas PDF-nya.</p>
@@ -246,7 +272,7 @@
       </div>
     </section>
 
-    <section id="contact" class="border-section section-pad">
+    <section id="contact" class="section-pad">
       <div class="container contact-wrap">
         <div>
           <h2 class="section-title">Kontak</h2>
@@ -261,7 +287,7 @@
     </section>
   </main>
 
-  <footer class="footer border-section"><div class="container footer-inner"><span>© <span id="year"></span> Abdillah Abhi</span><div><a href="#home"><svg class="ico" aria-hidden="true"><use href="#i-arrow-up"/></svg>Ke atas</a><a href="./cv/Abdillah-Abhi-CV.pdf" download><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>Unduh CV</a><a href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></div></div></footer>
+  <footer class="footer"><div class="container footer-inner"><span>© <span id="year"></span> Abdillah Abhi</span><div><a href="#home"><svg class="ico" aria-hidden="true"><use href="#i-arrow-up"/></svg>Ke atas</a><a href="./cv/Abdillah-Abhi-CV.pdf" download><svg class="ico" aria-hidden="true"><use href="#i-download"/></svg>Unduh CV</a><a href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer"><svg class="ico" aria-hidden="true"><use href="#i-github"/></svg>GitHub</a></div></div></footer>
 
   <dialog id="projectDialog" class="project-dialog" aria-labelledby="dialogTitle">
     <div class="dialog-head"><h2 id="dialogTitle">Detail proyek</h2><button id="dialogClose" type="button" aria-label="Tutup detail">×</button></div>
@@ -316,7 +342,10 @@
 <symbol id="i-socket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-6.5L14 18l2.5-6H21"/></symbol>
 <symbol id="i-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5 20.5 7v10L12 21.5 3.5 17V7L12 2.5Z"/><path d="M3.5 7 12 11.5 20.5 7M12 11.5v10"/></symbol>
 <symbol id="i-scan" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V6.5A2.5 2.5 0 0 1 6.5 4H9M15 4h2.5A2.5 2.5 0 0 1 20 6.5V9M20 15v2.5a2.5 2.5 0 0 1-2.5 2.5H15M9 20H6.5A2.5 2.5 0 0 1 4 17.5V15"/><path d="M12 10.3 13.7 12 12 13.7 10.3 12Z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5V5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M18.7 5.3l-1.8 1.8M7.1 16.9l-1.8 1.8"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></symbol>
   </svg>
-  <script src="./script.js"></script>
+  <script src="./script.js" defer></script>
 </body>
 </html>
+
