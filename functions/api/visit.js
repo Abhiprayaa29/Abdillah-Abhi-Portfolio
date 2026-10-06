@@ -89,9 +89,12 @@ export async function onRequestGet(context) {
 
 async function handle({ request, env }) {
   if (!env || !env.DB) {
+    // 200 rather than 5xx: the route is healthy, only the D1 binding is
+    // missing. A 5xx would make the browser log "Failed to load resource" on
+    // every page view, which Lighthouse counts as a console error.
     return json(
       { ok: false, available: false, error: 'D1 binding "DB" is not configured yet.' },
-      503
+      200
     );
   }
 

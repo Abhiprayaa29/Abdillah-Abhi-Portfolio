@@ -56,8 +56,9 @@ Endpoints (both return JSON, `Cache-Control: no-store`):
 - `GET /api/stats` - returns `{ uniqueVisitors, totalVisits, returningVisits }`.
 
 `returningVisits = totalVisits - uniqueVisitors`. Until the D1 binding exists
-both endpoints answer `HTTP 503` with `{"ok":false,"available":false}` and the
-site keeps working normally - the counter simply stays off.
+both endpoints still answer `HTTP 200` with `{"ok":false,"available":false}` -
+the route is healthy, only the counter is switched off - so the site keeps
+working normally and the browser never logs a failed request.
 
 ### Required: create and bind the D1 database (manual dashboard steps)
 
@@ -82,7 +83,11 @@ Verify with:
 
 ```bash
 curl -s https://abhipraya.pages.dev/api/stats
-# after binding:
+
+# before the binding (counter off, no browser error):
+# {"ok":false,"available":false,"error":"D1 binding \"DB\" is not configured yet."}
+
+# after the binding:
 # {"ok":true,"available":true,"uniqueVisitors":0,"totalVisits":0,"returningVisits":0,"updatedAt":"..."}
 ```
 
