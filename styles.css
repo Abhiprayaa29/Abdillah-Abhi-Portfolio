@@ -955,6 +955,71 @@ html.menu-open {
   border-color: var(--accent);
 }
 
+/* Repository */
+.repo-groups {
+  display: grid;
+  gap: 40px;
+  margin-top: 40px;
+}
+.repo-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.repo-group-title span {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text-2);
+}
+.repo-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s;
+}
+.repo-item:last-child {
+  border-bottom: 0;
+}
+.repo-item:hover {
+  background: var(--hover);
+}
+.repo-name {
+  font-size: 16.5px;
+  font-weight: 600;
+}
+.repo-desc {
+  margin-top: 6px;
+  max-width: 74ch;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+.repo-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
 /* Keahlian */
 .skills-cols {
   display: grid;
@@ -1390,6 +1455,16 @@ html.theme-anim * {
     flex-wrap: wrap;
     gap: 20px;
   }
+  .repo-item {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .repo-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
   .footer-inner {
     flex-direction: column;
   }
@@ -1521,7 +1596,9 @@ html.theme-anim * {
     border-color: #d5d5d7;
   }
   .timeline-row,
-  .cert-row {
+  .cert-row,
+  .repo-item,
+  .repo-group {
     break-inside: avoid;
   }
   .featured-metrics strong {

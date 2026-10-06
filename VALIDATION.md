@@ -1,22 +1,25 @@
 # Validation Report
 
-Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight).
+Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight + public repository index).
 
 ## Passed
 
-- Static HTML structure: required sections, skip link, and section order `Proyek → Tentang → Pengalaman → Keahlian → Sertifikat → Kontak`.
+- Static HTML structure: required sections, skip link, and section order `Proyek → Tentang → Pengalaman → Keahlian → Sertifikat → Repository → Kontak`.
 - All five project records, the rotating featured spotlight, and every case-study dialog interaction are wired (`Buka detail` works from both the spotlight and the rows, on whichever slide is showing).
 - Every project row follows the mini case-study structure: `Masalah · Stack · Dibangun · Teknis · Hasil` + `Repository` / `Buka detail`.
 - All five featured repository links point to the `Abhiprayaa29` GitHub namespace; local asset references resolve.
 - Sertifikat section lists six entries: two Find IT! 2026 awards (Finalis UX Competition, Best Video — KMTETI · FT UGM, Mei 2026) above the four Dicoding certificates. Every row links to a real file under `assets/sertifikat/`; the four Dicoding rows also carry their public verification URLs. Neither Find IT! certificate exposes a verification URL, so those rows link to the source file only (no invented link).
+- Repository section lists **all 12 public GitHub repositories** grouped into four domain buckets — `Aplikasi, web & AR` (3), `AI, bot & otomasi` (3), `Riset, data & keamanan` (4), `Profil` (2) — each group ordered by last update descending. Every row shows the repository name, its README/API description, the primary language (omitted when GitHub reports none), the last-update month in Indonesian, and a star count only where GitHub actually reports one (`autosync-git`, ★1). The five repositories with a case study on the site add a `Studi kasus` button that opens the existing dialog; the other seven show the link alone. All 12 links are unique, point at `https://github.com/Abhiprayaa29/…`, and carry `target="_blank" rel="noreferrer"`. No private repository, no fork, no invented metric — data taken from the GitHub API and each repository README.
+- Desktop navigation now holds seven links and still fits without overlap or clipping at 901 / 960 / 1024 / 1440 px (measured brand-right vs nav-left and nav-right vs actions-left, plus `scrollWidth` vs `clientWidth` on the nav element).
 - JavaScript passes `node --check script.js`.
 - Metadata: canonical URL, Open Graph (1200×630 image), Twitter card, JSON-LD `Person`, `robots.txt`, `sitemap.xml`.
-- Responsive layout at 320 / 375 / 390 / 430 / 768 / 1024 / 1440 px in **light and dark**: no horizontal overflow, no tap target under 24px, heading order correct (headless Chromium via CDP).
+- Responsive layout at 320 / 375 / 390 / 430 / 768 / 1024 / 1440 px in **light and dark**: no horizontal overflow, no tap target under 24px, heading order correct (headless Chromium via CDP). The repository section fits at 320 px as a single column with every tap target ≥24px.
 - Theme behaviour: toggle + live `prefers-color-scheme` switch, `aria-pressed` state, `theme-color` `#ffffff` / `#000000`.
 - Mobile menu: body scroll lock while open, Escape closes, auto-closes above 900px.
-- Scrollspy: `aria-current` follows the section in view (desktop and mobile nav).
-- Print stylesheet: header, menu, and dialog hidden; white background in both themes; reveal animations forced visible.
-- Lighthouse (headless Chromium, cold cache, repeated runs): **light 98–100 / 100 / 100 / 100**, **dark 95–99 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO); the performance band tracks first-run LCP variance for the webfont (1.5–2.8 s), every run stays at or above the 95 target; colour-contrast PASS in both themes; CLS 0.008 light / 0 dark.
+- Scrollspy: `aria-current` follows the section in view (desktop and mobile nav), verified for **all seven sections** by instant-scrolling to each one. Fixed a pre-existing bug where the final section could never become active on viewports taller than ~770 px: the activation line (`52px + 30% of viewport height`) always sat above `#contact`'s resting position at maximum scroll, so `Kontak` stayed unhighlighted (before the repository section existed, the last highlighted item was `Sertifikat`). The page is now treated as active on the last section once it is within 4 px of the bottom.
+- Section background alternation restored across the full page: `alt → plain → alt → plain → alt → plain → alt` (`#projects` … `#contact`, which gained `sec-alt` to make room for the new plain `#repositories` block).
+- Print stylesheet: header, menu, and dialog hidden; white background in both themes; reveal animations forced visible; `.repo-item` and `.repo-group` added to the `break-inside: avoid` list so a repository entry never splits across pages.
+- Lighthouse (headless Chromium, cold cache, repeated runs): **light 93–98 / 100 / 100 / 100**, **dark 98 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO). The 93 is the first run immediately after a cold server restart (LCP 3.0 s); subsequent runs settle at 97–98 (LCP 2.0 s), at or above the 95 target. Colour-contrast PASS in both themes; CLS 0.04 light / 0.04 dark.
 - CV copy is byte-identical to the original materialized source.
 - All eight `[ISI: ...]` content placeholders resolved with repository/CV evidence; zero draft markers (`TODO`, `TBD`, `belum diisi`, `placeholder`) remain in `index.html`, `script.js`, `styles.css`.
 - Hero headline replaced with the exact requested copy ("Halo, saya Abdillah Abhi. Software developer yang mengintegrasikan perancangan UI/UX intuitif, rekayasa web full-stack, serta standar keamanan aplikasi yang solid."); long-word overflow fixed at 320px (`overflow-wrap: break-word`).
@@ -29,6 +32,7 @@ Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight).
 ## Evidence sources used (this pass)
 
 - GitHub READMEs of the five project repositories (test counts, feature lists, honesty notes: `FIXTURE TESTED — GRID LIVE CONNECTION NOT VERIFIED`).
+- GitHub REST API (`users/Abhiprayaa29/repos`) plus each of the 12 repository READMEs for the repository index: name, description, primary language, `pushed_at`, `stargazers_count`, `fork: false`. Private repositories are excluded by the API's default scope; none were requested or added.
 - `cv/Abdillah-Abhi-CV.pdf` (education dates, FTI Cup role, Find IT! UGM 2026 award).
 - Original certificate files in `Documents\Sertif\` (Find IT! 2026 e-certificate PDF and the Best Video image); both inspected — no tokens, keys, or personal data beyond the awardee name already published on the site.
 

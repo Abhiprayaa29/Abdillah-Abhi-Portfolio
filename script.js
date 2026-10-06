@@ -262,6 +262,9 @@ const spyScroll = () => {
     for (const s of sections) {
       if (s.getBoundingClientRect().top <= line) active = s.id;
     }
+    if (sections.length && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      active = sections[sections.length - 1].id;
+    }
     markActive(active);
   });
 };
