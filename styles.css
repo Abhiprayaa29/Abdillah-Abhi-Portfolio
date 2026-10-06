@@ -21,6 +21,10 @@
   --radius-card: 24px;
   --pill: 980px;
   --max: 1040px;
+  --amb-glow: 0, 113, 227;
+  --amb-hi: 0.07;
+  --amb-lo: 0.045;
+  --amb-dot: rgba(29, 29, 31, 0.07);
   --font:
     'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue',
     Arial, sans-serif;
@@ -44,6 +48,10 @@
   --sel-bg: #2997ff;
   --sel-text: #000000;
   --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --amb-glow: 41, 151, 255;
+  --amb-hi: 0.16;
+  --amb-lo: 0.1;
+  --amb-dot: rgba(245, 245, 247, 0.07);
 }
 * {
   box-sizing: border-box;
@@ -1534,6 +1542,106 @@ html.theme-anim * {
   .button-solid:hover {
     transform: none;
   }
+  .hero::after,
+  #contact::after {
+    animation: none !important;
+    transform: none !important;
+  }
+  .hero-glow {
+    transform: none !important;
+  }
+}
+
+/* Latar ambient — atmosfer visual saja, bukan elemen konten */
+.hero,
+.section-pad {
+  position: relative;
+  z-index: 0;
+}
+
+.hero,
+#contact {
+  overflow: hidden;
+}
+
+.hero::before,
+.section-pad::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, var(--amb-dot) 1.1px, transparent 1.6px);
+  background-size: 26px 26px;
+}
+
+.hero::after,
+#contact::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle closest-side,
+    rgba(var(--amb-glow), var(--amb-hi)),
+    transparent 72%
+  );
+  animation: amb-drift 26s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  width: 720px;
+  height: 720px;
+  top: -140px;
+  left: -120px;
+}
+
+#contact::after {
+  width: 520px;
+  height: 520px;
+  right: -40px;
+  bottom: -60px;
+  animation-duration: 32s;
+}
+
+.hero-glow {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: 440px;
+  height: 440px;
+  right: -80px;
+  top: 30%;
+  background: radial-gradient(
+    circle closest-side,
+    rgba(var(--amb-glow), var(--amb-lo)),
+    transparent 74%
+  );
+  transform: translate3d(var(--amb-x, 0px), var(--amb-y, 0px), 0);
+}
+
+@keyframes amb-drift {
+  from {
+    transform: translate3d(-14px, -8px, 0);
+  }
+  to {
+    transform: translate3d(16px, 10px, 0);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero::after {
+    width: 440px;
+    height: 440px;
+    top: -90px;
+    left: -150px;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .hero-glow {
+    display: none;
+  }
 }
 
 /* Cetak / simpan sebagai PDF */
@@ -1577,6 +1685,13 @@ html.theme-anim * {
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+  }
+  .hero::before,
+  .hero::after,
+  .hero-glow,
+  .section-pad::before,
+  #contact::after {
+    display: none !important;
   }
   .container {
     width: 100%;

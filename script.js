@@ -698,3 +698,32 @@ const startTracking = () => {
 
 if (document.readyState === 'complete') startTracking();
 else window.addEventListener('load', startTracking, { once: true });
+
+const initAmbient = () => {
+  const el = document.querySelector('.hero-glow');
+  if (!el || !window.matchMedia) return;
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let x = 0;
+  let y = 0;
+  let queued = false;
+  const paint = () => {
+    queued = false;
+    el.style.setProperty('--amb-x', x.toFixed(1) + 'px');
+    el.style.setProperty('--amb-y', y.toFixed(1) + 'px');
+  };
+  window.addEventListener(
+    'pointermove',
+    (e) => {
+      if (e.pointerType !== 'mouse') return;
+      x = (e.clientX / window.innerWidth) * 24 - 12;
+      y = (e.clientY / window.innerHeight) * 24 - 12;
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(paint);
+    },
+    { passive: true },
+  );
+};
+
+initAmbient();
