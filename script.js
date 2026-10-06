@@ -667,5 +667,34 @@ const reportVisit = async () => {
   }
 };
 
-if (document.readyState === 'complete') setTimeout(reportVisit, 0);
-else window.addEventListener('load', () => setTimeout(reportVisit, 0), { once: true });
+const reportStats = async () => {
+  const el = document.getElementById('footerStats');
+  if (!el) return;
+  try {
+    const res = await fetch('/api/stats', { headers: { Accept: 'application/json' } });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data || data.available !== true) return;
+    const unique = Math.round(Number(data.uniqueVisitors));
+    const total = Math.round(Number(data.totalVisits));
+    const returning = Math.round(Number(data.returningVisits));
+    if (![unique, total, returning].every(Number.isFinite)) return;
+    if (unique < 0 || total < 0 || returning < 0) return;
+    if (unique === 0 && total === 0) return;
+    el.textContent = `${unique} unique visitors \u00b7 ${total} visits \u00b7 ${returning} returning`;
+    el.hidden = false;
+    window.__stats = data;
+  } catch {
+    /* stats are decoration - leave the footer untouched */
+  }
+};
+
+const startTracking = () => {
+  // both are fire-and-forget: the decorative stats read must never sit on the
+  // critical path behind the visit write
+  reportVisit();
+  reportStats();
+};
+
+if (document.readyState === 'complete') startTracking();
+else window.addEventListener('load', startTracking, { once: true });

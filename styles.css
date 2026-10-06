@@ -1146,6 +1146,17 @@ html.menu-open {
   height: 13px;
 }
 
+.footer-stats {
+  margin: 18px 0 0;
+  color: var(--text-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.footer-stats[hidden] {
+  display: none;
+}
+
 /* Dialog studi kasus */
 .project-dialog {
   width: min(880px, calc(100vw - 24px));
