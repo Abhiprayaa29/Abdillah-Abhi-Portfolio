@@ -4,3 +4,8 @@ Thumbs.db
 *.log
 .vscode/
 .idea/
+
+# local Cloudflare config - copy wrangler.toml.example and fill in the real
+# database_id on your machine; it should not be committed
+wrangler.toml
+.wrangler/

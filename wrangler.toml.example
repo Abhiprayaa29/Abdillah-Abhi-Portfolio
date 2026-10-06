@@ -1,0 +1,19 @@
+# Copy this file to `wrangler.toml` only after you have created the D1 database
+# and pasted its real `database_id` (see README.md -> "Visitor tracking").
+#
+# Leaving this as an `.example` file keeps the git-integrated Cloudflare Pages
+# deployment untouched; Pages will deploy `functions/` either way, and the
+# endpoints simply return HTTP 503 until a D1 binding exists.
+name = "abdillah-abhi-portfolio"
+compatibility_date = "2026-10-06"
+
+# The static build is the repository root (index.html / styles.css / script.js).
+pages_build_output_dir = "."
+
+# Cloudflare D1 binding read by functions/api/visit.js and functions/api/stats.js.
+#   database_name : must match the database you created in the dashboard
+#   database_id   : copy from  Workers & Pages > <db> > Settings > Database ID
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-visitors"
+database_id = "00000000-0000-0000-0000-000000000000"

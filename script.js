@@ -593,3 +593,79 @@ copyBtn?.addEventListener('click', async () => {
     window.location.href = `mailto:${email}`;
   }
 });
+
+const VISIT_ID_KEY = 'abhi_vid';
+const VISIT_COOKIE = 'abhi_vid';
+const VISIT_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+const makeVisitorId = () => {
+  try {
+    if (globalThis.crypto?.randomUUID) return crypto.randomUUID();
+  } catch {
+    /* fall through to the manual fallback */
+  }
+  const bytes = new Uint8Array(16);
+  try {
+    if (globalThis.crypto?.getRandomValues) crypto.getRandomValues(bytes);
+    else throw new Error('no secure random source');
+  } catch {
+    for (let i = 0; i < 16; i += 1) bytes[i] = Math.floor(Math.random() * 256);
+  }
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+};
+
+const readVisitCookie = () => {
+  try {
+    const part = document.cookie.split('; ').find((c) => c.startsWith(`${VISIT_COOKIE}=`));
+    if (!part) return '';
+    return decodeURIComponent(part.slice(VISIT_COOKIE.length + 1));
+  } catch {
+    return '';
+  }
+};
+
+const getVisitorId = () => {
+  let id = '';
+  try {
+    id = localStorage.getItem(VISIT_ID_KEY) || '';
+  } catch {
+    id = '';
+  }
+  if (!VISIT_ID_RE.test(id)) id = readVisitCookie();
+  if (!VISIT_ID_RE.test(id)) {
+    id = makeVisitorId();
+    try {
+      localStorage.setItem(VISIT_ID_KEY, id);
+    } catch {
+      /* storage unavailable - the cookie below still carries the id */
+    }
+  }
+  try {
+    if (!VISIT_ID_RE.test(readVisitCookie())) {
+      document.cookie = `${VISIT_COOKIE}=${encodeURIComponent(id)}; Path=/; Max-Age=31536000; SameSite=Lax`;
+    }
+  } catch {
+    /* cookie write refused - the request body below still carries the id */
+  }
+  return id;
+};
+
+const reportVisit = async () => {
+  try {
+    const res = await fetch('/api/visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ visitorId: getVisitorId() }),
+      keepalive: true,
+    });
+    window.__visit = await res.json();
+  } catch {
+    window.__visit = { ok: false, available: false };
+  }
+};
+
+if (document.readyState === 'complete') setTimeout(reportVisit, 0);
+else window.addEventListener('load', () => setTimeout(reportVisit, 0), { once: true });

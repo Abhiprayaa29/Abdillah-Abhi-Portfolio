@@ -26,6 +26,105 @@ You can also open `index.html` directly, but a local server is recommended so al
 - `docs/VALIDATION.md` — current verification results (responsive, accessibility, print, Lighthouse).
 - `.editorconfig` / `.gitattributes` / `.prettierrc.json` — konsistensi format (LF, 2 spasi) agar tidak muncul diff line-ending di Windows.
 
+## Visitor tracking (Cloudflare Pages + D1)
+
+The portfolio counts anonymous visitors with its own first-party code. There is
+**no third-party analytics**, no tracking script, no IP address and no personal
+data stored - only a random UUID the browser generates for itself.
+
+### How it works
+
+`script.js` creates a UUID v4, keeps it in `localStorage.abhi_vid` **and** in a
+first-party `abhi_vid` cookie, then posts it to `/api/visit` once the page has
+loaded. The server decides what to count:
+
+| Situation | Response | Unique visitors | Total visits |
+| --- | --- | --- | --- |
+| First time on this browser | `isNew: true` | +1 | +1 |
+| Refresh / reopen (same device) | `isNew: false`, `duplicate: true` | unchanged | unchanged |
+| Same device again after 60 s | `isNew: false`, `duplicate: false` | unchanged | +1 |
+| Different device, or storage cleared | `isNew: true` | +1 | +1 |
+
+Requests for the same visitor inside a 60-second window are collapsed into one
+(`duplicate: true`), so a refresh, a double-fired request, or a retry can never
+inflate the counters.
+
+Endpoints (both return JSON, `Cache-Control: no-store`):
+
+- `POST /api/visit` - body `{"visitorId":"<uuid>"}`; also accepts the `abhi_vid`
+  cookie. Returns the visitor state plus live totals.
+- `GET /api/stats` - returns `{ uniqueVisitors, totalVisits, returningVisits }`.
+
+`returningVisits = totalVisits - uniqueVisitors`. Until the D1 binding exists
+both endpoints answer `HTTP 503` with `{"ok":false,"available":false}` and the
+site keeps working normally - the counter simply stays off.
+
+### Required: create and bind the D1 database (manual dashboard steps)
+
+This is the only step that has to happen in your Cloudflare account. It cannot
+be done from the repository.
+
+1. Open <https://dash.cloudflare.com/> and select your account.
+2. Go to **Storage & Databases → D1 → Create database** (or **Workers & Pages →
+   Create → D1**).
+3. Name it `portfolio-visitors`, pick a region, create it.
+4. Open the new database → **Console** tab, paste the contents of
+   [`schema.sql`](./schema.sql), run it. That creates the single `visitors`
+   table.
+5. Still inside the database, open **Settings → Database ID** and copy it.
+6. Go to **Workers & Pages → `abdillah-abhi-portfolio` (your Pages project) →
+   Settings → Functions → D1 database bindings → Add binding**:
+   - **Variable name**: `DB` (this exact name is read by the functions)
+   - **D1 database**: `portfolio-visitors`
+7. Redeploy (or wait for the next git push to trigger a build).
+
+Verify with:
+
+```bash
+curl -s https://abhipraya.pages.dev/api/stats
+# after binding:
+# {"ok":true,"available":true,"uniqueVisitors":0,"totalVisits":0,"returningVisits":0,"updatedAt":"..."}
+```
+
+### Alternative: bind via wrangler
+
+```bash
+cp wrangler.toml.example wrangler.toml
+# edit wrangler.toml: replace database_id with the one you copied in step 5
+npx wrangler d1 execute portfolio-visitors --remote --file=./schema.sql
+npx wrangler pages deploy .
+```
+
+`wrangler.toml` is shipped as `.example` on purpose: an incomplete config would
+otherwise be picked up by the git-integrated Pages build. Delete the `.example`
+suffix only once the `database_id` is real.
+
+### Reading the numbers
+
+```bash
+curl -s https://abhipraya.pages.dev/api/stats
+```
+
+Reset the counters (local development only - the deployed functions have no
+reset route):
+
+```bash
+# local dev server
+curl -X POST http://127.0.0.1:4173/api/__reset
+# Cloudflare - empty the table from the D1 console
+DELETE FROM visitors;
+```
+
+### Privacy notes
+
+- The table stores exactly three columns: `visitor_id` (a random UUID),
+  `first_seen`, `last_seen`, `visit_count`. Nothing else.
+- No IP address, no user agent, no referrer, no location, no email, no name.
+- The ID is regenerated if `localStorage` is cleared or the cookie expires, and
+  a different browser or device always starts a fresh unique visitor.
+- Visitors with cookies disabled still work (the id travels in the request
+  body), but their id cannot be remembered across page loads.
+
 ## Notes
 
 - No live demo buttons are shown because no working deployment was independently verified.
