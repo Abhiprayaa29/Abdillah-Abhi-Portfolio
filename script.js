@@ -289,6 +289,30 @@ if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: re
   blocks.forEach((el) => io.observe(el));
 }
 
+const techIcons = {
+  'React 18': 'i-react',
+  Vite: 'i-vite',
+  'Tailwind CSS v4': 'i-tailwindcss',
+  Express: 'i-express',
+  'Socket.IO': 'i-socketdotio',
+  Python: 'i-python',
+  FastAPI: 'i-fastapi',
+  'PHP 8': 'i-php',
+  'Bootstrap 5.3': 'i-bootstrap',
+  'MySQL / MariaDB': 'i-mysql',
+  Apache: 'i-apache',
+  Unity: 'i-unity',
+  'C#': 'i-csharp',
+  Bun: 'i-bun',
+  TypeScript: 'i-typescript',
+};
+
+const techHtml = (label) => {
+  const icon = techIcons[label];
+  const ico = icon ? `<svg class="ico" aria-hidden="true"><use href="#${icon}" /></svg>` : '';
+  return `<span class="tech">${ico}${label}</span>`;
+};
+
 const dialog = $('#projectDialog');
 const dialogVisual = $('#dialogVisual');
 
@@ -303,7 +327,7 @@ const openCaseStudy = (key) => {
   $('#dialogChallenge').textContent = p.challenge;
   $('#dialogResult').textContent = p.result;
   $('#dialogEngineering').textContent = p.engineering;
-  $('#dialogStack').textContent = p.stack.join(' · ');
+  $('#dialogStack').innerHTML = p.stack.map(techHtml).join(' · ');
   const note = $('#dialogNote');
   note.textContent = p.note || '';
   note.hidden = !p.note;

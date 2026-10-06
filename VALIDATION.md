@@ -1,6 +1,6 @@
 # Validation Report
 
-Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight + public repository index).
+Last updated: 2026-10-06 (stack logos on every technology list).
 
 ## Passed
 
@@ -11,6 +11,7 @@ Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight + p
 - Sertifikat section lists six entries: two Find IT! 2026 awards (Finalis UX Competition, Best Video — KMTETI · FT UGM, Mei 2026) above the four Dicoding certificates. Every row links to a real file under `assets/sertifikat/`; the four Dicoding rows also carry their public verification URLs. Neither Find IT! certificate exposes a verification URL, so those rows link to the source file only (no invented link).
 - Repository section lists **all 12 public GitHub repositories** grouped into four domain buckets — `Aplikasi, web & AR` (3), `AI, bot & otomasi` (3), `Riset, data & keamanan` (4), `Profil` (2) — each group ordered by last update descending. Every row shows the repository name, its README/API description, the primary language (omitted when GitHub reports none), the last-update month in Indonesian, and a star count only where GitHub actually reports one (`autosync-git`, ★1). The five repositories with a case study on the site add a `Studi kasus` button that opens the existing dialog; the other seven show the link alone. All 12 links are unique, point at `https://github.com/Abhiprayaa29/…`, and carry `target="_blank" rel="noreferrer"`. No private repository, no fork, no invented metric — data taken from the GitHub API and each repository README.
 - Desktop navigation now holds seven links and still fits without overlap or clipping at 901 / 960 / 1024 / 1440 px (measured brand-right vs nav-left and nav-right vs actions-left, plus `scrollWidth` vs `clientWidth` on the nav element).
+- **Stack logos**: every technology list now carries an official mark where one exists — the five project rows' `Stack` values, the matching case-study dialog (`#dialogStack`, built at open time), and the ten language badges in the Repository section. The marks are inline `<symbol>` entries in the existing icon sprite (21 brand marks → 29, 43 symbols total including the UI glyphs), so they inherit `currentColor`, flip with the theme, print, and need no network request. Verification: every `<use>` resolves (97 static references, zero broken), no icon renders at 0×0 at 320 / 375 / 768 / 1440 px, and every glyph's path parses to non-zero geometry — checked with `getTotalLength()`, because Chromium reports `getBBox()` as 0 for *all* children of `<symbol>`, which makes it useless as a validity test. Text is unchanged: `textContent` equality is asserted for all five project stacks and all five dialog stacks. Technologies with no official mark stay text-only, as agreed: Telegram Bot, BeautifulSoup, AR Foundation 6.5, ARCore 6.5, OpenCode, Multi-Agent.
 - JavaScript passes `node --check script.js`.
 - Metadata: canonical URL, Open Graph (1200×630 image), Twitter card, JSON-LD `Person`, `robots.txt`, `sitemap.xml`.
 - Responsive layout at 320 / 375 / 390 / 430 / 768 / 1024 / 1440 px in **light and dark**: no horizontal overflow, no tap target under 24px, heading order correct (headless Chromium via CDP). The repository section fits at 320 px as a single column with every tap target ≥24px.
@@ -19,7 +20,7 @@ Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight + p
 - Scrollspy: `aria-current` follows the section in view (desktop and mobile nav), verified for **all seven sections** by instant-scrolling to each one. Fixed a pre-existing bug where the final section could never become active on viewports taller than ~770 px: the activation line (`52px + 30% of viewport height`) always sat above `#contact`'s resting position at maximum scroll, so `Kontak` stayed unhighlighted (before the repository section existed, the last highlighted item was `Sertifikat`). The page is now treated as active on the last section once it is within 4 px of the bottom.
 - Section background alternation restored across the full page: `alt → plain → alt → plain → alt → plain → alt` (`#projects` … `#contact`, which gained `sec-alt` to make room for the new plain `#repositories` block).
 - Print stylesheet: header, menu, and dialog hidden; white background in both themes; reveal animations forced visible; `.repo-item` and `.repo-group` added to the `break-inside: avoid` list so a repository entry never splits across pages.
-- Lighthouse (headless Chromium, cold cache, repeated runs): **light 93–98 / 100 / 100 / 100**, **dark 98 / 100 / 100 / 100** (performance / accessibility / best-practices / SEO). The 93 is the first run immediately after a cold server restart (LCP 3.0 s); subsequent runs settle at 97–98 (LCP 2.0 s), at or above the 95 target. Colour-contrast PASS in both themes; CLS 0.04 light / 0.04 dark.
+- Lighthouse (headless Chromium, cold cache, 4 runs per theme): **light 96 / 100 / 100 / 100** (96, 96, 96, 96) and **dark 96–97 / 100 / 100 / 100** (96, 96, 96, 97) — performance / accessibility / best-practices / SEO. LCP 2.17–2.31 s, TBT 86–149 ms, colour-contrast PASS in both themes, CLS 0–0.04. The same harness on the same build *without* the inline stack logos measured light/dark 93–98 (median 98); the ~2 points are the cost of ≈16 kB of additional inline SVG under Lighthouse's simulated throttling, and both configurations stay at or above the 95 target. Individual runs can dip when the render-blocking Google Fonts request is slow (LCP then tracks font latency, not page markup), so ranges rather than single scores are reported.
 - CV copy is byte-identical to the original materialized source.
 - All eight `[ISI: ...]` content placeholders resolved with repository/CV evidence; zero draft markers (`TODO`, `TBD`, `belum diisi`, `placeholder`) remain in `index.html`, `script.js`, `styles.css`.
 - Hero headline replaced with the exact requested copy ("Halo, saya Abdillah Abhi. Software developer yang mengintegrasikan perancangan UI/UX intuitif, rekayasa web full-stack, serta standar keamanan aplikasi yang solid."); long-word overflow fixed at 320px (`overflow-wrap: break-word`).
@@ -45,6 +46,13 @@ Last updated: 2026-10-05 (visual evidence pass + rotating featured spotlight + p
 - **JogjaLensa / ProjectPemogramanWeb-Abdillah-Abhi** — only category/content photos in the repository, no UI screenshots, no live URL, no local PHP runtime. Row and dialog are text-only.
 - Every used image was opened and visually inspected: no tokens, keys, personal data, or third-party branding misuse. One cropped `cdn.simpleicons.org` URL fragment in a test screenshot is the only external reference (icon CDN, no secret).
 - New assets total ≈468 KB across `assets/projects/{mlbb,ar,cerberus}/`; all referenced files resolve (static reference check).
+
+### Stack logo provenance (this pass)
+
+- **simple-icons, CC0-1.0**: MySQL, Apache, Jupyter, TypeScript, Bun, Socket.IO (6 marks).
+- **Devicon, MIT**: C#, PowerShell — `csharp-plain.svg` / `powershell-plain.svg`, both single-path `viewBox 0 0 128 128` (these two are 404 in simple-icons, which is why Devicon was used).
+- Every mark is monochrome and re-coloured with `fill="currentColor"` so it matches the site's existing sprite style. No external image URL, no CDN reference, no font.
+- Text-only by agreement (no official mark): Telegram Bot, BeautifulSoup, AR Foundation 6.5, ARCore 6.5, OpenCode, Multi-Agent.
 
 ## CV ↔ website notes (reported, not guessed)
 
