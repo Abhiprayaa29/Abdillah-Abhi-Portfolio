@@ -262,7 +262,10 @@ const spyScroll = () => {
     for (const s of sections) {
       if (s.getBoundingClientRect().top <= line) active = s.id;
     }
-    if (sections.length && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+    if (
+      sections.length &&
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4
+    ) {
       active = sections[sections.length - 1].id;
     }
     markActive(active);
@@ -732,39 +735,292 @@ const initCat = () => {
   const cat = document.querySelector('.hero-cat');
   const hero = document.querySelector('.hero');
   if (!cat || !hero || !window.matchMedia) return;
+  const art = cat.querySelector('canvas');
+  if (!art || !art.getContext) return;
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
   const roomy = matchMedia('(min-width: 601px)');
-  const CW = 30;
-  const CH = 24;
-  const TOP = 0.85;
-  const ROWS = ['h1', '.hero-support', '.hero-actions', '.hero-note'];
   const rand = (a, b) => a + Math.random() * (b - a);
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
   const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
-  // Selipkan kucing di tengah pita aman: sisakan jarak dari tepi atas/bawah
-  // supaya pembulatan piksel tidak pernah menyentuh kotak teks.
-  const placeY = (b, y) => {
-    const h = b.bottom - b.top - CH;
-    const g = clamp(h / 4, 0, 0.8);
-    const lo = b.top + g;
-    const hi = b.bottom - CH - g;
-    if (hi > lo) return clamp(y, lo, hi);
-    const e = clamp(h / 2, 0, 0.5);
-    return clamp(y, b.top + e, b.bottom - CH - e);
+
+  // Pixel kucing 16x16 — karya asli, dipakai apa adanya (bukan aset pihak ketiga).
+  // '.' transparan, '#' piksel tinta, 'o' mata (hanya terlihat saat terbuka).
+  const SPR = {
+    idle: [
+      '................',
+      '..........#...#.',
+      '..........#...#.',
+      '....#.....#####.',
+      '...#......#####.',
+      '..#.......###o#.',
+      '..#.......#####.',
+      '...#......#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '.....#...#......',
+      '.....#...#......',
+      '....##...##.....',
+      '................',
+    ],
+    idleb: [
+      '................',
+      '..........#...#.',
+      '.....#....#...#.',
+      '....#.....#####.',
+      '...#......#####.',
+      '..#.......###o#.',
+      '...#......#####.',
+      '..........#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '.....#...#......',
+      '.....#...#......',
+      '....##...##.....',
+      '................',
+    ],
+    w0: [
+      '................',
+      '..........#...#.',
+      '..........#...#.',
+      '....#.....#####.',
+      '...#......#####.',
+      '..#.......###o#.',
+      '..#.......#####.',
+      '...#......#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#.....#.....',
+      '....#.....#.....',
+      '...##.....##....',
+      '................',
+    ],
+    w1: [
+      '................',
+      '..........#...#.',
+      '..........#...#.',
+      '.....#....#####.',
+      '....#.....#####.',
+      '...#......###o#.',
+      '...#......#####.',
+      '....#.....#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '.....#...#......',
+      '.....#...#......',
+      '....##...##.....',
+      '................',
+    ],
+    w2: [
+      '................',
+      '..........#...#.',
+      '..........#...#.',
+      '....#.....#####.',
+      '...#......#####.',
+      '..#.......###o#.',
+      '..#.......#####.',
+      '...#......#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '......#.#.......',
+      '......#.#.......',
+      '......###.......',
+      '................',
+    ],
+    w3: [
+      '................',
+      '..........#...#.',
+      '..........#...#.',
+      '.....#....#####.',
+      '....#.....#####.',
+      '...#......###o#.',
+      '...#......#####.',
+      '....#.....#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '.....#...#......',
+      '.....#...#......',
+      '.....##.##......',
+      '................',
+    ],
+    sit: [
+      '................',
+      '.........#...#..',
+      '.........#...#..',
+      '.........#####..',
+      '.........#####..',
+      '.........###o#..',
+      '.#.......#####..',
+      '..#......#####..',
+      '...#.....##.....',
+      '...########.....',
+      '...########.....',
+      '...########.....',
+      '...#####.##.....',
+      '...#####.##.....',
+      '...#####.###....',
+      '................',
+    ],
+    sitb: [
+      '................',
+      '.........#...#..',
+      '.........#...#..',
+      '.........#####..',
+      '.........#####..',
+      '.#.......###o#..',
+      '..#......#####..',
+      '...#.....#####..',
+      '....#....##.....',
+      '...########.....',
+      '...########.....',
+      '...########.....',
+      '...#####.##.....',
+      '...#####.##.....',
+      '...#####.###....',
+      '................',
+    ],
+    jump0: [
+      '................',
+      '..........#...#.',
+      '.....#....#...#.',
+      '....#.....#####.',
+      '...#......#####.',
+      '..#.......###o#.',
+      '...#......#####.',
+      '..........#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#.....#.....',
+      '...#.......#....',
+      '................',
+      '................',
+    ],
+    jump1: [
+      '................',
+      '..........#...#.',
+      '.....#....#...#.',
+      '....#.....#####.',
+      '...#......#####.',
+      '..#.......###o#.',
+      '...#......#####.',
+      '..........#####.',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '....#######.....',
+      '.....#...#......',
+      '.....#...#......',
+      '................',
+      '................',
+    ],
+    turn0: [
+      '................',
+      '.....#....#.....',
+      '.....#....#.....',
+      '.....######.....',
+      '.....######.....',
+      '...#.#o##o#.....',
+      '..#..######.....',
+      '..#..######.....',
+      '...#.######.....',
+      '....#######.....',
+      '.....######.....',
+      '.....######.....',
+      '.....######.....',
+      '......#..#......',
+      '.....######.....',
+      '................',
+    ],
+    turn1: [
+      '................',
+      '.....#....#.....',
+      '.....#....#.....',
+      '.....######.....',
+      '.....######.....',
+      '.....#o##o#.#...',
+      '.....######..#..',
+      '.....######..#..',
+      '.....######.#...',
+      '.....#######....',
+      '.....######.....',
+      '.....######.....',
+      '.....######.....',
+      '......#..#......',
+      '.....######.....',
+      '................',
+    ],
+  };
+  const IDLE_F = ['idle', 'idleb'];
+  const WALK_F = ['w0', 'w1', 'w2', 'w3'];
+  const SIT_F = ['sit', 'sitb'];
+  const JUMP_F = ['jump0', 'jump1'];
+  const OP = 0.85;
+
+  const ctx = art.getContext('2d');
+  const cache = {};
+  let curKey = '';
+  let curBlink = false;
+  let ink = '';
+  // Gambar satu frame: kanvas 16x16 selalu berukuran tetap, diskalakan CSS
+  // dengan nearest-neighbor sehingga piksel tetap tajam dan tidak pernah raksasa.
+  const draw = (key, blink) => {
+    const color = getComputedStyle(cat).color;
+    let f = cache[key];
+    if (!f || f.ink !== color) {
+      const c = document.createElement('canvas');
+      c.width = 16;
+      c.height = 16;
+      const g = c.getContext('2d');
+      g.fillStyle = color;
+      const eyes = [];
+      const rows = SPR[key];
+      for (let yy = 0; yy < 16; yy++) {
+        for (let xx = 0; xx < 16; xx++) {
+          const ch = rows[yy][xx];
+          if (ch === '#') g.fillRect(xx, yy, 1, 1);
+          else if (ch === 'o') eyes.push(xx + yy * 16);
+        }
+      }
+      f = cache[key] = { c: c, eyes: eyes, ink: color };
+    }
+    if (key === curKey && blink === curBlink && color === ink) return;
+    curKey = key;
+    curBlink = blink;
+    ink = color;
+    ctx.clearRect(0, 0, 16, 16);
+    ctx.drawImage(f.c, 0, 0);
+    if (blink) {
+      ctx.fillStyle = color;
+      for (let i = 0; i < f.eyes.length; i++)
+        ctx.fillRect(f.eyes[i] % 16, Math.floor(f.eyes[i] / 16), 1, 1);
+    }
   };
 
   let W = 0;
   let H = 0;
-  let bands = [];
-  let cols = [];
-  let bandIdx = -1;
-  let x = -CW;
+  let CW = 48;
+  let CH = 48;
+  let laneY = -1;
+  let x = 0;
   let y = 0;
   let dir = 1;
   let op = 0;
-  let still = false;
   let lastOp = -1;
+  let state = '';
   let gen = 0;
   let timer = 0;
   let raf = 0;
@@ -774,7 +1030,13 @@ const initCat = () => {
   let ready = false;
   let sweep = 0;
   let yVer = 0;
-  const GAP = 0.6;
+  const ROWS = ['h1', '.hero-support', '.hero-actions', '.hero-note'];
+
+  const setState = (s) => {
+    if (s === state) return;
+    state = s;
+    cat.dataset.state = s;
+  };
 
   const paint = () => {
     cat.style.transform =
@@ -785,68 +1047,35 @@ const initCat = () => {
     }
   };
 
-  const setStill = (v) => {
-    if (v === still) return;
-    still = v;
-    cat.classList.toggle('is-still', v);
-  };
-
-  // ukur ulang pita aman (celah vertikal) + kolom silang (celah horizontal),
-  // lalu paksa kotak kucing tetap di dalam wilayah yang bebas teks
+  // Ukur hero + kunci satu jalur (lane) di dasar hero: kucing berjalan sedekat
+  // mungkin dengan blok teks tanpa pernah menutupi CTA, dan tidak pernah
+  // keluar dari kotak hero. Teks tidak pernah ikut bergerak (hanya transform).
   const scan = () => {
     const hr = hero.getBoundingClientRect();
     W = Math.round(hr.width);
     H = Math.round(hr.height);
-    const rows = [];
+    const cr = cat.getBoundingClientRect();
+    if (cr.width > 1) {
+      CW = cr.width;
+      CH = cr.height;
+    }
+    let contentBottom = 0;
     for (let i = 0; i < ROWS.length; i++) {
       const el = hero.querySelector(ROWS[i]);
       if (!el) continue;
       const r = el.getBoundingClientRect();
-      rows.push([r.left - hr.left, r.right - hr.left, r.top - hr.top, r.bottom - hr.top]);
+      contentBottom = Math.max(contentBottom, r.bottom - hr.top);
     }
-    bands = [];
-    let yEnd = 0;
-    const byY = rows.slice().sort((a, b) => a[2] - b[2]);
-    for (let i = 0; i < byY.length; i++) {
-      if (byY[i][2] - yEnd >= CH) bands.push({ top: yEnd, bottom: byY[i][2] });
-      yEnd = Math.max(yEnd, byY[i][3]);
+    const floor = Math.min(30, Math.max(12, H * 0.045));
+    const limit = clamp(H - CH - floor, 0, Math.max(0, H - CH));
+    const ny = Math.min(limit, Math.max(contentBottom + 14, 0));
+    if (ny !== laneY) {
+      laneY = ny;
+      y = ny;
+      yVer++;
     }
-    if (H - yEnd >= CH) bands.push({ top: yEnd, bottom: H });
-    cols = [];
-    let xEnd = 0;
-    const byX = rows.slice().sort((a, b) => a[0] - b[0]);
-    for (let i = 0; i < byX.length; i++) {
-      if (byX[i][0] - xEnd - CW >= GAP * 2) cols.push({ x0: xEnd + GAP, x1: byX[i][0] - CW - GAP });
-      xEnd = Math.max(xEnd, byX[i][1]);
-    }
-    if (W - xEnd - CW >= GAP * 2) cols.push({ x0: xEnd + GAP, x1: W - CW - GAP });
-    let found = -1;
-    for (let i = 0; i < bands.length; i++) {
-      if (y >= bands[i].top - 0.5 && y + CH <= bands[i].bottom + 0.5) {
-        found = i;
-        break;
-      }
-    }
-    if (found < 0 && bands.length) {
-      let bd = Infinity;
-      for (let i = 0; i < bands.length; i++) {
-        const d = Math.min(Math.abs(y - bands[i].top), Math.abs(bands[i].bottom - (y + CH)));
-        if (d < bd) {
-          bd = d;
-          found = i;
-        }
-      }
-    }
-    bandIdx = found;
-    if (found >= 0) {
-      const ny = placeY(bands[found], y);
-      if (ny !== y) {
-        y = ny;
-        yVer++;
-        if (!raf && live) paint();
-      }
-    }
-    x = clamp(x, -CW - 60, W + 80);
+    x = clamp(x, 0, Math.max(0, W - CW));
+    if (!raf && live) paint();
   };
 
   const sleep = (ms) =>
@@ -863,15 +1092,15 @@ const initCat = () => {
       const g = gen;
       let sx = x;
       let sy = y;
-      let seenY = yVer;
       let sOp = op;
       let t0 = -1;
       let prev = -1;
+      let seenY = yVer;
       const eOp = opt.op === undefined ? op : opt.op;
       const arc = opt.arc || 0;
-      const free = !!opt.free;
-      const easeIn = opt.ease;
-      const frame = (now) => {
+      const wf = opt.walk;
+      const jf = opt.jumpFrames;
+      const step = (now) => {
         if (g !== gen) {
           raf = 0;
           resolve(false);
@@ -884,27 +1113,27 @@ const initCat = () => {
           t0 = now;
           seenY = yVer;
         } else if (seenY !== yVer) {
-          // pita diperbarui scan() di tengah animasi: ikuti posisi baru
-          // supaya koreksi geometri tidak dibuang oleh frame berikutnya.
           seenY = yVer;
           sy = y;
         }
         prev = now;
         const p = ms <= 0 ? 1 : clamp((now - t0) / ms, 0, 1);
-        const e = easeIn ? easeIn(p) : p;
+        const e = ease(p);
         x = sx + (tx - sx) * e;
         y = sy + (ty - sy) * e - arc * Math.sin(Math.PI * p);
+        x = clamp(x, 0, Math.max(0, W - CW));
         y = clamp(y, 0, Math.max(0, H - CH));
-        if (!free) x = clamp(x, 0, Math.max(0, W - CW));
         op = sOp + (eOp - sOp) * p;
+        if (wf) draw(WALK_F[Math.floor((now - t0) / wf) % 4], false);
+        else if (jf) draw(JUMP_F[Math.floor((now - t0) / jf) % 2], false);
         paint();
-        if (p < 1) raf = requestAnimationFrame(frame);
+        if (p < 1) raf = requestAnimationFrame(step);
         else {
           raf = 0;
           resolve(true);
         }
       };
-      raf = requestAnimationFrame(frame);
+      raf = requestAnimationFrame(step);
     });
 
   const stopCat = () => {
@@ -925,7 +1154,7 @@ const initCat = () => {
     }
     op = 0;
     lastOp = -1;
-    setStill(true);
+    setState('');
     paint();
   };
 
@@ -941,150 +1170,140 @@ const initCat = () => {
   const cycle = async (g) => {
     const alive = () => g === gen;
     scan();
-    if (bandIdx < 0 || !bands.length) {
+    if (laneY < 0 || !W) {
       await sleep(1500);
       return;
     }
-    if (bands.length > 1) bandIdx = Math.floor(Math.random() * bands.length);
-    const band = bands[bandIdx];
-    dir = Math.random() < 0.5 ? -1 : 1;
-    y = placeY(band, band.top + (band.bottom - band.top - CH) * rand(0.3, 0.7));
-    x = dir > 0 ? -CW - rand(0, 30) : W + rand(0, 30);
-    op = 0;
-    lastOp = -1;
-    setStill(true);
-    paint();
-    let active = 0;
-    const narrow = W <= 1024;
 
-    const walk = async (ms, flip) => {
-      scan();
-      if (!alive()) return false;
-      if (flip) dir = -dir;
-      let avail = dir > 0 ? W - CW - x : x;
-      if (avail < 60) {
-        dir = -dir;
-        avail = dir > 0 ? W - CW - x : x;
+    // Berhenti sejenak: "bernapas" (frame idleb) dan kedip acak.
+    const hold = async (ms, keys) => {
+      const gg = gen;
+      let t = 0;
+      let i = 0;
+      draw(keys[0], false);
+      while (t < ms) {
+        const wait = Math.min(rand(1500, 2300), ms - t);
+        if (!(await sleep(wait))) return false;
+        if (gg !== gen) return false;
+        t += wait;
+        if (t >= ms) break;
+        if (Math.random() < 0.6) {
+          draw(keys[i], true);
+          if (!(await sleep(rand(110, 170)))) return false;
+          draw(keys[i], false);
+        }
+        i = (i + 1) % keys.length;
+        draw(keys[i], false);
       }
-      const speed = rand(60, 110) * (narrow ? 0.65 : 1);
-      const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
-      active += ms;
-      setStill(false);
-      await move(x + dir * dist, y, ms, { ease });
-      return alive();
+      return gg === gen;
     };
 
-    const pause = async (lo, hi) => {
-      setStill(true);
-      const ms = rand(lo, hi);
-      active += ms;
-      await sleep(ms);
-      return alive();
-    };
-
-    const hop = async () => {
+    const walk = async (ms) => {
       scan();
       if (!alive()) return false;
-      const b = bands[bandIdx];
-      if (!b) return false;
       let avail = dir > 0 ? W - CW - x : x;
       if (avail < 50) {
         dir = -dir;
         avail = dir > 0 ? W - CW - x : x;
       }
-      const dist = Math.min(rand(45, 75) * (narrow ? 0.7 : 1), Math.max(0, avail));
-      const slack = Math.min(y - b.top, b.bottom - (y + CH));
-      const ms = rand(400, 550);
-      active += ms;
-      setStill(false);
-      await move(x + dir * dist, y, ms, { arc: clamp(slack - GAP, 0, 12), ease });
+      const speed = rand(34, 52) * (W <= 1024 ? 0.72 : 1);
+      const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
+      setState('walk');
+      const ok = await move(clamp(x + dir * dist, 0, Math.max(0, W - CW)), laneY, ms, {
+        walk: rand(115, 150),
+      });
+      return ok && alive();
+    };
+
+    const hop = async () => {
+      scan();
+      if (!alive()) return false;
+      let avail = dir > 0 ? W - CW - x : x;
+      if (avail < 40) {
+        dir = -dir;
+        avail = dir > 0 ? W - CW - x : x;
+      }
+      const dist = Math.min(rand(28, 58), Math.max(0, avail));
+      setState('jump');
+      const ok = await move(clamp(x + dir * dist, 0, Math.max(0, W - CW)), laneY, rand(430, 560), {
+        arc: rand(7, 12),
+        jumpFrames: rand(160, 210),
+      });
+      return ok && alive();
+    };
+
+    const turn = async () => {
+      if (!alive()) return false;
+      setState('turn');
+      draw('turn0', false);
+      if (!(await sleep(rand(160, 210)))) return false;
+      dir = -dir;
+      paint();
+      draw('turn1', false);
+      if (!(await sleep(rand(160, 210)))) return false;
+      draw('idle', false);
       return alive();
     };
 
-    const cross = async () => {
+    const enter = async () => {
       scan();
       if (!alive()) return false;
-      if (!cols.length || bands.length < 2) return walk(rand(1600, 2600), false);
-      let ti = bandIdx;
-      for (let i = 0; i < 16 && ti === bandIdx; i++)
-        ti = Math.floor(Math.random() * bands.length);
-      if (ti === bandIdx) return walk(rand(1600, 2600), false);
-      let gx = x;
-      let gd = Infinity;
-      for (let i = 0; i < cols.length; i++) {
-        const g = clamp(x, cols[i].x0, cols[i].x1);
-        const d = Math.abs(g - x);
-        if (d < gd) {
-          gd = d;
-          gx = g;
-        }
-      }
-      const speed = rand(60, 110) * (narrow ? 0.65 : 1);
-      if (gd > speed * 1.6) return walk(rand(1600, 2600), false);
-      const shift = rand(550, 900);
-      const leg = gd < 2 ? 0 : (gd / speed) * 1000;
-      setStill(false);
-      if (leg) {
-        active += leg;
-        await move(gx, y, leg, { ease });
-        if (!alive()) return false;
-      }
-      const b = bands[ti];
-      const ty = placeY(b, b.top + (b.bottom - b.top - CH) * rand(0.3, 0.7));
-      active += shift;
-      await move(gx, ty, shift, { arc: rand(6, 14), ease });
-      if (!alive()) return false;
-      bandIdx = ti;
-      return true;
+      setState('idle');
+      draw('idle', false);
+      dir = Math.random() < 0.5 ? -1 : 1;
+      const span = Math.max(20, Math.min(W * 0.14, 220));
+      x =
+        dir > 0
+          ? clamp(rand(8, span), 0, Math.max(0, W - CW))
+          : clamp(
+              rand(Math.max(8, W - CW - span), Math.max(9, W - CW - 8)),
+              0,
+              Math.max(0, W - CW),
+            );
+      y = laneY;
+      op = 0;
+      lastOp = -1;
+      paint();
+      const tx = clamp(x + dir * rand(50, 110), 0, Math.max(0, W - CW));
+      const ok = await move(tx, laneY, rand(550, 750), { op: OP });
+      return ok && alive();
     };
 
     const leave = async () => {
-      scan();
       if (!alive()) return false;
-      const ms = rand(1500, 2000);
-      const avail = dir > 0 ? W - x + 2 : x + 32;
-      const speed = rand(60, 110) * (narrow ? 0.65 : 1);
-      const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
-      active += ms;
-      setStill(false);
-      await move(x + dir * dist, y, ms, { op: 0, free: true, ease });
+      setState('idle');
+      const tx = clamp(x + dir * rand(50, 110), 0, Math.max(0, W - CW));
+      await move(tx, laneY, rand(600, 800), { op: 0, walk: rand(130, 170) });
+      op = 0;
+      lastOp = -1;
+      paint();
       return alive();
     };
 
     const rest = async () => {
-      const target = rand(21500, 29000);
-      const ms = clamp(target - active, 5700, 6600);
+      setState('rest');
       op = 0;
       lastOp = -1;
-      setStill(true);
       paint();
-      await sleep(ms);
-      return alive();
+      return await sleep(rand(3200, 6200));
     };
 
     await run(g, [
-      async () => {
-        setStill(false);
-        const ms = rand(1600, 2200);
-        active += ms;
-        const tx =
-          dir > 0
-            ? clamp(rand(60, 160), 0, W - CW)
-            : clamp(W - CW - rand(60, 160), 0, W - CW);
-        await move(tx, y, ms, { op: TOP, free: true, ease });
-        return alive();
-      },
-      () => walk(rand(1600, 2600), false),
-      () => pause(700, 1400),
+      () => enter(),
+      () => walk(rand(1700, 2700)),
+      () => hold(rand(700, 1300), IDLE_F),
       () => hop(),
-      () => walk(rand(1600, 2600), true),
-      () => pause(700, 1400),
-      () => cross(),
-      () => walk(rand(1600, 2600), false),
-      () => pause(700, 1400),
+      () => hold(rand(450, 850), IDLE_F),
+      () => walk(rand(1500, 2400)),
+      () => turn(),
+      () => walk(rand(1700, 2700)),
+      () => hold(rand(1500, 2600), SIT_F),
       () => hop(),
-      () => pause(700, 1400),
-      () => pause(1500, 2400),
+      () => hold(rand(500, 900), IDLE_F),
+      () => walk(rand(1400, 2300)),
+      () => turn(),
+      () => walk(rand(1200, 1900)),
+      () => hold(rand(600, 1100), IDLE_F),
       () => leave(),
       () => rest(),
     ]);
@@ -1116,7 +1335,7 @@ const initCat = () => {
   };
 
   // Baru boleh jalan setelah font web selesai dipasang: geometri baris teks
-  // berubah saat font ter-swap, dan pita yang dihitung sebelumnya bisa kedaluwarsa.
+  // berubah saat font ter-swap, dan lane yang dihitung sebelumnya bisa kedaluwarsa.
   const becomeReady = () => {
     if (ready) return;
     ready = true;
@@ -1156,8 +1375,8 @@ const initCat = () => {
     { passive: true },
   );
   // Kucing baru boleh jalan setelah geometri baris teks benar-benar diam:
-  // stylesheet/font yang telat membuat baris bergeser setelah pita dihitung,
-  // dan kucing bisa menyentuh teks memakai pita lama.
+  // stylesheet/font yang telat membuat baris bergeser setelah lane dihitung,
+  // dan kucing bisa menyentuh teks memakai lane lama.
   const bootAt = Date.now();
   let loadAt = 0;
   let lastGeo = '';

@@ -1648,43 +1648,33 @@ html.theme-anim * {
   }
 }
 
-/* Kucing garis — satu-satunya mikro-interaksi hero, selalu di luar kotak teks */
+/* Pixel cat — satu-satunya mikro-interaksi hero, sprite 16x16 selalu 48px/32px */
 .hero-cat {
   position: absolute;
   left: 0;
   top: 0;
-  width: 30px;
-  height: 24px;
+  width: 48px;
+  height: 48px;
   color: var(--text-2);
   opacity: 0;
   z-index: -1;
   pointer-events: none;
-  transform: translate3d(-40px, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .hero-cat-art {
   display: block;
-  width: 100%;
-  height: 100%;
-  animation: cat-bob 0.42s ease-in-out infinite alternate;
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
-.hero-cat.is-still .hero-cat-art {
-  animation-play-state: paused;
-}
-
-@keyframes cat-bob {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, -1.4px, 0);
-  }
-}
-
-@media (max-width: 600px) {
-  .hero-cat {
-    display: none;
+@media (max-width: 900px) {
+  .hero-cat,
+  .hero-cat-art {
+    width: 32px;
+    height: 32px;
   }
 }
 
