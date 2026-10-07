@@ -727,3 +727,480 @@ const initAmbient = () => {
 };
 
 initAmbient();
+
+const initCat = () => {
+  const cat = document.querySelector('.hero-cat');
+  const hero = document.querySelector('.hero');
+  if (!cat || !hero || !window.matchMedia) return;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  const calm = matchMedia('(prefers-reduced-motion: reduce)');
+  const roomy = matchMedia('(min-width: 601px)');
+  const CW = 30;
+  const CH = 24;
+  const TOP = 0.85;
+  const ROWS = ['h1', '.hero-support', '.hero-actions', '.hero-note'];
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
+  const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
+  // Selipkan kucing di tengah pita aman: sisakan jarak dari tepi atas/bawah
+  // supaya pembulatan piksel tidak pernah menyentuh kotak teks.
+  const placeY = (b, y) => {
+    const h = b.bottom - b.top - CH;
+    const g = clamp(h / 4, 0, 0.8);
+    const lo = b.top + g;
+    const hi = b.bottom - CH - g;
+    if (hi > lo) return clamp(y, lo, hi);
+    const e = clamp(h / 2, 0, 0.5);
+    return clamp(y, b.top + e, b.bottom - CH - e);
+  };
+
+  let W = 0;
+  let H = 0;
+  let bands = [];
+  let cols = [];
+  let bandIdx = -1;
+  let x = -CW;
+  let y = 0;
+  let dir = 1;
+  let op = 0;
+  let still = false;
+  let lastOp = -1;
+  let gen = 0;
+  let timer = 0;
+  let raf = 0;
+  let live = false;
+  let heroSeen = true;
+  let pageSeen = true;
+  let ready = false;
+  let sweep = 0;
+  let yVer = 0;
+  const GAP = 0.6;
+
+  const paint = () => {
+    cat.style.transform =
+      'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scaleX(' + dir + ')';
+    if (op !== lastOp) {
+      lastOp = op;
+      cat.style.opacity = op.toFixed(3);
+    }
+  };
+
+  const setStill = (v) => {
+    if (v === still) return;
+    still = v;
+    cat.classList.toggle('is-still', v);
+  };
+
+  // ukur ulang pita aman (celah vertikal) + kolom silang (celah horizontal),
+  // lalu paksa kotak kucing tetap di dalam wilayah yang bebas teks
+  const scan = () => {
+    const hr = hero.getBoundingClientRect();
+    W = Math.round(hr.width);
+    H = Math.round(hr.height);
+    const rows = [];
+    for (let i = 0; i < ROWS.length; i++) {
+      const el = hero.querySelector(ROWS[i]);
+      if (!el) continue;
+      const r = el.getBoundingClientRect();
+      rows.push([r.left - hr.left, r.right - hr.left, r.top - hr.top, r.bottom - hr.top]);
+    }
+    bands = [];
+    let yEnd = 0;
+    const byY = rows.slice().sort((a, b) => a[2] - b[2]);
+    for (let i = 0; i < byY.length; i++) {
+      if (byY[i][2] - yEnd >= CH) bands.push({ top: yEnd, bottom: byY[i][2] });
+      yEnd = Math.max(yEnd, byY[i][3]);
+    }
+    if (H - yEnd >= CH) bands.push({ top: yEnd, bottom: H });
+    cols = [];
+    let xEnd = 0;
+    const byX = rows.slice().sort((a, b) => a[0] - b[0]);
+    for (let i = 0; i < byX.length; i++) {
+      if (byX[i][0] - xEnd - CW >= GAP * 2) cols.push({ x0: xEnd + GAP, x1: byX[i][0] - CW - GAP });
+      xEnd = Math.max(xEnd, byX[i][1]);
+    }
+    if (W - xEnd - CW >= GAP * 2) cols.push({ x0: xEnd + GAP, x1: W - CW - GAP });
+    let found = -1;
+    for (let i = 0; i < bands.length; i++) {
+      if (y >= bands[i].top - 0.5 && y + CH <= bands[i].bottom + 0.5) {
+        found = i;
+        break;
+      }
+    }
+    if (found < 0 && bands.length) {
+      let bd = Infinity;
+      for (let i = 0; i < bands.length; i++) {
+        const d = Math.min(Math.abs(y - bands[i].top), Math.abs(bands[i].bottom - (y + CH)));
+        if (d < bd) {
+          bd = d;
+          found = i;
+        }
+      }
+    }
+    bandIdx = found;
+    if (found >= 0) {
+      const ny = placeY(bands[found], y);
+      if (ny !== y) {
+        y = ny;
+        yVer++;
+        if (!raf && live) paint();
+      }
+    }
+    x = clamp(x, -CW - 60, W + 80);
+  };
+
+  const sleep = (ms) =>
+    new Promise((res) => {
+      const g = gen;
+      timer = setTimeout(() => {
+        timer = 0;
+        res(g === gen);
+      }, ms);
+    });
+
+  const move = (tx, ty, ms, opt) =>
+    new Promise((resolve) => {
+      const g = gen;
+      let sx = x;
+      let sy = y;
+      let seenY = yVer;
+      let sOp = op;
+      let t0 = -1;
+      let prev = -1;
+      const eOp = opt.op === undefined ? op : opt.op;
+      const arc = opt.arc || 0;
+      const free = !!opt.free;
+      const easeIn = opt.ease;
+      const frame = (now) => {
+        if (g !== gen) {
+          raf = 0;
+          resolve(false);
+          return;
+        }
+        if (t0 < 0 || (prev > 0 && now - prev > 400)) {
+          sx = x;
+          sy = y;
+          sOp = op;
+          t0 = now;
+          seenY = yVer;
+        } else if (seenY !== yVer) {
+          // pita diperbarui scan() di tengah animasi: ikuti posisi baru
+          // supaya koreksi geometri tidak dibuang oleh frame berikutnya.
+          seenY = yVer;
+          sy = y;
+        }
+        prev = now;
+        const p = ms <= 0 ? 1 : clamp((now - t0) / ms, 0, 1);
+        const e = easeIn ? easeIn(p) : p;
+        x = sx + (tx - sx) * e;
+        y = sy + (ty - sy) * e - arc * Math.sin(Math.PI * p);
+        y = clamp(y, 0, Math.max(0, H - CH));
+        if (!free) x = clamp(x, 0, Math.max(0, W - CW));
+        op = sOp + (eOp - sOp) * p;
+        paint();
+        if (p < 1) raf = requestAnimationFrame(frame);
+        else {
+          raf = 0;
+          resolve(true);
+        }
+      };
+      raf = requestAnimationFrame(frame);
+    });
+
+  const stopCat = () => {
+    if (!live) return;
+    live = false;
+    gen++;
+    if (sweep) {
+      clearInterval(sweep);
+      sweep = 0;
+    }
+    if (timer) {
+      clearTimeout(timer);
+      timer = 0;
+    }
+    if (raf) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    }
+    op = 0;
+    lastOp = -1;
+    setStill(true);
+    paint();
+  };
+
+  const run = async (g, fns) => {
+    for (let i = 0; i < fns.length; i++) {
+      if (g !== gen) return false;
+      const ok = await fns[i]();
+      if (ok === false || g !== gen) return false;
+    }
+    return true;
+  };
+
+  const cycle = async (g) => {
+    const alive = () => g === gen;
+    scan();
+    if (bandIdx < 0 || !bands.length) {
+      await sleep(1500);
+      return;
+    }
+    if (bands.length > 1) bandIdx = Math.floor(Math.random() * bands.length);
+    const band = bands[bandIdx];
+    dir = Math.random() < 0.5 ? -1 : 1;
+    y = placeY(band, band.top + (band.bottom - band.top - CH) * rand(0.3, 0.7));
+    x = dir > 0 ? -CW - rand(0, 30) : W + rand(0, 30);
+    op = 0;
+    lastOp = -1;
+    setStill(true);
+    paint();
+    let active = 0;
+    const narrow = W <= 1024;
+
+    const walk = async (ms, flip) => {
+      scan();
+      if (!alive()) return false;
+      if (flip) dir = -dir;
+      let avail = dir > 0 ? W - CW - x : x;
+      if (avail < 60) {
+        dir = -dir;
+        avail = dir > 0 ? W - CW - x : x;
+      }
+      const speed = rand(60, 110) * (narrow ? 0.65 : 1);
+      const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
+      active += ms;
+      setStill(false);
+      await move(x + dir * dist, y, ms, { ease });
+      return alive();
+    };
+
+    const pause = async (lo, hi) => {
+      setStill(true);
+      const ms = rand(lo, hi);
+      active += ms;
+      await sleep(ms);
+      return alive();
+    };
+
+    const hop = async () => {
+      scan();
+      if (!alive()) return false;
+      const b = bands[bandIdx];
+      if (!b) return false;
+      let avail = dir > 0 ? W - CW - x : x;
+      if (avail < 50) {
+        dir = -dir;
+        avail = dir > 0 ? W - CW - x : x;
+      }
+      const dist = Math.min(rand(45, 75) * (narrow ? 0.7 : 1), Math.max(0, avail));
+      const slack = Math.min(y - b.top, b.bottom - (y + CH));
+      const ms = rand(400, 550);
+      active += ms;
+      setStill(false);
+      await move(x + dir * dist, y, ms, { arc: clamp(slack - GAP, 0, 12), ease });
+      return alive();
+    };
+
+    const cross = async () => {
+      scan();
+      if (!alive()) return false;
+      if (!cols.length || bands.length < 2) return walk(rand(1600, 2600), false);
+      let ti = bandIdx;
+      for (let i = 0; i < 16 && ti === bandIdx; i++)
+        ti = Math.floor(Math.random() * bands.length);
+      if (ti === bandIdx) return walk(rand(1600, 2600), false);
+      let gx = x;
+      let gd = Infinity;
+      for (let i = 0; i < cols.length; i++) {
+        const g = clamp(x, cols[i].x0, cols[i].x1);
+        const d = Math.abs(g - x);
+        if (d < gd) {
+          gd = d;
+          gx = g;
+        }
+      }
+      const speed = rand(60, 110) * (narrow ? 0.65 : 1);
+      if (gd > speed * 1.6) return walk(rand(1600, 2600), false);
+      const shift = rand(550, 900);
+      const leg = gd < 2 ? 0 : (gd / speed) * 1000;
+      setStill(false);
+      if (leg) {
+        active += leg;
+        await move(gx, y, leg, { ease });
+        if (!alive()) return false;
+      }
+      const b = bands[ti];
+      const ty = placeY(b, b.top + (b.bottom - b.top - CH) * rand(0.3, 0.7));
+      active += shift;
+      await move(gx, ty, shift, { arc: rand(6, 14), ease });
+      if (!alive()) return false;
+      bandIdx = ti;
+      return true;
+    };
+
+    const leave = async () => {
+      scan();
+      if (!alive()) return false;
+      const ms = rand(1500, 2000);
+      const avail = dir > 0 ? W - x + 2 : x + 32;
+      const speed = rand(60, 110) * (narrow ? 0.65 : 1);
+      const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
+      active += ms;
+      setStill(false);
+      await move(x + dir * dist, y, ms, { op: 0, free: true, ease });
+      return alive();
+    };
+
+    const rest = async () => {
+      const target = rand(21500, 29000);
+      const ms = clamp(target - active, 5700, 6600);
+      op = 0;
+      lastOp = -1;
+      setStill(true);
+      paint();
+      await sleep(ms);
+      return alive();
+    };
+
+    await run(g, [
+      async () => {
+        setStill(false);
+        const ms = rand(1600, 2200);
+        active += ms;
+        const tx =
+          dir > 0
+            ? clamp(rand(60, 160), 0, W - CW)
+            : clamp(W - CW - rand(60, 160), 0, W - CW);
+        await move(tx, y, ms, { op: TOP, free: true, ease });
+        return alive();
+      },
+      () => walk(rand(1600, 2600), false),
+      () => pause(700, 1400),
+      () => hop(),
+      () => walk(rand(1600, 2600), true),
+      () => pause(700, 1400),
+      () => cross(),
+      () => walk(rand(1600, 2600), false),
+      () => pause(700, 1400),
+      () => hop(),
+      () => pause(700, 1400),
+      () => pause(1500, 2400),
+      () => leave(),
+      () => rest(),
+    ]);
+  };
+
+  const loop = async () => {
+    const g = gen;
+    while (g === gen) {
+      await cycle(g);
+      if (g !== gen) return;
+    }
+  };
+
+  const startCat = () => {
+    if (live) return;
+    if (!ready) return;
+    if (!fine.matches || calm.matches || !roomy.matches || !heroSeen || !pageSeen) return;
+    live = true;
+    gen++;
+    sweep = setInterval(() => {
+      if (live) scan();
+    }, 1000);
+    loop();
+  };
+
+  const sync = () => {
+    if (fine.matches && !calm.matches && roomy.matches && heroSeen && pageSeen) startCat();
+    else stopCat();
+  };
+
+  // Baru boleh jalan setelah font web selesai dipasang: geometri baris teks
+  // berubah saat font ter-swap, dan pita yang dihitung sebelumnya bisa kedaluwarsa.
+  const becomeReady = () => {
+    if (ready) return;
+    ready = true;
+    scan();
+    sync();
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        heroSeen = entries[0].isIntersecting;
+        sync();
+      },
+      { threshold: 0 },
+    );
+    io.observe(hero);
+  }
+  document.addEventListener('visibilitychange', () => {
+    pageSeen = !document.hidden;
+    sync();
+  });
+  if (fine.addEventListener) {
+    fine.addEventListener('change', sync);
+    calm.addEventListener('change', sync);
+    roomy.addEventListener('change', sync);
+  }
+  let resizeTick = 0;
+  window.addEventListener(
+    'resize',
+    () => {
+      if (resizeTick) return;
+      resizeTick = requestAnimationFrame(() => {
+        resizeTick = 0;
+        if (live) scan();
+      });
+    },
+    { passive: true },
+  );
+  // Kucing baru boleh jalan setelah geometri baris teks benar-benar diam:
+  // stylesheet/font yang telat membuat baris bergeser setelah pita dihitung,
+  // dan kucing bisa menyentuh teks memakai pita lama.
+  const bootAt = Date.now();
+  let loadAt = 0;
+  let lastGeo = '';
+  let stable = 0;
+  const markLoad = () => {
+    if (!loadAt) loadAt = Date.now();
+  };
+  const geoSig = () => {
+    const hr = hero.getBoundingClientRect();
+    let s = hr.width.toFixed(1) + 'x' + hr.height.toFixed(1);
+    for (let i = 0; i < ROWS.length; i++) {
+      const el = hero.querySelector(ROWS[i]);
+      if (!el) {
+        s += ';-';
+        continue;
+      }
+      const r = el.getBoundingClientRect();
+      s += ';' + r.top.toFixed(2) + ',' + r.bottom.toFixed(2) + ',' + r.left.toFixed(2);
+    }
+    return s;
+  };
+  const settleTick = () => {
+    if (ready) return;
+    if (document.readyState === 'complete') markLoad();
+    const waited = loadAt ? Date.now() - loadAt : 0;
+    const sig = geoSig();
+    if (sig !== lastGeo) {
+      stable = 0;
+      lastGeo = sig;
+    } else if (loadAt && waited > 400) {
+      stable++;
+    }
+    const timedOut = (loadAt && waited > 5000) || Date.now() - bootAt > 9000;
+    if ((loadAt && stable >= 4) || timedOut) {
+      becomeReady();
+      return;
+    }
+    setTimeout(settleTick, 150);
+  };
+  if (document.readyState === 'complete') markLoad();
+  else window.addEventListener('load', markLoad, { once: true });
+  settleTick();
+  sync();
+};
+
+initCat();

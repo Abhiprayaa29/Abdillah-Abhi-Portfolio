@@ -1550,6 +1550,9 @@ html.theme-anim * {
   .hero-glow {
     transform: none !important;
   }
+  .hero-cat {
+    display: none !important;
+  }
 }
 
 /* Latar ambient — atmosfer visual saja, bukan elemen konten */
@@ -1639,7 +1642,48 @@ html.theme-anim * {
 }
 
 @media (hover: none), (pointer: coarse) {
-  .hero-glow {
+  .hero-glow,
+  .hero-cat {
+    display: none;
+  }
+}
+
+/* Kucing garis — satu-satunya mikro-interaksi hero, selalu di luar kotak teks */
+.hero-cat {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 30px;
+  height: 24px;
+  color: var(--text-2);
+  opacity: 0;
+  z-index: -1;
+  pointer-events: none;
+  transform: translate3d(-40px, 0, 0);
+}
+
+.hero-cat-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: cat-bob 0.42s ease-in-out infinite alternate;
+}
+
+.hero-cat.is-still .hero-cat-art {
+  animation-play-state: paused;
+}
+
+@keyframes cat-bob {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -1.4px, 0);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-cat {
     display: none;
   }
 }
@@ -1689,6 +1733,7 @@ html.theme-anim * {
   .hero::before,
   .hero::after,
   .hero-glow,
+  .hero-cat,
   .section-pad::before,
   #contact::after {
     display: none !important;
