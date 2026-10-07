@@ -30,6 +30,14 @@
   --amb-hi: 0.07;
   --amb-lo: 0.045;
   --amb-dot: rgba(29, 29, 31, 0.07);
+  /* Depth & parallax — nilai scroll diisi initDepth(), default nol */
+  --p-dots: 0px;
+  --p-glow: 0px;
+  --p-cloud: 0px;
+  --p-cat: 0px;
+  --p-content: 0px;
+  --k-scroll: 1;
+  --shadow-lift: 0 18px 44px rgba(0, 0, 0, 0.1);
   --font:
     'SF Pro Display', 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'Helvetica Neue',
     Arial, sans-serif;
@@ -57,6 +65,7 @@
   --amb-hi: 0.16;
   --amb-lo: 0.1;
   --amb-dot: rgba(245, 245, 247, 0.07);
+  --shadow-lift: 0 18px 44px rgba(0, 0, 0, 0.5);
 }
 * {
   box-sizing: border-box;
@@ -671,11 +680,13 @@ html.menu-open {
   cursor: pointer;
   transition:
     transform 0.25s,
-    box-shadow 0.25s;
+    box-shadow 0.25s,
+    border-color 0.25s;
 }
-.project-row:hover {
-  transform: scale(1.01);
-  box-shadow: var(--shadow-soft);
+.project-list > .project-row:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--line-strong);
 }
 .row-media {
   margin: 0 auto 20px;
@@ -691,6 +702,10 @@ html.menu-open {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transition: transform 0.35s;
+}
+.project-row:hover .row-media img {
+  transform: scale(1.015);
 }
 .row-top {
   display: flex;
@@ -1372,6 +1387,21 @@ button:focus-visible {
   opacity: 1;
   transform: none;
 }
+.project-list > .reveal:not(.in) {
+  transform: translateY(16px) scale(0.99);
+}
+.project-list > .reveal:nth-child(2) {
+  transition-delay: 70ms;
+}
+.project-list > .reveal:nth-child(3) {
+  transition-delay: 140ms;
+}
+.project-list > .reveal:nth-child(4) {
+  transition-delay: 170ms;
+}
+.project-list > .reveal:nth-child(5) {
+  transition-delay: 200ms;
+}
 html.theme-anim * {
   transition:
     background-color 0.25s ease,
@@ -1548,8 +1578,11 @@ html.theme-anim * {
     opacity: 1;
     transform: none;
   }
-  .project-row:hover,
+  .project-list > .project-row:hover,
   .featured:hover {
+    transform: none;
+  }
+  .project-row:hover .row-media img {
     transform: none;
   }
   .button-solid:hover {
@@ -1562,6 +1595,22 @@ html.theme-anim * {
   }
   .hero-glow {
     transform: none !important;
+  }
+  .hero .container,
+  .cloud-layer,
+  .cloud-track,
+  .section-pad::after {
+    transform: none !important;
+  }
+  .cloud-track,
+  .section-pad::after {
+    animation: none !important;
+  }
+  .hero::before,
+  .section-pad::before,
+  .hero::after,
+  #contact::after {
+    translate: none !important;
   }
   .hero-cat {
     display: none !important;
@@ -1589,6 +1638,7 @@ html.theme-anim * {
   pointer-events: none;
   background-image: radial-gradient(circle at 1px 1px, var(--amb-dot) 1.1px, transparent 1.6px);
   background-size: 26px 26px;
+  translate: 0 var(--p-dots, 0px);
 }
 
 .hero::after,
@@ -1610,6 +1660,7 @@ html.theme-anim * {
   height: 720px;
   top: -140px;
   left: -120px;
+  translate: 0 var(--p-glow, 0px);
 }
 
 #contact::after {
@@ -1618,6 +1669,7 @@ html.theme-anim * {
   right: -40px;
   bottom: -60px;
   animation-duration: 32s;
+  translate: 0 var(--p-glow, 0px);
 }
 
 .hero-glow {
@@ -1633,7 +1685,7 @@ html.theme-anim * {
     rgba(var(--amb-glow), var(--amb-lo)),
     transparent 74%
   );
-  transform: translate3d(var(--amb-x, 0px), var(--amb-y, 0px), 0);
+  transform: translate3d(var(--amb-x, 0px), calc(var(--amb-y, 0px) + var(--p-glow, 0px)), 0);
 }
 
 @keyframes amb-drift {
@@ -1642,6 +1694,165 @@ html.theme-anim * {
   }
   to {
     transform: translate3d(16px, 10px, 0);
+  }
+}
+
+/* Kedalaman hero — hanya transform/opacity, tanpa mengubah tata letak */
+.hero .container {
+  transform: translate3d(0, calc(var(--p-content, 0px) * var(--k-scroll)), 0);
+}
+
+/* Entrance hero: headline → paragraf → CTA → catatan, tanpa pantulan */
+.hero .reveal {
+  transform: translateY(14px);
+}
+.hero .reveal.in {
+  transform: none;
+}
+.hero .container > :nth-child(1) {
+  transition-delay: 0ms;
+}
+.hero .container > :nth-child(2) {
+  transition-delay: 100ms;
+}
+.hero .container > :nth-child(3) {
+  transition-delay: 180ms;
+}
+.hero .container > :nth-child(4) {
+  transition-delay: 260ms;
+}
+
+/* Pixel clouds — tiga tingkat kedalaman: jauh kecil/pucat/lambat, dekat besar/tepat/cerah */
+.hero-clouds {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  color: var(--text-2);
+}
+.cloud-layer {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(
+    calc(var(--amb-x, 0px) * 0.2 * var(--k-scroll)),
+    calc(
+      var(--amb-y, 0px) * 0.2 * var(--k-scroll) + var(--p-cloud, 0px) * var(--sk, 1) *
+        var(--k-scroll)
+    ),
+    0
+  );
+}
+.cloud-far {
+  opacity: 0.25;
+}
+.cloud-mid {
+  opacity: 0.35;
+}
+.cloud-near {
+  opacity: 0.45;
+}
+.cloud-track {
+  position: absolute;
+  left: var(--c-left, 30%);
+  top: var(--c-top, 12%);
+  animation: cloud-drift var(--c-dur, 30s) linear infinite;
+}
+.cloud-track canvas {
+  display: block;
+  height: auto;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.cloud-far canvas {
+  width: 64px;
+}
+.cloud-mid canvas {
+  width: 96px;
+}
+.cloud-near canvas {
+  width: 128px;
+}
+@keyframes cloud-drift {
+  from {
+    transform: translate3d(100vw, 0, 0);
+  }
+  to {
+    transform: translate3d(-100vw, 0, 0);
+  }
+}
+
+/* Kedalaman seksi — satu glow radial tipis per seksi, posisi berbeda-beda */
+.section-pad {
+  overflow: hidden;
+}
+.section-pad:not(#contact)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle 480px at var(--seg-x, 84%) var(--seg-y, 16%),
+    rgba(var(--amb-glow), var(--seg-a, 0.05)),
+    transparent 72%
+  );
+  animation: seg-drift 36s ease-in-out infinite alternate;
+}
+@keyframes seg-drift {
+  from {
+    transform: translate3d(-10px, -6px, 0);
+  }
+  to {
+    transform: translate3d(12px, 8px, 0);
+  }
+}
+#projects {
+  --seg-x: 84%;
+  --seg-y: 14%;
+  --seg-a: 0.055;
+}
+#about {
+  --seg-x: 14%;
+  --seg-y: 64%;
+  --seg-a: 0.05;
+}
+#experience {
+  --seg-x: 86%;
+  --seg-y: 72%;
+  --seg-a: 0.055;
+}
+#skills {
+  --seg-x: 12%;
+  --seg-y: 16%;
+  --seg-a: 0.05;
+}
+#certificates {
+  --seg-x: 84%;
+  --seg-y: 58%;
+  --seg-a: 0.055;
+}
+#repositories {
+  --seg-x: 16%;
+  --seg-y: 82%;
+  --seg-a: 0.05;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --k-scroll: 0.7;
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --k-scroll: 0.5;
+  }
+  .cloud-far,
+  .cloud-near .cloud-track:last-child {
+    display: none;
+  }
+  .cloud-track {
+    animation-duration: calc(var(--c-dur, 30s) * 1.4);
   }
 }
 
@@ -1736,7 +1947,9 @@ html.theme-anim * {
   .hero::after,
   .hero-glow,
   .hero-cat,
+  .hero-clouds,
   .section-pad::before,
+  .section-pad::after,
   #contact::after {
     display: none !important;
   }

@@ -276,7 +276,9 @@ window.addEventListener('resize', spyScroll);
 spyScroll();
 
 if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const blocks = [...document.querySelectorAll('.hero .container > *, section .container > *')];
+  const blocks = [
+    ...document.querySelectorAll('.hero .container > *, section .container > *, .project-list > *'),
+  ];
   blocks.forEach((el) => el.classList.add('reveal'));
   const io = new IntersectionObserver(
     (entries) => {
@@ -704,6 +706,7 @@ else window.addEventListener('load', startTracking, { once: true });
 
 const initAmbient = () => {
   const el = document.querySelector('.hero-glow');
+  const hero = document.querySelector('.hero');
   if (!el || !window.matchMedia) return;
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -712,8 +715,14 @@ const initAmbient = () => {
   let queued = false;
   const paint = () => {
     queued = false;
-    el.style.setProperty('--amb-x', x.toFixed(1) + 'px');
-    el.style.setProperty('--amb-y', y.toFixed(1) + 'px');
+    const vx = x.toFixed(1) + 'px';
+    const vy = y.toFixed(1) + 'px';
+    el.style.setProperty('--amb-x', vx);
+    el.style.setProperty('--amb-y', vy);
+    if (hero) {
+      hero.style.setProperty('--amb-x', vx);
+      hero.style.setProperty('--amb-y', vy);
+    }
   };
   window.addEventListener(
     'pointermove',
@@ -730,6 +739,102 @@ const initAmbient = () => {
 };
 
 initAmbient();
+
+const CLOUD_MAPS = [
+  [
+    '................',
+    '.....####.......',
+    '...########.....',
+    '.##############.',
+    '################',
+    '################',
+    '................',
+  ],
+  [
+    '................',
+    '....####........',
+    '..########......',
+    '.#############..',
+    '################',
+    '.##############.',
+    '................',
+  ],
+  [
+    '................',
+    '......####......',
+    '....########....',
+    '..############..',
+    '.##############.',
+    '..############..',
+    '................',
+  ],
+];
+
+const initClouds = () => {
+  const wrap = document.querySelector('.hero-clouds');
+  if (!wrap || !wrap.querySelectorAll) return;
+  const arts = [...wrap.querySelectorAll('canvas')];
+  if (!arts.length || !arts[0].getContext) return;
+  const paint = () => {
+    for (let i = 0; i < arts.length; i++) {
+      const c = arts[i];
+      const g = c.getContext('2d');
+      if (!g) continue;
+      const map = CLOUD_MAPS[i % CLOUD_MAPS.length];
+      g.clearRect(0, 0, c.width, c.height);
+      g.fillStyle = getComputedStyle(c).color || '#888888';
+      for (let yy = 0; yy < map.length && yy < c.height; yy++) {
+        for (let xx = 0; xx < map[yy].length && xx < c.width; xx++) {
+          if (map[yy][xx] === '#') g.fillRect(xx, yy, 1, 1);
+        }
+      }
+    }
+  };
+  paint();
+  if (window.MutationObserver) {
+    const mo = new MutationObserver(() => {
+      const t0 = performance.now();
+      const tick = () => {
+        paint();
+        if (performance.now() - t0 < 1000) requestAnimationFrame(tick);
+      };
+      tick();
+    });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+};
+
+initClouds();
+
+// Parallax scroll sekali jalan per frame — semua layer membaca variabel CSS yang sama,
+// jadi tidak ada loop tambahan dan penulisan gaya tetap nol untuk kucing.
+const initDepth = () => {
+  if (!window.matchMedia) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const root = document.documentElement;
+  let queued = false;
+  const apply = () => {
+    queued = false;
+    const t = Math.min(1, (window.scrollY || 0) / Math.max(1, window.innerHeight * 1.1));
+    root.style.setProperty('--p-dots', (-2 * t).toFixed(2) + 'px');
+    root.style.setProperty('--p-glow', (-6 * t).toFixed(2) + 'px');
+    root.style.setProperty('--p-cloud', (-15 * t).toFixed(2) + 'px');
+    root.style.setProperty('--p-cat', (10 * t).toFixed(2) + 'px');
+    root.style.setProperty('--p-content', (3 * t).toFixed(2) + 'px');
+  };
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(apply);
+    },
+    { passive: true },
+  );
+  apply();
+};
+
+initDepth();
 
 const initCat = () => {
   const cat = document.querySelector('.hero-cat');
@@ -1040,7 +1145,13 @@ const initCat = () => {
 
   const paint = () => {
     cat.style.transform =
-      'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scaleX(' + dir + ')';
+      'translate3d(calc(' +
+      x.toFixed(1) +
+      'px + var(--amb-x, 0px) * 0.42), calc(' +
+      y.toFixed(1) +
+      'px + var(--p-cat, 0px) * var(--k-scroll, 1)), 0) scaleX(' +
+      dir +
+      ')';
     if (op !== lastOp) {
       lastOp = op;
       cat.style.opacity = op.toFixed(3);
@@ -1078,11 +1189,11 @@ const initCat = () => {
     // Kucing hanya berjalan di dalam kolom kontainer (grid), bukan margin luar
     const box = hero.querySelector('.container');
     if (box && box.offsetWidth > CW) {
-      minX = box.offsetLeft;
-      maxX = Math.max(minX, box.offsetLeft + box.offsetWidth - CW);
+      minX = box.offsetLeft + 6;
+      maxX = Math.max(minX, box.offsetLeft + box.offsetWidth - CW - 6);
     } else {
-      minX = 0;
-      maxX = Math.max(0, W - CW);
+      minX = 6;
+      maxX = Math.max(minX, W - CW - 6);
     }
     x = clamp(x, minX, maxX);
     if (!raf && live) paint();
