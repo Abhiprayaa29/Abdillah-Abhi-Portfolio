@@ -737,9 +737,7 @@ const initCat = () => {
   if (!cat || !hero || !window.matchMedia) return;
   const art = cat.querySelector('canvas');
   if (!art || !art.getContext) return;
-  const fine = matchMedia('(hover: hover) and (pointer: fine)');
   const calm = matchMedia('(prefers-reduced-motion: reduce)');
-  const roomy = matchMedia('(min-width: 601px)');
   const rand = (a, b) => a + Math.random() * (b - a);
   const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
   const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
@@ -1014,6 +1012,8 @@ const initCat = () => {
   let H = 0;
   let CW = 48;
   let CH = 48;
+  let minX = 0;
+  let maxX = 0;
   let laneY = -1;
   let x = 0;
   let y = 0;
@@ -1066,15 +1066,25 @@ const initCat = () => {
       const r = el.getBoundingClientRect();
       contentBottom = Math.max(contentBottom, r.bottom - hr.top);
     }
-    const floor = Math.min(30, Math.max(12, H * 0.045));
-    const limit = clamp(H - CH - floor, 0, Math.max(0, H - CH));
-    const ny = Math.min(limit, Math.max(contentBottom + 14, 0));
+    // Selalu sediakan ruang ≥16px di bawah blok teks: busur lompatan (arc ≤12px)
+    // tidak boleh pernah masuk kotak teks, dan kucing tetap di dalam kotak hero.
+    const raw = Math.min(Math.max(contentBottom + 16, 0), Math.max(0, H - CH));
+    const ny = clamp(Math.round(raw / 4) * 4, 0, Math.max(0, H - CH));
     if (ny !== laneY) {
       laneY = ny;
       y = ny;
       yVer++;
     }
-    x = clamp(x, 0, Math.max(0, W - CW));
+    // Kucing hanya berjalan di dalam kolom kontainer (grid), bukan margin luar
+    const box = hero.querySelector('.container');
+    if (box && box.offsetWidth > CW) {
+      minX = box.offsetLeft;
+      maxX = Math.max(minX, box.offsetLeft + box.offsetWidth - CW);
+    } else {
+      minX = 0;
+      maxX = Math.max(0, W - CW);
+    }
+    x = clamp(x, minX, maxX);
     if (!raf && live) paint();
   };
 
@@ -1121,7 +1131,7 @@ const initCat = () => {
         const e = ease(p);
         x = sx + (tx - sx) * e;
         y = sy + (ty - sy) * e - arc * Math.sin(Math.PI * p);
-        x = clamp(x, 0, Math.max(0, W - CW));
+        x = clamp(x, minX, maxX);
         y = clamp(y, 0, Math.max(0, H - CH));
         op = sOp + (eOp - sOp) * p;
         if (wf) draw(WALK_F[Math.floor((now - t0) / wf) % 4], false);
@@ -1201,15 +1211,15 @@ const initCat = () => {
     const walk = async (ms) => {
       scan();
       if (!alive()) return false;
-      let avail = dir > 0 ? W - CW - x : x;
+      let avail = dir > 0 ? maxX - x : x;
       if (avail < 50) {
         dir = -dir;
-        avail = dir > 0 ? W - CW - x : x;
+        avail = dir > 0 ? maxX - x : x;
       }
       const speed = rand(34, 52) * (W <= 1024 ? 0.72 : 1);
       const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
       setState('walk');
-      const ok = await move(clamp(x + dir * dist, 0, Math.max(0, W - CW)), laneY, ms, {
+      const ok = await move(clamp(x + dir * dist, minX, maxX), laneY, ms, {
         walk: rand(115, 150),
       });
       return ok && alive();
@@ -1218,14 +1228,14 @@ const initCat = () => {
     const hop = async () => {
       scan();
       if (!alive()) return false;
-      let avail = dir > 0 ? W - CW - x : x;
+      let avail = dir > 0 ? maxX - x : x;
       if (avail < 40) {
         dir = -dir;
-        avail = dir > 0 ? W - CW - x : x;
+        avail = dir > 0 ? maxX - x : x;
       }
       const dist = Math.min(rand(28, 58), Math.max(0, avail));
       setState('jump');
-      const ok = await move(clamp(x + dir * dist, 0, Math.max(0, W - CW)), laneY, rand(430, 560), {
+      const ok = await move(clamp(x + dir * dist, minX, maxX), laneY, rand(430, 560), {
         arc: rand(7, 12),
         jumpFrames: rand(160, 210),
       });
@@ -1254,17 +1264,13 @@ const initCat = () => {
       const span = Math.max(20, Math.min(W * 0.14, 220));
       x =
         dir > 0
-          ? clamp(rand(8, span), 0, Math.max(0, W - CW))
-          : clamp(
-              rand(Math.max(8, W - CW - span), Math.max(9, W - CW - 8)),
-              0,
-              Math.max(0, W - CW),
-            );
+          ? clamp(rand(minX + 8, minX + span), minX, maxX)
+          : clamp(rand(Math.max(minX + 8, maxX - span), Math.max(minX + 9, maxX - 8)), minX, maxX);
       y = laneY;
       op = 0;
       lastOp = -1;
       paint();
-      const tx = clamp(x + dir * rand(50, 110), 0, Math.max(0, W - CW));
+      const tx = clamp(x + dir * rand(50, 110), minX, maxX);
       const ok = await move(tx, laneY, rand(550, 750), { op: OP });
       return ok && alive();
     };
@@ -1272,7 +1278,7 @@ const initCat = () => {
     const leave = async () => {
       if (!alive()) return false;
       setState('idle');
-      const tx = clamp(x + dir * rand(50, 110), 0, Math.max(0, W - CW));
+      const tx = clamp(x + dir * rand(50, 110), minX, maxX);
       await move(tx, laneY, rand(600, 800), { op: 0, walk: rand(130, 170) });
       op = 0;
       lastOp = -1;
@@ -1320,7 +1326,7 @@ const initCat = () => {
   const startCat = () => {
     if (live) return;
     if (!ready) return;
-    if (!fine.matches || calm.matches || !roomy.matches || !heroSeen || !pageSeen) return;
+    if (calm.matches || !heroSeen || !pageSeen) return;
     live = true;
     gen++;
     sweep = setInterval(() => {
@@ -1330,7 +1336,7 @@ const initCat = () => {
   };
 
   const sync = () => {
-    if (fine.matches && !calm.matches && roomy.matches && heroSeen && pageSeen) startCat();
+    if (!calm.matches && heroSeen && pageSeen) startCat();
     else stopCat();
   };
 
@@ -1357,10 +1363,8 @@ const initCat = () => {
     pageSeen = !document.hidden;
     sync();
   });
-  if (fine.addEventListener) {
-    fine.addEventListener('change', sync);
+  if (calm.addEventListener) {
     calm.addEventListener('change', sync);
-    roomy.addEventListener('change', sync);
   }
   let resizeTick = 0;
   window.addEventListener(
