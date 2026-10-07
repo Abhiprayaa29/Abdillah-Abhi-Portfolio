@@ -1260,37 +1260,38 @@ const initCat = () => {
       if (!alive()) return false;
       setState('idle');
       draw('idle', false);
-      dir = Math.random() < 0.5 ? -1 : 1;
-      const span = Math.max(20, Math.min(W * 0.14, 220));
-      x =
-        dir > 0
-          ? clamp(rand(minX + 8, minX + span), minX, maxX)
-          : clamp(rand(Math.max(minX + 8, maxX - span), Math.max(minX + 9, maxX - 8)), minX, maxX);
-      y = laneY;
-      op = 0;
-      lastOp = -1;
-      paint();
-      const tx = clamp(x + dir * rand(50, 110), minX, maxX);
-      const ok = await move(tx, laneY, rand(550, 750), { op: OP });
-      return ok && alive();
+      if (op < OP) {
+        dir = Math.random() < 0.5 ? -1 : 1;
+        const span = Math.max(20, Math.min(W * 0.14, 220));
+        x =
+          dir > 0
+            ? clamp(rand(minX + 8, minX + span), minX, maxX)
+            : clamp(
+                rand(Math.max(minX + 8, maxX - span), Math.max(minX + 9, maxX - 8)),
+                minX,
+                maxX,
+              );
+        y = laneY;
+        op = 0;
+        lastOp = -1;
+        paint();
+        const tx = clamp(x + dir * rand(50, 110), minX, maxX);
+        return (await move(tx, laneY, rand(550, 750), { op: OP })) && alive();
+      }
+      return alive();
     };
 
     const leave = async () => {
       if (!alive()) return false;
       setState('idle');
       const tx = clamp(x + dir * rand(50, 110), minX, maxX);
-      await move(tx, laneY, rand(600, 800), { op: 0, walk: rand(130, 170) });
-      op = 0;
-      lastOp = -1;
-      paint();
+      await move(tx, laneY, rand(600, 800), { walk: rand(130, 170) });
       return alive();
     };
 
     const rest = async () => {
       setState('rest');
-      op = 0;
-      lastOp = -1;
-      paint();
+      draw(SIT_F[0], false);
       return await sleep(rand(3200, 6200));
     };
 
