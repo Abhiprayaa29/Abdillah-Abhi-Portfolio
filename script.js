@@ -10,15 +10,15 @@ const data = {
     contribution:
       'Repository memisahkan state bersama dari UI: engine draft di sisi server memiliki transisi state, sementara antarmuka mengonsumsi state otoritatif melalui Socket.IO.',
     challenge:
-      'Menyinkronkan draft, timer, dan skor antara panel operator dan beberapa Browser Source OBS secara real-time tanpa reload — state dipegang penuh oleh server, ditulis atomik (file .tmp lalu rename) dengan autosave dan retensi backup, sehingga state pertandingan pulih persis setelah crash atau restart.',
+      'Menyinkronkan draft, timer, dan skor antara panel operator dan beberapa Browser Source OBS secara real-time tanpa reload — state dipegang penuh oleh server, ditulis atomik (file .tmp lalu rename) dengan autosave dan retensi backup, sehingga state pertandingan pulih persis setelah crash atau restart. Sumber data eksternal (GRID, OCR OBS, ScoreSight) dijaga terisolasi dari draft engine, dengan kredensial yang hanya hidup di server.',
     features: [
-      'Engine draft dengan urutan aksi pick/ban, pencegahan duplikat, undo, lock, reset, dan preset.',
-      'Countdown otoritatif di server yang disinkronkan antar klien operator dan overlay.',
-      'Route draft dan scoreboard transparan untuk OBS Browser Source.',
-      'State pertandingan persisten, backup, konfigurasi tema, serta perlindungan operator-token opsional.',
+      'Engine draft dengan urutan aksi pick/ban, pencegahan duplikat, undo, lock, reset, dan preset turnamen.',
+      'Tiga overlay OBS transparan — draft, scoreboard, dan Sponsor Edition — dengan timer pertandingan dan branding turnamen.',
+      'Editor tema scoreboard (preset, preview live 16:9) serta integrasi GRID monitor/semi/auto, OCR OBS, dan ScoreSight yang seluruhnya dikonfigurasi dari server.',
+      'State pertandingan persisten dengan autosave dan retensi backup, serta perlindungan operator-token opsional.',
     ],
     result:
-      'Dirancang sebagai sumber siaran OBS: control panel di PC operator, overlay draft + scoreboard transparan (1920×1080, aman juga di 1280×720 tanpa scrollbar) di PC siaran lewat LAN. Pengujian otomatis: 131 asersi backend dan 115 asersi E2E lulus; dataset 133 hero tervalidasi 0 error. Status: fixture teruji, koneksi grid live belum terverifikasi.',
+      'Dirancang sebagai sumber siaran OBS: control panel di PC operator, tiga overlay transparan (draft, scoreboard, dan Sponsor Edition; 1920×1080, aman juga di 1280×720 tanpa scrollbar) di PC siaran lewat LAN. Pengujian otomatis: 166 asersi backend dan 121 asersi E2E lulus; dataset 133 hero tervalidasi 0 error. Status: fixture teruji, koneksi grid live belum terverifikasi.',
     engineering:
       'Engine draft dijaga tetap terpisah dari UI berupa fungsi transisi state; server memiliki state bersama dan menyiarkan perubahan ke klien.',
     github: 'https://github.com/Abhiprayaa29/mlbb-draft-studio',
@@ -35,19 +35,25 @@ const data = {
       },
       {
         src: './assets/projects/mlbb/control-panel-grid.webp',
-        alt: 'Tab GRID panel operator: sumber data GRID live dengan fixture draft.json pada fase ban',
+        alt: 'Tab GRID panel operator: pilihan sumber data (manual, GRID live, fixture, ScoreSight files) saat fase ban dengan fixture tersambung',
+        iw: 1600,
+        ih: 1000,
+      },
+      {
+        src: './assets/projects/mlbb/control-panel-tema.webp',
+        alt: 'Tab Tema panel editor: tema scoreboard dengan preset tersimpan dan preview live 16:9 di samping draft berjalan',
         iw: 1600,
         ih: 1000,
       },
       {
         src: './assets/projects/mlbb/overlay-draft.webp',
-        alt: 'Overlay draft broadcast 1920x1080: slot pick kedua tim, timer, dan branding turnamen',
+        alt: 'Overlay draft broadcast 1920x1080: slot pick kedua tim, panel fase pick, dan branding turnamen',
         iw: 1600,
         ih: 900,
       },
       {
         src: './assets/projects/mlbb/overlay-score.webp',
-        alt: 'Overlay scoreboard 1920x1080: skor tim, kill, gold, turret, lord, dan turtle saat menunggu data pertandingan',
+        alt: 'Overlay scoreboard 1920x1080 bertema emas-biru: skor, kill, gold, turret, lord, lineup hero, dan sponsor saat menunggu data pertandingan',
         iw: 1600,
         ih: 900,
       },
@@ -411,8 +417,8 @@ const featuredSlides = [
     key: 'mlbb',
     text: 'Panel operator dan overlay OBS transparan (1920×1080) yang dirancang sebagai sumber siaran turnamen lewat LAN — draft, timer, dan skor tersinkron real-time tanpa reload.',
     metrics: [
-      ['131', 'asersi backend lulus'],
-      ['115', 'asersi E2E lulus'],
+      ['166', 'asersi backend lulus'],
+      ['121', 'asersi E2E lulus'],
       ['133', 'hero tervalidasi 0 error'],
     ],
   },
