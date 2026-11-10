@@ -1,812 +1,665 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Abhipraya — Designer × Coder &amp; Digital Garden</title>
-    <meta
-      name="description"
-      content="Personal portfolio &amp; technical digital garden of Abdillah Abhipraya Abrar. Designing thoughtful interfaces and engineering secure, full-stack software systems."
-    />
-    <meta name="theme-color" content="#080D18" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abhipraya — Designer × Coder & Digital Garden</title>
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="Personal portfolio and digital garden of Abdillah Abhipraya Abrar. Product designer and software developer exploring the space between visual design and software engineering." />
     <meta name="author" content="Abdillah Abhipraya Abrar" />
-    <meta name="robots" content="index,follow" />
+    <meta name="keywords" content="Abdillah Abhipraya Abrar, Abhipraya, Designer, Coder, Portfolio, Digital Garden, UI/UX, Software Engineer, Full-Stack, Cryptography, UPN Veteran Yogyakarta" />
     <link rel="canonical" href="https://abhipraya29.my.id/" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Abhipraya" />
-    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://abhipraya29.my.id/" />
-    <meta property="og:title" content="Abhipraya — Designer × Coder &amp; Digital Garden" />
-    <meta
-      property="og:description"
-      content="Designing thoughtful digital experiences and engineering robust software systems. Informatics Engineering at UPN “Veteran” Yogyakarta."
-    />
+    <meta property="og:title" content="Abhipraya — Designer × Coder & Digital Garden" />
+    <meta property="og:description" content="One mind. Two disciplines. Product designer and software developer exploring interface craft, system architecture, and technical writing." />
     <meta property="og:image" content="https://abhipraya29.my.id/og.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Abhipraya — Designer × Coder &amp; Digital Garden" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Abhipraya — Designer × Coder &amp; Digital Garden" />
-    <meta
-      name="twitter:description"
-      content="Designing thoughtful digital experiences and engineering robust software systems."
-    />
+    <meta name="twitter:title" content="Abhipraya — Designer × Coder & Digital Garden" />
+    <meta name="twitter:description" content="One mind. Two disciplines. Product designer and software developer exploring interface craft, system architecture, and technical writing." />
     <meta name="twitter:image" content="https://abhipraya29.my.id/og.png" />
+
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+    <!-- Typography (Plus Jakarta Sans & Inter & JetBrains Mono) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
+
+    <!-- Core Stylesheet with Version Cache-Buster -->
+    <link rel="stylesheet" href="./styles.css?v=20261111-v1" />
+
+    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Abdillah Abhipraya Abrar",
         "url": "https://abhipraya29.my.id/",
-        "image": "https://abhipraya29.my.id/assets/foto-abhi.jpeg",
-        "jobTitle": "Designer & Coder",
-        "description": "Designer & Coder: Thoughtful UI/UX design, full-stack web engineering, and application security.",
-        "email": "mailto:abdillahabhi12@gmail.com",
-        "sameAs": ["https://github.com/Abhiprayaa29"],
-        "affiliation": { "@type": "CollegeOrUniversity", "name": "UPN “Veteran” Yogyakarta" },
-        "knowsAbout": ["UI/UX Design", "Full-Stack Development", "FastAPI", "React", "Cybersecurity", "WebGIS", "System Architecture"]
+        "sameAs": [
+          "https://github.com/Abhiprayaa29",
+          "https://linkedin.com/in/abdillah-abhi"
+        ],
+        "jobTitle": "Product Designer & Software Engineer",
+        "worksFor": {
+          "@type": "EducationalOrganization",
+          "name": "UPN Veteran Yogyakarta"
+        },
+        "description": "Product designer and software engineer bridging human-centered interface design and robust system architecture."
       }
     </script>
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
-    />
-    <link rel="stylesheet" href="./styles.css?v=20261110-v3" />
   </head>
-  <body>
-    <a class="skip-link" href="#home">Skip to content</a>
 
-    <!-- Top Navigation (Tania Rascia inspired minimal header) -->
+  <body>
+    <!-- Accessibility Skip Link -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+
+    <!-- =====================================================================
+         MINIMALIST EDITORIAL HEADER (Tania Rascia / Adham Dannaway Inspired)
+         ===================================================================== -->
     <header class="site-header">
-      <div class="container nav-wrap">
-        <a class="brand" href="./" aria-label="Abhipraya Home">
-          <span class="brand-avatar">
-            <img
-              src="./assets/foto-abhi-avatar.webp"
-              alt="Abdillah Abhi"
-              width="34"
-              height="34"
-            />
-          </span>
-          <div class="brand-meta">
-            <span class="brand-name">Abhipraya</span>
-            <span class="brand-sub">Designer × Coder</span>
-          </div>
+      <div class="container header-inner">
+        <a href="#top" class="brand-link" aria-label="Abhipraya homepage">
+          <span class="brand-mark">A</span>
+          <span>Abhipraya</span>
+          <span class="brand-sub">designer × coder</span>
         </a>
-        <nav class="desktop-nav" aria-label="Main navigation">
-          <a href="#home">Home</a>
-          <a href="#work">Work</a>
-          <a href="#shelves">Shelves</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
+
+        <nav class="primary-nav" aria-label="Main Navigation">
+          <a href="#work" class="nav-link">Work</a>
+          <a href="#shelves" class="nav-link">Shelves</a>
+          <a href="#notes" class="nav-link">Notes</a>
+          <a href="#about" class="nav-link">About</a>
+          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </nav>
-        <div class="nav-actions">
-          <a class="nav-btn nav-btn-cv" href="./cv/Abdillah-Abhi-CV.pdf" download>
-            <svg class="ico" aria-hidden="true"><use href="#i-download" /></svg>CV
-          </a>
-          <a class="nav-btn" href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer" aria-label="GitHub Profile">
-            <svg class="ico" aria-hidden="true"><use href="#i-github" /></svg>GitHub
-          </a>
-          <button
-            id="menuBtn"
-            class="menu-button"
-            type="button"
-            aria-controls="mobileNav"
-            aria-expanded="false"
-            aria-label="Open navigation"
-          >
-            ☰
+
+        <div class="header-actions">
+          <button id="themeToggle" class="theme-toggle-btn" type="button" aria-label="Toggle light/dark theme">
+            <!-- Moon icon default for light theme -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
           </button>
-        </div>
-      </div>
-      <!-- Mobile Drawer Navigation -->
-      <div id="mobileNav" class="mobile-nav">
-        <div class="container mobile-nav-inner">
-          <a href="#home">Home</a>
-          <a href="#work">Work</a>
-          <a href="#shelves">Shelves (Digital Garden)</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#skills">Skills</a>
-          <a href="#contact">Contact</a>
-          <a href="./cv/Abdillah-Abhi-CV.pdf" download>Download CV (PDF)</a>
-          <a href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer">GitHub · @Abhiprayaa29</a>
+
+          <a href="https://github.com/Abhiprayaa29" target="_blank" rel="noopener noreferrer" class="header-icon-btn" aria-label="GitHub Profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+            </svg>
+          </a>
+
+          <a href="cv/Abdillah-Abhi-CV.pdf" target="_blank" rel="noopener noreferrer" class="header-cv-link">
+            <span>CV</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          </a>
         </div>
       </div>
     </header>
 
-    <main id="home">
-      <!-- HERO SECTION — DESIGNER × CODER SPLIT (Adham Dannaway inspired) -->
-      <section class="hero">
+    <main id="main">
+      <!-- ===================================================================
+           03 — SIGNATURE HERO: DESIGNER × CODER (Adham Dannaway Split Concept)
+           =================================================================== -->
+      <section class="hero-section" id="top">
         <div class="container">
-          <div class="hero-intro">
-            <span class="hero-identity-tag">Designer &amp; Coder · Informatics Engineering</span>
-            <h1 class="hero-title">Designing Experiences.<br />Engineering Solutions.</h1>
-            <p class="hero-lead">
-              I'm Abdillah Abhipraya Abrar, a designer and coder who brings ideas to life through
-              thoughtful visual design and functional software engineering.
-            </p>
-            <p class="hero-sublead">
-              From designing intuitive interfaces to developing complex software systems, I enjoy
-              exploring both the creative and technical sides of digital products.
-            </p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="#work">Explore My Work</a>
-              <a class="btn btn-secondary" href="#shelves">Explore My Shelves</a>
-              <a class="btn btn-outline" href="./cv/Abdillah-Abhi-CV.pdf" download>Download CV</a>
+          <div class="hero-editorial-grid">
+            
+            <!-- LEFT COLUMN: DESIGNER -->
+            <div class="hero-col hero-col-designer">
+              <span class="hero-eyebrow">Discipline 01</span>
+              <h1 class="hero-title-designer">designer</h1>
+              <p class="hero-col-desc">
+                Product and visual designer focused on creating intuitive, thoughtful, and aesthetically refined digital experiences.
+              </p>
+
+              <ul class="hero-disciplines-list">
+                <li class="hero-discipline-item">UI/UX Design</li>
+                <li class="hero-discipline-item">Interface Design</li>
+                <li class="hero-discipline-item">Design Systems</li>
+                <li class="hero-discipline-item">Visual Design</li>
+                <li class="hero-discipline-item">3D Visualization</li>
+                <li class="hero-discipline-item">Creative Computing</li>
+              </ul>
+
+              <a href="#work" class="hero-anchor-link">
+                <span>Explore Design Work</span>
+                <span>↓</span>
+              </a>
             </div>
+
+            <!-- CENTER COLUMN: INTERACTIVE SPLIT PORTRAIT -->
+            <div class="hero-portrait-stage">
+              <div class="split-portrait-frame" style="--split: 50%;">
+                <!-- Base Photographic Layer: Coder -->
+                <picture>
+                  <source srcset="assets/portrait-coder.webp" type="image/webp" />
+                  <img class="portrait-layer portrait-coder" src="assets/portrait-coder.jpg" alt="Abhipraya — Coder photographic identity" width="640" height="800" />
+                </picture>
+
+                <!-- Top Art-Directed Layer: Designer (Clipped dynamically) -->
+                <picture>
+                  <source srcset="assets/portrait-designer.webp" type="image/webp" />
+                  <img class="portrait-layer portrait-designer" src="assets/portrait-designer.jpg" alt="Abhipraya — Designer creative art identity" width="640" height="800" />
+                </picture>
+
+                <!-- Dynamic Divider Hairline & Grab Handle -->
+                <div class="portrait-divider-line">
+                  <div class="portrait-divider-handle" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mobile & Accessible Interactive Toggles -->
+              <div class="portrait-mobile-toggles" aria-label="Portrait identity controls">
+                <button type="button" class="split-toggle-btn" data-mode="designer">Designer</button>
+                <button type="button" class="split-toggle-btn active" data-mode="split">Split 50/50</button>
+                <button type="button" class="split-toggle-btn" data-mode="coder">&lt;Coder&gt;</button>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN: CODER -->
+            <div class="hero-col hero-col-coder">
+              <span class="hero-eyebrow">Discipline 02</span>
+              <h2 class="hero-title-coder">&lt;coder&gt;</h2>
+              <p class="hero-col-desc">
+                Software developer building functional digital products through programming, architecture, and technical problem solving.
+              </p>
+
+              <ul class="hero-disciplines-list">
+                <li class="hero-discipline-item">Frontend Development</li>
+                <li class="hero-discipline-item">Backend Development</li>
+                <li class="hero-discipline-item">Full-stack Engineering</li>
+                <li class="hero-discipline-item">Cybersecurity</li>
+                <li class="hero-discipline-item">System Architecture</li>
+                <li class="hero-discipline-item">Automation</li>
+              </ul>
+
+              <a href="#work" class="hero-anchor-link">
+                <span>Explore Technical Work</span>
+                <span>↓</span>
+              </a>
+            </div>
+
           </div>
 
-          <!-- The Split Hero Panels (Adham Dannaway reference) -->
-          <div class="split-hero" role="region" aria-label="Designer and Coder identities">
-            <!-- Left Side: Designer -->
-            <article class="split-card split-designer">
-              <div class="split-header">
-                <span class="split-role-badge">
-                  <svg class="ico" aria-hidden="true"><use href="#i-figma" /></svg>The Designer
-                </span>
-                <svg class="split-icon" aria-hidden="true"><use href="#i-layers" /></svg>
-              </div>
-              <h2 class="split-headline">DESIGNER.</h2>
-              <p class="split-desc">
-                I design thoughtful digital experiences through visual creativity, interface design,
-                and user-centered thinking.
-              </p>
-              <div class="split-capabilities">
-                <span class="cap-pill">UI/UX Design</span>
-                <span class="cap-pill">Design Systems</span>
-                <span class="cap-pill">Visual Communication</span>
-                <span class="cap-pill">Interactive Prototyping</span>
-                <span class="cap-pill">3D Visualization</span>
-                <span class="cap-pill">Creative Computing</span>
-              </div>
-              <!-- Design Preview Window -->
-              <div class="split-window">
-                <div class="window-bar">
-                  <div class="window-dots">
-                    <span class="window-dot"></span>
-                    <span class="window-dot"></span>
-                    <span class="window-dot"></span>
-                  </div>
-                  <span class="window-title">figma · design-system.fig</span>
-                </div>
-                <div class="window-content design-preview">
-                  <div class="design-item">
-                    <img
-                      src="assets/projects/happy-budgeting/budgeting-dashboard.png"
-                      alt="Financial Management UI Design in Figma"
-                      width="600"
-                      height="375"
-                      loading="lazy"
-                    />
-                    <div class="design-item-caption">
-                      <span>Enterprise System UI</span>
-                      <span style="color: var(--designer-accent)">Figma · SRS</span>
-                    </div>
-                  </div>
-                  <div class="design-item">
-                    <img
-                      src="assets/sertifikat/findit-2026-best-video.jpg"
-                      alt="National UX Award Find IT! UGM 2026"
-                      width="600"
-                      height="375"
-                      loading="lazy"
-                    />
-                    <div class="design-item-caption">
-                      <span>UX Competition</span>
-                      <span style="color: var(--designer-accent)">Best Video Award</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="split-action">
-                <button id="heroDesignerBtn" class="split-link" type="button">
-                  Browse Design Work <span aria-hidden="true">→</span>
-                </button>
-              </div>
-            </article>
+          <!-- HERO BOTTOM STATEMENT & INTRODUCTION -->
+          <div class="hero-statement-strip">
+            <div class="hero-identity-tag">
+              <span class="badge-dot"></span>
+              <span>Available for engineering & design collaborations</span>
+            </div>
 
-            <!-- Right Side: Coder -->
-            <article class="split-card split-coder">
-              <div class="split-header">
-                <span class="split-role-badge">
-                  <svg class="ico" aria-hidden="true"><use href="#i-terminal" /></svg>The Coder
-                </span>
-                <svg class="split-icon" aria-hidden="true"><use href="#i-code" /></svg>
-              </div>
-              <h2 class="split-headline">CODER.</h2>
-              <p class="split-desc">
-                I turn ideas into functional digital products through programming, system architecture,
-                and software engineering.
-              </p>
-              <div class="split-capabilities">
-                <span class="cap-pill">React 19 &amp; Vite</span>
-                <span class="cap-pill">FastAPI &amp; Python</span>
-                <span class="cap-pill">System Architecture</span>
-                <span class="cap-pill">Cybersecurity &amp; Crypto</span>
-                <span class="cap-pill">Real-Time Systems</span>
-                <span class="cap-pill">Automation</span>
-              </div>
-              <!-- Code Preview Window -->
-              <div class="split-window">
-                <div class="window-bar">
-                  <div class="window-dots">
-                    <span class="window-dot"></span>
-                    <span class="window-dot"></span>
-                    <span class="window-dot"></span>
-                  </div>
-                  <span class="window-title">ipguard · crypto_engine.py</span>
-                </div>
-                <div class="window-content code-preview">
-                  <pre><code><span class="keyword">def</span> <span class="func">verify_hardware_signature</span>(challenge, sig_bytes, public_key):
-    <span class="comment"># ECDSA NIST P-256 Android Keystore StrongBox Verification</span>
-    verifier = <span class="func">EllipticCurveVerifier</span>(public_key, hashes.<span class="func">SHA256</span>())
-    verifier.<span class="func">update</span>(challenge.nonce + challenge.timestamp)
-    <span class="keyword">return</span> verifier.<span class="func">verify</span>(sig_bytes)  <span class="comment"># 209/209 Pytest PASS</span></code></pre>
-                </div>
-              </div>
-              <div class="split-action">
-                <button id="heroCoderBtn" class="split-link" type="button">
-                  Browse Development Work <span aria-hidden="true">→</span>
-                </button>
-              </div>
-            </article>
+            <h2 class="hero-person-name">Abdillah Abhipraya Abrar</h2>
+            <div class="hero-person-subtitle">Designer &amp; Coder</div>
+
+            <p class="hero-editorial-quote">
+              &ldquo;In the space between creativity and technology, I design meaningful digital experiences and engineer the systems that bring them to life.&rdquo;
+            </p>
+
+            <div class="hero-affiliation-line">
+              Informatics Engineering Student &middot; UPN Veteran Yogyakarta
+            </div>
+
+            <div class="hero-ctas">
+              <a href="#work" class="btn-editorial-primary">View Selected Work &rarr;</a>
+              <a href="#shelves" class="btn-editorial-secondary">Explore My Shelves &rarr;</a>
+              <a href="cv/Abdillah-Abhi-CV.pdf" target="_blank" rel="noopener noreferrer" class="btn-editorial-secondary">Download CV (PDF) &darr;</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- WORK SECTION — DESIGN & DEVELOPMENT SHOWCASE -->
-      <section id="work" class="sec-alt section-pad">
+      <!-- ===================================================================
+           05 — SELECTED WORK (Visual Portfolio, Not a Dashboard)
+           =================================================================== -->
+      <section class="section-work" id="work">
         <div class="container">
-          <div class="section-head">
-            <span class="section-category">Portfolio</span>
-            <h2 class="section-title">Selected Work</h2>
-            <p class="section-intro">
-              Bridging interface design and full-stack engineering. Filter by discipline to explore
-              design systems, system architecture, or end-to-end applications.
+          <div class="section-editorial-header">
+            <span class="section-label">01 / Selected Work</span>
+            <h2 class="section-title">Projects &amp; Case Studies</h2>
+            <p class="section-desc">
+              A curated selection of software systems, web platforms, and design prototypes built with authentic engineering rigor and visual clarity.
             </p>
           </div>
 
-          <!-- Filter Controls -->
-          <div class="work-controls" role="region" aria-label="Work discipline filters">
-            <div class="filter-group" role="tablist">
-              <button class="filter-btn active" type="button" role="tab" aria-selected="true" data-work-filter="all">
-                All Work <span class="filter-count">9</span>
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-work-filter="design">
-                Design <span class="filter-count">2</span>
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-work-filter="development">
-                Development <span class="filter-count">3</span>
-              </button>
-              <button class="filter-btn" type="button" role="tab" aria-selected="false" data-work-filter="combined">
-                Combined (Design + Code) <span class="filter-count">4</span>
-              </button>
-            </div>
+          <!-- Work Filter Bar -->
+          <div class="work-filter-bar" role="tablist" aria-label="Project Discipline Filters">
+            <button class="filter-btn active" data-filter="all" type="button">All Projects (9)</button>
+            <button class="filter-btn" data-filter="hybrid" type="button">Hybrid (3)</button>
+            <button class="filter-btn" data-filter="development" type="button">Development (4)</button>
+            <button class="filter-btn" data-filter="design" type="button">Design (2)</button>
           </div>
 
-          <!-- Work Cards Grid -->
-          <div class="work-grid">
-            <!-- 1. IPGuard -->
-            <article class="work-card" data-project="ipguard" data-discipline="combined">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-combined">Combined</span>
-                <img
-                  src="assets/projects/ipguard/ipguard-vault.png"
-                  alt="IPGuard digital asset vault with hardware-bound authentication"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+          <!-- Asymmetric Editorial Projects Stream -->
+          <div class="work-editorial-stream">
+            
+            <!-- 01: IPGuard -->
+            <article class="project-entry" data-discipline="combined">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/ipguard/ipguard-vault.png" alt="IPGuard authenticated asset vault screen" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">IPGuard</h3>
-                  <span class="work-status">Verified M0–M4</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Hybrid / Security × UX</span>
+                  <span>·</span>
+                  <span>Lead Architect</span>
                 </div>
-                <p class="work-summary">
-                  Secure digital asset protection platform integrating Android Keystore (ECDSA P-256)
-                  hardware authentication, XChaCha20-Poly1305 zero-knowledge encryption, and invisible LSB
-                  cryptographic watermarking.
+                <h3 class="project-title">IPGuard — Secure Digital Asset Protection Platform</h3>
+                <p class="project-lead">
+                  Decoupled zero-knowledge file vault eliminating shared secrets via non-exportable hardware keys inside Android TEE/StrongBox and LSB cryptographic watermarks.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Security:</strong> Hardware-bound biometric challenge authentication (no passwords)</li>
-                  <li><strong>Testing:</strong> 209/209 backend Pytest assertions passing (100%)</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">React 19</span>
-                  <span class="tech-chip">FastAPI</span>
-                  <span class="tech-chip">PostgreSQL</span>
-                  <span class="tech-chip">Android Keystore</span>
-                  <span class="tech-chip">XChaCha20</span>
+                <div class="project-highlights-list">
+                  <div class="project-highlight-item">
+                    <strong>Architecture:</strong>
+                    <span>React 19, FastAPI async, PostgreSQL, XChaCha20-Poly1305 AEAD</span>
+                  </div>
+                  <div class="project-highlight-item">
+                    <strong>Validation:</strong>
+                    <span>209/209 passing Pytest assertions (100%), Playwright E2E suites</span>
+                  </div>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="ipguard">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    class="work-repo-link"
-                    href="https://github.com/Abhiprayaa29/IPGuard"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-                  </a>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">React 19</span>
+                  <span class="tech-tag">FastAPI</span>
+                  <span class="tech-tag">Android Keystore</span>
+                  <span class="tech-tag">ECDSA P-256</span>
+                  <span class="tech-tag">Ed25519</span>
+                </div>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="ipguard" type="button">Read Case Study &rarr;</button>
+                  <a href="https://github.com/Abhiprayaa29/IPGuard" target="_blank" rel="noopener noreferrer" class="project-repo-link">Repository &nearr;</a>
                 </div>
               </div>
             </article>
 
-            <!-- 2. MLBB Draft Studio -->
-            <article class="work-card" data-project="mlbb" data-discipline="combined">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-combined">Combined</span>
-                <img
-                  src="assets/projects/mlbb/overlay-draft.webp"
-                  alt="MLBB Draft Studio 1920x1080 transparent broadcast overlay"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 02: MLBB Draft Studio -->
+            <article class="project-entry" data-discipline="combined">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/mlbb-draft-studio-aamon.png" alt="MLBB Draft Studio tournament broadcast overlay" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">MLBB Draft Studio</h3>
-                  <span class="work-status">Production Tool</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Hybrid / Broadcast &amp; Web</span>
+                  <span>·</span>
+                  <span>Developer &amp; UI Designer</span>
                 </div>
-                <p class="work-summary">
-                  Real-time esports tournament production platform: dual-operator control panel and three
-                  transparent OBS broadcast overlays synchronized over Socket.IO without page reloads.
+                <h3 class="project-title">MLBB Draft Studio — Broadcast Overlays &amp; Operator Panel</h3>
+                <p class="project-lead">
+                  Server-authoritative esports tournament draft engine and transparent 1080p OBS broadcast overlays synchronized via Socket.IO with sub-16ms latency.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Architecture:</strong> Server-authoritative state engine with atomic POSIX persistence</li>
-                  <li><strong>Verification:</strong> 166 backend + 121 E2E tests, 133 heroes validated 0 errors</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">React 18</span>
-                  <span class="tech-chip">Vite</span>
-                  <span class="tech-chip">Tailwind CSS v4</span>
-                  <span class="tech-chip">Express</span>
-                  <span class="tech-chip">Socket.IO</span>
+                <div class="project-highlights-list">
+                  <div class="project-highlight-item">
+                    <strong>Performance:</strong>
+                    <span>Sub-16ms live synchronization across multiple production workstations</span>
+                  </div>
+                  <div class="project-highlight-item">
+                    <strong>Resilience:</strong>
+                    <span>Atomic POSIX state file swaps prevent match rollback during crashes</span>
+                  </div>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="mlbb">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    class="work-repo-link"
-                    href="https://github.com/Abhiprayaa29/mlbb-draft-studio"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-                  </a>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">Socket.IO</span>
+                  <span class="tech-tag">OBS Studio</span>
+                  <span class="tech-tag">Express</span>
+                  <span class="tech-tag">TailwindCSS</span>
+                </div>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="mlbb" type="button">Read Case Study &rarr;</button>
+                  <a href="https://github.com/Abhiprayaa29/MLBB-Draft-Studio" target="_blank" rel="noopener noreferrer" class="project-repo-link">Repository &nearr;</a>
                 </div>
               </div>
             </article>
 
-            <!-- 3. Financial Management System Research -->
-            <article class="work-card" data-project="happy-budgeting" data-discipline="design">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-design">Design</span>
-                <img
-                  src="assets/projects/happy-budgeting/budgeting-dashboard.png"
-                  alt="Financial Management System UI Design in Figma"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 03: Happy Budgeting -->
+            <article class="project-entry" data-discipline="design">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/happy-budgeting/budgeting-dashboard.png" alt="Institutional financial management system dashboard design" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">Financial Management System</h3>
-                  <span class="work-status">Research &amp; SRS</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Design / Architecture</span>
+                  <span>·</span>
+                  <span>System Analyst &amp; UX Lead</span>
                 </div>
-                <p class="work-summary">
-                  Enterprise UI/UX design and business process modeling for institutional budgeting at UPN “Veteran”
-                  Yogyakarta. Mapped complex governance rules into SRS and high-fidelity Figma design systems.
+                <h3 class="project-title">Financial Management System — Workflow Analysis &amp; Prototype</h3>
+                <p class="project-lead">
+                  Institutional research mapping governmental financial governance into hierarchical Data Flow Diagrams (DFD Levels 0–3), relational schemas, and an enterprise Figma design system.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Modeling:</strong> Multi-tier Data Flow Diagrams (DFD Levels 0–3) and ERD schemas</li>
-                  <li><strong>Design System:</strong> Enterprise design tokens, data grids, and approval queues</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">Figma</span>
-                  <span class="tech-chip">SRS Specification</span>
-                  <span class="tech-chip">DFD Levels 0-3</span>
-                  <span class="tech-chip">ERD</span>
-                  <span class="tech-chip">UCD</span>
+                <div class="project-highlights-list">
+                  <div class="project-highlight-item">
+                    <strong>Deliverable:</strong>
+                    <span>Exhaustive SRS document, multi-tier approval matrix, and 40+ high-fidelity screens</span>
+                  </div>
+                  <div class="project-highlight-item">
+                    <strong>Impact:</strong>
+                    <span>Approved institutional blueprint for university budgeting digitalization</span>
+                  </div>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="happy-budgeting">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <span class="work-repo-link">Research Assistant</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">DFD Levels 0-3</span>
+                  <span class="tech-tag">SRS</span>
+                  <span class="tech-tag">Design Tokens</span>
+                </div>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="happy-budgeting" type="button">Read Case Study &rarr;</button>
                 </div>
               </div>
             </article>
 
-            <!-- 4. LahanAman -->
-            <article class="work-card" data-project="lahan-aman" data-discipline="development">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-dev">Development</span>
-                <img
-                  src="assets/projects/ar/simple-ar-placement-ui.webp"
-                  alt="LahanAman WebGIS geospatial analysis interface"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 04: LahanAman -->
+            <article class="project-entry" data-discipline="development">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/ipguard/ipguard-vault.png" alt="LahanAman spatial decision support interface" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">LahanAman</h3>
-                  <span class="work-status">Spatial SPK</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Development / Spatial</span>
+                  <span>·</span>
+                  <span>WebGIS Developer</span>
                 </div>
-                <p class="work-summary">
-                  WebGIS Decision Support System for landslide susceptibility mapping in Yogyakarta. Combines
-                  slope DEM, soil lithology, rainfall data, and land cover into automated risk classifications.
+                <h3 class="project-title">LahanAman — Landslide Vulnerability WebGIS</h3>
+                <p class="project-lead">
+                  Spatial decision support system evaluating geotechnical vulnerability by overlaying slope gradient, lithology, soil thickness, and rainfall precipitation layers.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Spatial Computing:</strong> Multi-criteria AHP weighting and GeoJSON validation</li>
-                  <li><strong>Documentation:</strong> Comprehensive technical SPK configuration specs</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">WebGIS</span>
-                  <span class="tech-chip">Spatial Analysis</span>
-                  <span class="tech-chip">AHP / DSS</span>
-                  <span class="tech-chip">GeoJSON</span>
-                  <span class="tech-chip">Python</span>
+                <div class="project-highlights-list">
+                  <div class="project-highlight-item">
+                    <strong>Methodology:</strong>
+                    <span>Spatial Multi-Criteria Evaluation (AHP) with interactive GeoJSON overlays</span>
+                  </div>
+                  <div class="project-highlight-item">
+                    <strong>Tooling:</strong>
+                    <span>Interactive map query inspector with dynamic choropleth polygon styling</span>
+                  </div>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="lahan-aman">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <span class="work-repo-link">GIS Decision System</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">WebGIS</span>
+                  <span class="tech-tag">GeoJSON</span>
+                  <span class="tech-tag">Leaflet</span>
+                  <span class="tech-tag">JavaScript</span>
+                </div>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="lahanaman" type="button">Read Case Study &rarr;</button>
+                  <a href="https://github.com/Abhiprayaa29/LahanAman-SistemInformasiGeografis" target="_blank" rel="noopener noreferrer" class="project-repo-link">Repository &nearr;</a>
                 </div>
               </div>
             </article>
 
-            <!-- 5. Find IT! UGM 2026 -->
-            <article class="work-card" data-project="findit-ugm" data-discipline="design">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-design">Design</span>
-                <img
-                  src="assets/sertifikat/findit-2026-best-video.jpg"
-                  alt="Find IT! UGM 2026 National UX Competition Award"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 05: SPADA Academic Bot -->
+            <article class="project-entry" data-discipline="development">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/ipguard/ipguard-auth-request.png" alt="Telegram bot notification interface" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">Find IT! UGM 2026</h3>
-                  <span class="work-status">Best Video Award</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Development / Automation</span>
+                  <span>·</span>
+                  <span>Backend Developer</span>
                 </div>
-                <p class="work-summary">
-                  National UX Competition by KMTETI FT Universitas Gadjah Mada. Executed user research, empathy
-                  mapping, iterative component prototyping in Figma, and video storytelling.
+                <h3 class="project-title">SPADA Academic Assistant — Telegram Automation Bot</h3>
+                <p class="project-lead">
+                  Event-driven background notification service parsing academic course queues, calculating pending assignment deltas, and delivering automated briefings to Telegram.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Achievement:</strong> National Finalist &amp; Best Video Awardee</li>
-                  <li><strong>Deliverables:</strong> Mobile interactive prototype and motion design</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">Figma</span>
-                  <span class="tech-chip">UX Research</span>
-                  <span class="tech-chip">Prototyping</span>
-                  <span class="tech-chip">After Effects</span>
+                <div class="project-highlights-list">
+                  <div class="project-highlight-item">
+                    <strong>Architecture:</strong>
+                    <span>FastAPI asynchronous webhook listener, asyncio workers, SQLite persistence</span>
+                  </div>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="findit-ugm">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <span class="work-repo-link">National Award</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">FastAPI</span>
+                  <span class="tech-tag">Telegram Bot API</span>
+                  <span class="tech-tag">Cron Scheduling</span>
+                </div>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="spada-bot" type="button">Read Case Study &rarr;</button>
+                  <a href="https://github.com/Abhiprayaa29/SPADA-Telegram-Bot" target="_blank" rel="noopener noreferrer" class="project-repo-link">Repository &nearr;</a>
                 </div>
               </div>
             </article>
 
-            <!-- 6. Cerberus -->
-            <article class="work-card" data-project="cerberus" data-discipline="development">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-dev">Development</span>
-                <img
-                  src="assets/projects/cerberus/core-loop.webp"
-                  alt="Cerberus multi-agent execution loop architecture"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 06: SimpleARPlacement -->
+            <article class="project-entry" data-discipline="combined">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/ipguard/ipguard-vault.png" alt="AR Foundation plane tracking and hit test preview" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">Cerberus</h3>
-                  <span class="work-status">Developer Tooling</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Hybrid / AR &amp; 3D</span>
+                  <span>·</span>
+                  <span>AR Developer &amp; 3D Artist</span>
                 </div>
-                <p class="work-summary">
-                  Multi-agent developer orchestrator in Bun and TypeScript. Coordinates specialized autonomous
-                  coding agents through deterministic ultra-work execution loops and automated test verification.
+                <h3 class="project-title">SimpleARPlacement — Augmented Reality Surface Engine</h3>
+                <p class="project-lead">
+                  Markerless mobile AR application implementing horizontal surface plane detection, screen raycast hit testing, and interactive 3D model manipulation in real physical space.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Control Loop:</strong> Task decomposition, strict phase gates, and git rollback</li>
-                  <li><strong>Stack:</strong> Bun high-performance runtime with OpenCode orchestration</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">Bun</span>
-                  <span class="tech-chip">TypeScript</span>
-                  <span class="tech-chip">OpenCode</span>
-                  <span class="tech-chip">Agent Orchestration</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Unity</span>
+                  <span class="tech-tag">C#</span>
+                  <span class="tech-tag">AR Foundation</span>
+                  <span class="tech-tag">ARCore</span>
+                  <span class="tech-tag">Blender</span>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="cerberus">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    class="work-repo-link"
-                    href="https://github.com/Abhiprayaa29/Cerberus"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-                  </a>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="simple-ar" type="button">Read Case Study &rarr;</button>
+                  <a href="https://github.com/Abhiprayaa29/SimpleARPlacement-Unity" target="_blank" rel="noopener noreferrer" class="project-repo-link">Repository &nearr;</a>
                 </div>
               </div>
             </article>
 
-            <!-- 7. SPADA Academic Bot -->
-            <article class="work-card" data-project="spada-bot" data-discipline="development">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-dev">Development</span>
-                <img
-                  src="assets/projects/mlbb/control-panel-grid.webp"
-                  alt="Academic automation event-driven bot"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 07: JogjaLensa -->
+            <article class="project-entry" data-discipline="development">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/jogjalensa-malioboro-small.jpg" alt="JogjaLensa camera rental marketplace preview" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">SPADA Academic Bot</h3>
-                  <span class="work-status">Automated Service</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Development / Web</span>
+                  <span>·</span>
+                  <span>Full-Stack Developer</span>
                 </div>
-                <p class="work-summary">
-                  Asynchronous task automation engine built with FastAPI and Telegram Bot API. Synchronizes
-                  academic coursework, computes deadline deltas, and delivers daily 07:00 briefing alerts.
+                <h3 class="project-title">JogjaLensa — Camera &amp; Lens Rental Marketplace</h3>
+                <p class="project-lead">
+                  Full-stack marketplace with user authentication, inventory schedule reservations, and rental history tracking to prevent double-booking for photography rental shops.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Mechanics:</strong> Asyncio webhook workers, cron scheduling, inline keyboard UI</li>
-                  <li><strong>Reliability:</strong> Zero missed assignments across multiple academic terms</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">Python</span>
-                  <span class="tech-chip">FastAPI</span>
-                  <span class="tech-chip">Telegram API</span>
-                  <span class="tech-chip">Cron</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">PHP</span>
+                  <span class="tech-tag">MySQL</span>
+                  <span class="tech-tag">Bootstrap</span>
+                  <span class="tech-tag">JavaScript</span>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="spada-bot">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    class="work-repo-link"
-                    href="https://github.com/Abhiprayaa29/akademik-bot-fastapi"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-                  </a>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="jogjalensa" type="button">Read Case Study &rarr;</button>
+                  <a href="https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi" target="_blank" rel="noopener noreferrer" class="project-repo-link">Repository &nearr;</a>
                 </div>
               </div>
             </article>
 
-            <!-- 8. SimpleARPlacement -->
-            <article class="work-card" data-project="simple-ar" data-discipline="combined">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-combined">Combined</span>
-                <img
-                  src="assets/projects/ar/simple-ar-placement-ui.webp"
-                  alt="SimpleARPlacement Android augmented reality application"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 08: Cerberus -->
+            <article class="project-entry" data-discipline="development">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/ipguard/ipguard-verify-modal.png" alt="Network security threat detection interface" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">SimpleARPlacement</h3>
-                  <span class="work-status">Android AR App</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Development / Security</span>
+                  <span>·</span>
+                  <span>Security Researcher</span>
                 </div>
-                <p class="work-summary">
-                  Native Android augmented reality application built with Unity, C#, AR Foundation, and ARCore.
-                  Features real-time planar surface classification, raycast hit testing, rotation, and scale gestures.
+                <h3 class="project-title">Cerberus — Automated Network Defense &amp; Rule Engine</h3>
+                <p class="project-lead">
+                  Automated packet analysis pipeline inspecting live pcap streams, correlating exploit signatures against Suricata rules, and triaging security anomalies in laboratory networks.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Spatial Physics:</strong> AR raycast hit testing and transform boundary clamps</li>
-                  <li><strong>3D Assets:</strong> Optimized low-draw-call meshes modeled for mobile AR</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">Unity 3D</span>
-                  <span class="tech-chip">C#</span>
-                  <span class="tech-chip">AR Foundation</span>
-                  <span class="tech-chip">ARCore</span>
-                  <span class="tech-chip">Blender</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Python</span>
+                  <span class="tech-tag">Scapy</span>
+                  <span class="tech-tag">Suricata Rules</span>
+                  <span class="tech-tag">Threat Modeling</span>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="simple-ar">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    class="work-repo-link"
-                    href="https://github.com/Abhiprayaa29/simple-ar-placement"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-                  </a>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="cerberus" type="button">Read Case Study &rarr;</button>
                 </div>
               </div>
             </article>
 
-            <!-- 9. JogjaLensa -->
-            <article class="work-card" data-project="jogjalensa" data-discipline="combined">
-              <div class="work-media">
-                <span class="work-discipline-tag tag-combined">Combined</span>
-                <img
-                  src="assets/jogjalensa-malioboro-small.jpg"
-                  alt="JogjaLensa camera and lens rental marketplace"
-                  width="800"
-                  height="450"
-                  loading="lazy"
-                />
+            <!-- 09: National UCD Competition -->
+            <article class="project-entry" data-discipline="design">
+              <div class="project-media-wrapper">
+                <img class="project-img" src="assets/projects/happy-budgeting/budgeting-dashboard.png" alt="UCD competition prototype screens" loading="lazy" />
               </div>
-              <div class="work-body">
-                <div class="work-title-wrap">
-                  <h3 class="work-title">JogjaLensa</h3>
-                  <span class="work-status">Full-Stack Web</span>
+              <div class="project-content-col">
+                <div class="project-meta-eyebrow">
+                  <span class="discipline-tag">Design / UX Research</span>
+                  <span>·</span>
+                  <span>Lead UX Researcher</span>
                 </div>
-                <p class="work-summary">
-                  Photography equipment rental marketplace featuring relational database booking schedules,
-                  user authentication, inventory availability checks, and order transaction workflows.
+                <h3 class="project-title">User-Centered Design Case Study — National Competition</h3>
+                <p class="project-lead">
+                  Usability engineering for complex multi-modal public transit routing, validated through Nielsen heuristic audits and System Usability Scale (SUS) benchmarks.
                 </p>
-                <ul class="work-highlights">
-                  <li><strong>Database:</strong> Relational MySQL schema with SQL transaction safety</li>
-                  <li><strong>Frontend:</strong> Responsive Bootstrap 5.3 catalog with date reservations</li>
-                </ul>
-                <div class="work-stack">
-                  <span class="tech-chip">PHP 8</span>
-                  <span class="tech-chip">MySQL</span>
-                  <span class="tech-chip">Bootstrap</span>
-                  <span class="tech-chip">JavaScript</span>
+                <div class="project-tech-stack">
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">User Research</span>
+                  <span class="tech-tag">SUS Testing</span>
+                  <span class="tech-tag">Heuristics</span>
                 </div>
-                <div class="work-foot">
-                  <button class="work-open-btn" type="button" data-project="jogjalensa">
-                    View Case Study <span aria-hidden="true">→</span>
-                  </button>
-                  <a
-                    class="work-repo-link"
-                    href="https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-                  </a>
+                <div class="project-actions">
+                  <button class="btn-case-study" data-project="ucd-comp" type="button">Read Case Study &rarr;</button>
                 </div>
               </div>
             </article>
+
           </div>
         </div>
       </section>
 
-      <!-- SHELVES SECTION — DIGITAL GARDEN (Tania Rascia inspired) -->
-      <section id="shelves" class="section-pad">
+      <!-- ===================================================================
+           06 — SHELVES: A REAL DIGITAL GARDEN (Tania Rascia Categorized Library)
+           =================================================================== -->
+      <section class="section-shelves" id="shelves">
         <div class="container">
-          <div class="section-head">
-            <span class="section-category">Digital Garden</span>
-            <h2 class="section-title">My Shelves</h2>
-            <p class="section-intro">
-              A curated collection of things I've learned, created, explored, and documented.
-              Browse technical notes, architectural blueprints, security analyses, and design systems.
-            </p>
-          </div>
+          <div class="shelves-intro-wrap">
+            <div class="section-editorial-header" style="margin-bottom: 0;">
+              <span class="section-label">02 / Digital Garden</span>
+              <h2 class="section-title">Shelves</h2>
+              <p class="section-desc">
+                A collection of tutorials, references, notes, experiments, and deep dives from my journey through design and software engineering.
+              </p>
+            </div>
 
-          <!-- Shelves Search & Category Filter Toolbar -->
-          <div class="shelves-toolbar" role="region" aria-label="Shelves search and filtering">
+            <!-- Instant Search Input -->
             <div class="shelves-search-wrap">
-              <svg class="search-icon" aria-hidden="true"><use href="#i-search" /></svg>
-              <input
-                id="shelfSearch"
-                class="shelves-search-input"
-                type="search"
-                placeholder="Search notes, architecture, security, or topics..."
-                aria-label="Search shelves notes"
-              />
+              <svg class="shelves-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="shelvesSearch" class="shelves-search-input" placeholder="Search notes by keyword, tag..." aria-label="Search shelves notes" />
             </div>
-            <div class="shelves-category-bar" role="tablist">
-              <button class="shelf-cat-btn active" type="button" role="tab" data-cat="all">All Shelves</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="security">Security &amp; Cryptography</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="architecture">Systems &amp; Architecture</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="design">Design Fundamentals</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="creative">Creative &amp; Visual</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="engineering">Engineering Fundamentals</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="automation">Automation &amp; Tooling</button>
-              <button class="shelf-cat-btn" type="button" role="tab" data-cat="research">Research &amp; Spatial</button>
-            </div>
-            <div id="shelfCountBadge" class="filter-count" style="width: fit-content;">14 entries shown</div>
           </div>
 
-          <!-- Editorial Shelves List (Rendered dynamically by script.js) -->
-          <div id="shelvesList" class="shelves-list" role="feed" aria-busy="false">
-            <!-- Dynamic rows inserted here -->
+          <!-- The Dynamic Shelf Categories (01. Fundamentals, 02. Deep Dives, 03. Rebuilding the Wheel, 04. Creative Practice) -->
+          <div class="shelves-catalog" id="shelvesCatalog">
+            <!-- Populated via script.js -->
           </div>
         </div>
       </section>
 
-      <!-- ABOUT SECTION — DESIGNER & CODER IDENTITY -->
-      <section id="about" class="sec-alt section-pad">
+      <!-- ===================================================================
+           07 — FEATURED NOTES & WRITING
+           =================================================================== -->
+      <section class="section-notes" id="notes">
         <div class="container">
-          <div class="section-head">
-            <span class="section-category">Identity</span>
-            <h2 class="section-title">About Abdillah Abhi</h2>
-            <p class="section-intro">
-              Informatics Engineering student at UPN “Veteran” Yogyakarta working at the intersection of
-              visual craft and software engineering.
+          <div class="section-editorial-header">
+            <span class="section-label">03 / Writing &amp; Retrospectives</span>
+            <h2 class="section-title">Featured Notes</h2>
+            <p class="section-desc">
+              Long-form technical essays and project retrospectives examining architectural decisions, zero-knowledge security proofs, and workflow models.
             </p>
           </div>
 
-          <div class="about-wrap">
-            <div class="about-photo-col">
-              <div class="about-photo-frame">
-                <img
-                  src="assets/foto-abhi.jpeg"
-                  alt="Portrait of Abdillah Abhipraya Abrar"
-                  width="640"
-                  height="800"
-                  loading="lazy"
-                />
-              </div>
-              <div class="about-bio-card">
-                <p><strong>Abdillah Abhipraya Abrar</strong></p>
-                <p>Informatics Engineering · UPN “Veteran” Yogyakarta</p>
-                <p style="color: var(--accent-hover); margin-top: 6px;">Available for Opportunities · Yogyakarta, ID</p>
+          <div class="notes-stream">
+            <article class="note-card-editorial">
+              <span class="note-date-label">November 2026 · Systems &amp; Cryptography</span>
+              <h3 class="note-title">Eliminating Shared Secrets: Zero-Password Hardware Authentication via ECDSA P-256</h3>
+              <p class="note-summary">
+                A technical deep dive into leveraging non-exportable hardware keys inside the Android Trusted Execution Environment (TEE) to sign cryptographic server challenges.
+              </p>
+              <button class="btn-case-study note-link-action" onclick="openArticleReader('hw-bound-auth')" type="button">Read Note &rarr;</button>
+            </article>
+
+            <article class="note-card-editorial">
+              <span class="note-date-label">October 2026 · Broadcast Systems</span>
+              <h3 class="note-title">Real-Time Deterministic LAN State Synchronization for Broadcast Overlays</h3>
+              <p class="note-summary">
+                Engineering a sub-16ms Socket.IO LAN event loop with atomic POSIX file persistence to synchronize transparent 1080p OBS overlays with zero reload flashes.
+              </p>
+              <button class="btn-case-study note-link-action" onclick="openArticleReader('realtime-socket-state')" type="button">Read Note &rarr;</button>
+            </article>
+
+            <article class="note-card-editorial">
+              <span class="note-date-label">October 2026 · Enterprise UI</span>
+              <h3 class="note-title">Hierarchical Design Tokens &amp; State Variants in High-Density Enterprise Software</h3>
+              <p class="note-summary">
+                Methodology for structuring Figma design token primitives, semantic bindings, and interactive component states for administrative platforms.
+              </p>
+              <button class="btn-case-study note-link-action" onclick="openArticleReader('design-systems-enterprise')" type="button">Read Note &rarr;</button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           08 — ABOUT ME (Editorial Simplicity)
+           =================================================================== -->
+      <section class="section-about" id="about">
+        <div class="container">
+          <div class="about-editorial-grid">
+            <div class="about-photo-wrap">
+              <img class="about-photo-img" src="assets/foto-abhi.jpeg" alt="Abdillah Abhipraya Abrar holding camera" loading="lazy" />
+              <div class="about-photo-caption">
+                Abdillah Abhipraya Abrar — Yogyakarta, Indonesia
               </div>
             </div>
 
-            <div class="about-text-col">
-              <p class="about-lead">
-                I enjoy working at the intersection of design and technology. I care about how digital
-                products look, how people interact with them, and how the systems behind them are engineered.
-              </p>
-              <p>
-                Too often, software engineering treats user interface design as mere visual decoration, while
-                designers occasionally overlook performance, state synchronization, and security architecture.
-                My work deliberately bridges this gap: I design what people experience, and I engineer what
-                makes it work reliably.
+            <div class="about-content-wrap">
+              <div class="section-editorial-header" style="margin-bottom: 0;">
+                <span class="section-label">04 / Identity</span>
+                <h2 class="section-title">About Me</h2>
+              </div>
+
+              <div class="about-lead-statement">
+                &ldquo;I enjoy exploring the relationship between design and technology. I care about how digital products communicate visually, how people interact with them, and how the systems behind them are engineered.&rdquo;
+              </div>
+
+              <p class="about-bio-text">
+                I am an Informatics Engineering student at Universitas Pembangunan Nasional &ldquo;Veteran&rdquo; Yogyakarta. Rather than treating design and software engineering as separate disciplines, I cultivate both in parallel. Understanding user interfaces allows me to architect software that feels purposeful; understanding distributed architectures and cryptography allows me to design interfaces grounded in technical reality.
               </p>
 
-              <!-- Two Complementary Dimensions -->
-              <div class="about-dimensions">
-                <div class="dim-card dim-designer">
-                  <span class="dim-badge">As a Designer</span>
-                  <h3>Human-Centered Craft</h3>
+              <div class="about-parallel-cols">
+                <div class="about-parallel-col">
+                  <h4><span>01</span> As a Designer</h4>
                   <p>
-                    I design intuitive interfaces, establish scalable design token systems in Figma,
-                    conduct user empathy research, and model spatial 3D assets in Blender. Focus: clarity,
-                    visual hierarchy, and frictionless interaction.
+                    I design complete design systems, user flows, and high-density enterprise platforms. My focus is typography, spatial hierarchy, accessibility, and interactive prototypes in Figma, complemented by 3D asset modeling in Blender.
                   </p>
                 </div>
-                <div class="dim-card dim-coder">
-                  <span class="dim-badge">As a Coder</span>
-                  <h3>System Rigor &amp; Security</h3>
+
+                <div class="about-parallel-col">
+                  <h4><span>02</span> As a Coder</h4>
                   <p>
-                    I build full-stack web applications with React and FastAPI, engineer cryptographic
-                    authentication flows (ECDSA P-256), implement zero-knowledge file encryption, and
-                    orchestrate deterministic multi-agent systems. Focus: performance, reliability, and security.
+                    I build resilient full-stack web applications, asynchronous APIs in FastAPI and Node.js, real-time WebSocket state engines, and hardware-backed cryptographic authentication platforms with verified test suites.
                   </p>
                 </div>
               </div>
@@ -815,367 +668,220 @@
         </div>
       </section>
 
-      <!-- EXPERIENCE & AWARDS SECTION -->
-      <section id="experience" class="section-pad">
+      <!-- ===================================================================
+           09 — EXPERIENCE & RESEARCH TIMELINE
+           =================================================================== -->
+      <section class="section-experience" id="experience">
         <div class="container">
-          <div class="section-head">
-            <span class="section-category">Timeline</span>
+          <div class="section-editorial-header">
+            <span class="section-label">05 / Milestones</span>
             <h2 class="section-title">Experience &amp; Research</h2>
-            <p class="section-intro">
-              Academic research, institutional system analysis, organizational leadership, and national UX competitions.
+            <p class="section-desc">
+              Verified academic research, software architecture milestones, and competition achievements.
             </p>
           </div>
 
-          <div class="experience-list">
-            <!-- 1. Research Assistant -->
-            <div class="exp-item">
-              <div class="exp-period">May 2026 — Present</div>
-              <div class="exp-content">
-                <h3>UI/UX Designer &amp; System Analyst (Research Assistant)</h3>
-                <p class="exp-org">Financial Management Application Research · UPN “Veteran” Yogyakarta</p>
-                <ul>
-                  <li>Defined technical Software Requirements Specifications (SRS) based on budget governance regulations.</li>
-                  <li>Mapped complex multi-entity workflows into Data Flow Diagrams (DFD Levels 0–3) and relational ERDs.</li>
-                  <li>Built interactive design token systems and high-density Figma prototypes for multi-tier budget approvals.</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 2. BKMK Medinfo -->
-            <div class="exp-item">
-              <div class="exp-period">Sep 2025 — Sep 2026</div>
-              <div class="exp-content">
-                <h3>Deputy Head of Media &amp; Information Department</h3>
-                <p class="exp-org">Badan Keluarga Mahasiswa Kebumen (BKMK)</p>
-                <p>
-                  Coordinated editorial calendars, visual asset production, brand consistency, and cross-platform
-                  communication strategies across student community channels.
+          <div class="timeline-stream">
+            <div class="timeline-entry">
+              <div class="timeline-period">2026 &mdash; Present</div>
+              <div class="timeline-detail">
+                <h3>System Analyst &amp; Lead UX Researcher &mdash; Institutional Financial System</h3>
+                <div class="timeline-institution">UPN &ldquo;Veteran&rdquo; Yogyakarta</div>
+                <p class="timeline-desc">
+                  Conducted requirements analysis for university-wide budgeting digitalization. Modeled Data Flow Diagrams (DFD Levels 0–3), authored software specifications, and designed the Figma enterprise design system for multi-tier approval workflows.
                 </p>
               </div>
             </div>
 
-            <!-- 3. Kebumen Campus Festival -->
-            <div class="exp-item">
-              <div class="exp-period">Oct 2025 — Jan 2026</div>
-              <div class="exp-content">
-                <h3>PDD Coordinator (Documentation &amp; Publication)</h3>
-                <p class="exp-org">Kebumen Campus Festival 2026</p>
-                <p>
-                  Led a 9-member creative team managing end-to-end photography, videography, graphic design, and
-                  multimedia publication for a regency-scale higher education expo.
+            <div class="timeline-entry">
+              <div class="timeline-period">2026</div>
+              <div class="timeline-detail">
+                <h3>Lead Security Architect &mdash; IPGuard Platform</h3>
+                <div class="timeline-institution">Independent Engineering Milestone</div>
+                <p class="timeline-desc">
+                  Designed and implemented an end-to-end zero-knowledge digital asset protection platform using Android Keystore ECDSA P-256 hardware authentication, XChaCha20-Poly1305 file vault encryption, and LSB cryptographic watermarking. Verified with 209 passing Pytest assertions.
                 </p>
               </div>
             </div>
 
-            <!-- 4. Education -->
-            <div class="exp-item">
-              <div class="exp-period">2024 — Present</div>
-              <div class="exp-content">
-                <h3>Bachelor’s in Informatics Engineering</h3>
-                <p class="exp-org">UPN “Veteran” Yogyakarta</p>
-                <p>
-                  Focusing on software engineering, application security, database systems, computer networks, and
-                  human-computer interaction.
+            <div class="timeline-entry">
+              <div class="timeline-period">2026</div>
+              <div class="timeline-detail">
+                <h3>Broadcast Systems Developer &mdash; MLBB Draft Studio</h3>
+                <div class="timeline-institution">Esports Production Tooling</div>
+                <p class="timeline-desc">
+                  Built real-time broadcast operator panel and transparent 1080p OBS overlays synchronized via Socket.IO with atomic file persistence for LAN tournament operations.
                 </p>
               </div>
             </div>
-          </div>
 
-          <!-- National Award Card -->
-          <div class="award-card">
-            <div class="award-body">
-              <span class="award-tag">National Recognition</span>
-              <h3 class="award-title">Finalist &amp; Best Video Awardee — Find IT! UGM 2026</h3>
-              <p class="award-desc">
-                Honored at the prestigious national UX design competition hosted by KMTETI FT Universitas Gadjah Mada
-                for excellence in user research, interface prototyping, and narrative visual production.
-              </p>
-            </div>
-            <div class="award-meta">
-              May 2026<br />KMTETI · FT UGM
+            <div class="timeline-entry">
+              <div class="timeline-period">2026</div>
+              <div class="timeline-detail">
+                <h3>National Finalist &mdash; User-Centered Design Competition</h3>
+                <div class="timeline-institution">National UI/UX Championship</div>
+                <p class="timeline-desc">
+                  Recognized for comprehensive usability research, heuristic evaluation, and interactive prototyping addressing cognitive friction in multi-modal urban transit.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- TECHNICAL & CREATIVE SKILLS DIRECTORY -->
-      <section id="skills" class="sec-alt section-pad">
+      <!-- ===================================================================
+           10 — SKILLS (Typography-Driven Directory)
+           =================================================================== -->
+      <section class="section-skills" id="skills">
         <div class="container">
-          <div class="section-head">
-            <span class="section-category">Capabilities</span>
+          <div class="section-editorial-header">
+            <span class="section-label">06 / Capabilities</span>
             <h2 class="section-title">Technical &amp; Creative Skills</h2>
-            <p class="section-intro">
-              Equal representation of design craft and engineering disciplines, organized by operational focus.
+            <p class="section-desc">
+              Tools, frameworks, and methodologies grounded in verified projects and production codebases.
             </p>
           </div>
 
-          <div class="skills-matrix">
-            <!-- Design Skills Column -->
-            <div class="skills-column">
-              <div class="skills-col-head">
-                <svg class="ico" aria-hidden="true"><use href="#i-figma" /></svg>
-                <h3>Design &amp; Creative</h3>
+          <div class="skills-directory-grid">
+            <div class="skills-group-col">
+              <div class="skills-group-header">
+                <h3 class="skills-group-title"><span>01</span> Design &amp; Creative</h3>
               </div>
-
-              <div class="skills-group">
-                <span class="skills-group-title">UI/UX &amp; Product Design</span>
-                <div class="skills-chips">
-                  <span class="skill-pill">Figma</span>
-                  <span class="skill-pill">Interface Design</span>
-                  <span class="skill-pill">User Experience (UX)</span>
-                  <span class="skill-pill">Design Systems</span>
-                  <span class="skill-pill">Interactive Prototyping</span>
-                  <span class="skill-pill">Wireframing</span>
-                  <span class="skill-pill">Responsive Layouts</span>
-                </div>
-              </div>
-
-              <div class="skills-group">
-                <span class="skills-group-title">Visual &amp; Creative Direction</span>
-                <div class="skills-chips">
-                  <span class="skill-pill">Adobe Photoshop</span>
-                  <span class="skill-pill">Adobe After Effects</span>
-                  <span class="skill-pill">Visual Communication</span>
-                  <span class="skill-pill">Motion Design</span>
-                  <span class="skill-pill">Canva</span>
-                </div>
-              </div>
-
-              <div class="skills-group">
-                <span class="skills-group-title">3D &amp; Spatial Computing</span>
-                <div class="skills-chips">
-                  <span class="skill-pill">Blender 3D</span>
-                  <span class="skill-pill">Unity 3D</span>
-                  <span class="skill-pill">AR Foundation</span>
-                  <span class="skill-pill">ARCore</span>
-                  <span class="skill-pill">PBR Texturing</span>
-                </div>
-              </div>
+              <ul class="skills-text-list">
+                <li class="skills-text-item"><span>UI/UX Design</span><span class="skill-sub">Figma, Prototyping</span></li>
+                <li class="skills-text-item"><span>Design Systems</span><span class="skill-sub">Tokens, Variables</span></li>
+                <li class="skills-text-item"><span>Visual Design</span><span class="skill-sub">Typography, Layout</span></li>
+                <li class="skills-text-item"><span>3D Visualization</span><span class="skill-sub">Blender 3D, PBR</span></li>
+                <li class="skills-text-item"><span>Augmented Reality</span><span class="skill-sub">Unity, ARCore</span></li>
+                <li class="skills-text-item"><span>Motion &amp; Video</span><span class="skill-sub">After Effects</span></li>
+              </ul>
             </div>
 
-            <!-- Coding Skills Column -->
-            <div class="skills-column">
-              <div class="skills-col-head">
-                <svg class="ico" aria-hidden="true"><use href="#i-terminal" /></svg>
-                <h3>Coding &amp; Engineering</h3>
+            <div class="skills-group-col">
+              <div class="skills-group-header">
+                <h3 class="skills-group-title"><span>02</span> Code &amp; Engineering</h3>
               </div>
+              <ul class="skills-text-list">
+                <li class="skills-text-item"><span>Frontend</span><span class="skill-sub">React 19, TypeScript, Vite</span></li>
+                <li class="skills-text-item"><span>Backend APIs</span><span class="skill-sub">FastAPI, Python, Node.js</span></li>
+                <li class="skills-text-item"><span>Databases</span><span class="skill-sub">PostgreSQL, MySQL, SQLite</span></li>
+                <li class="skills-text-item"><span>Real-Time Engines</span><span class="skill-sub">Socket.IO, WebSockets</span></li>
+                <li class="skills-text-item"><span>Languages</span><span class="skill-sub">Python, JS/TS, PHP, C++</span></li>
+                <li class="skills-text-item"><span>Testing &amp; CI</span><span class="skill-sub">Pytest, Playwright, Git</span></li>
+              </ul>
+            </div>
 
-              <div class="skills-group">
-                <span class="skills-group-title">Languages &amp; Core</span>
-                <div class="skills-chips">
-                  <span class="skill-pill">Python</span>
-                  <span class="skill-pill">JavaScript (ES6+)</span>
-                  <span class="skill-pill">TypeScript</span>
-                  <span class="skill-pill">PHP 8</span>
-                  <span class="skill-pill">C#</span>
-                  <span class="skill-pill">C++</span>
-                  <span class="skill-pill">Java</span>
-                  <span class="skill-pill">SQL</span>
-                </div>
+            <div class="skills-group-col">
+              <div class="skills-group-header">
+                <h3 class="skills-group-title"><span>03</span> Systems &amp; Security</h3>
               </div>
-
-              <div class="skills-group">
-                <span class="skills-group-title">Frontend &amp; Backend Engineering</span>
-                <div class="skills-chips">
-                  <span class="skill-pill">React 19</span>
-                  <span class="skill-pill">Vite</span>
-                  <span class="skill-pill">Tailwind CSS v4</span>
-                  <span class="skill-pill">FastAPI</span>
-                  <span class="tech-chip">Express</span>
-                  <span class="skill-pill">Socket.IO</span>
-                  <span class="skill-pill">Node.js</span>
-                  <span class="skill-pill">REST APIs</span>
-                </div>
-              </div>
-
-              <div class="skills-group">
-                <span class="skills-group-title">Security, Systems &amp; Infrastructure</span>
-                <div class="skills-chips">
-                  <span class="skill-pill">ECDSA P-256</span>
-                  <span class="skill-pill">XChaCha20 AEAD</span>
-                  <span class="skill-pill">PostgreSQL</span>
-                  <span class="skill-pill">MySQL</span>
-                  <span class="skill-pill">Docker</span>
-                  <span class="skill-pill">Git &amp; GitHub</span>
-                  <span class="skill-pill">Linux</span>
-                  <span class="skill-pill">Cloudflare Pages</span>
-                </div>
-              </div>
+              <ul class="skills-text-list">
+                <li class="skills-text-item"><span>Hardware Auth</span><span class="skill-sub">Android Keystore, TEE</span></li>
+                <li class="skills-text-item"><span>Applied Cryptography</span><span class="skill-sub">ECDSA P-256, XChaCha20</span></li>
+                <li class="skills-text-item"><span>Digital Signatures</span><span class="skill-sub">Ed25519, Steganography</span></li>
+                <li class="skills-text-item"><span>Workflow Analysis</span><span class="skill-sub">DFD Levels 0-3, SRS</span></li>
+                <li class="skills-text-item"><span>App Security</span><span class="skill-sub">OWASP, SQLi Mitigation</span></li>
+                <li class="skills-text-item"><span>Infrastructure</span><span class="skill-sub">Docker, Linux, Cloudflare</span></li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- CONTACT SECTION — HIGH-IMPACT EDITORIAL CTA BOX -->
-      <section id="contact" class="section-pad">
+      <!-- ===================================================================
+           11 — CONTACT (Minimalist, High-Impact)
+           =================================================================== -->
+      <section class="section-contact" id="contact">
         <div class="container">
-          <div class="contact-card">
-            <div>
-              <span class="section-category">Get In Touch</span>
-              <h2 class="contact-title">Let's build something exceptional together.</h2>
-              <p class="contact-copy">
-                Open to internships, software development opportunities, web project collaborations, and
-                other aligned technical or product roles. Feel free to reach out directly.
-              </p>
-            </div>
-            <div class="contact-actions-grid">
-              <a class="contact-action-btn contact-action-primary" href="mailto:abdillahabhi12@gmail.com">
-                <span class="with-ico">
-                  <svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg>
-                  <span>abdillahabhi12@gmail.com</span>
-                </span>
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+          <div class="contact-editorial-box">
+            <span class="section-label">07 / Connect</span>
+            <h2 class="contact-headline">Have an idea worth building? Let&rsquo;s create something meaningful.</h2>
+            <p class="contact-subtext">
+              Whether you are looking to design an intuitive digital experience, engineer a robust software system, or collaborate on spatial and security research, my inbox is open.
+            </p>
+
+            <div class="contact-action-row">
+              <!--email_off-->
+              <a href="mailto:abdillahabhi12@gmail.com" class="btn-contact-main">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                <span>Send Email</span>
               </a>
-              <button id="copyEmail" class="contact-action-btn contact-action-secondary" type="button">
-                <span id="copyLabel" class="with-ico" aria-live="polite">
-                  <svg class="ico" aria-hidden="true"><use href="#i-copy" /></svg>
-                  <span>Copy email</span>
-                </span>
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              <!--/email_off-->
+
+              <button id="copyEmailBtn" class="btn-contact-copy" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                <span>Copy Email Address</span>
               </button>
-              <a class="contact-action-btn contact-action-secondary" href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer">
-                <span class="with-ico">
-                  <svg class="ico" aria-hidden="true"><use href="#i-github" /></svg>
-                  <span>GitHub Profile</span>
-                </span>
-                <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-              </a>
+            </div>
+
+            <div class="contact-social-row">
+              <a href="https://github.com/Abhiprayaa29" target="_blank" rel="noopener noreferrer" class="contact-social-link">GitHub ↗</a>
+              <a href="https://linkedin.com/in/abdillah-abhi" target="_blank" rel="noopener noreferrer" class="contact-social-link">LinkedIn ↗</a>
+              <a href="cv/Abdillah-Abhi-CV.pdf" target="_blank" rel="noopener noreferrer" class="contact-social-link">Curriculum Vitae (PDF) ↗</a>
             </div>
           </div>
         </div>
       </section>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-inner">
-          <div class="footer-copy">
-            &copy; <span id="year">2026</span> Abdillah Abhipraya Abrar. Designed &amp; engineered with care.
-          </div>
-          <div class="footer-links">
-            <a href="#home">Back to top ↑</a>
-            <a href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer">GitHub</a>
-            <!--email_off--><a href="mailto:abdillahabhi12@gmail.com">Email</a><!--/email_off-->
-            <a href="./cv/Abdillah-Abhi-CV.pdf" download>Resume</a>
-          </div>
+    <!-- ===================================================================
+         FOOTER
+         =================================================================== -->
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-copy">
+          &copy; 2026 Abdillah Abhipraya Abrar &middot; Handcrafted with clean vanilla HTML, CSS &amp; JavaScript.
         </div>
-        <p id="footerStats" class="footer-stats" hidden aria-live="polite"></p>
+
+        <div class="footer-nav">
+          <a href="#top">Back to Top ↑</a>
+          <a href="#work">Work</a>
+          <a href="#shelves">Shelves</a>
+          <a href="#notes">Notes</a>
+          <a href="#about">About</a>
+          <a href="https://github.com/Abhiprayaa29" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+
+        <div class="footer-status-pill">
+          <span class="status-dot"></span>
+          <span id="visitorStats">Verified Deployment</span>
+        </div>
       </div>
     </footer>
 
-    <!-- CASE STUDY MODAL DIALOG -->
-    <dialog id="projectDialog" class="dialog-overlay" aria-labelledby="caseTitle">
+    <!-- ===================================================================
+         EDITORIAL MODAL DIALOGS
+         =================================================================== -->
+    
+    <!-- Case Study Reader Dialog -->
+    <dialog id="projectDialog" class="editorial-dialog" aria-labelledby="projectDialogClose">
       <div class="dialog-header">
-        <h2 id="caseTitle">Project Title</h2>
-        <button id="dialogClose" class="dialog-close-btn" type="button" aria-label="Close case study">✕</button>
-      </div>
-      <div class="dialog-content">
-        <div class="case-meta-bar">
-          <div class="case-meta-item">
-            <span class="case-meta-label">Discipline</span>
-            <span id="caseDiscipline" class="case-meta-val">COMBINED</span>
-          </div>
-          <div class="case-meta-item">
-            <span class="case-meta-label">Role</span>
-            <span id="caseRole" class="case-meta-val">Lead Architect</span>
-          </div>
-          <div class="case-meta-item">
-            <span class="case-meta-label">Status</span>
-            <span id="caseStatus" class="case-meta-val">Verified</span>
-          </div>
+        <div class="dialog-breadcrumb">
+          <span>Selected Work</span>
+          <span>/</span>
+          <span>Case Study</span>
         </div>
+        <button id="projectDialogClose" class="dialog-close-btn" type="button" aria-label="Close case study dialog">&times;</button>
+      </div>
+      <div id="projectDialogBody" class="dialog-body">
+        <!-- Injected via script.js -->
+      </div>
+    </dialog>
 
-        <div id="caseGallery" class="case-gallery" hidden></div>
-
-        <div class="case-study-grid">
-          <div class="case-section">
-            <h3>Problem Statement</h3>
-            <p id="caseProblem"></p>
-          </div>
-          <div class="case-section">
-            <h3>My Contribution</h3>
-            <p id="caseContribution"></p>
-          </div>
-          <div class="case-section">
-            <h3>Technical Challenges &amp; Solutions</h3>
-            <p id="caseChallenge"></p>
-          </div>
-          <div class="case-section">
-            <h3>System Architecture &amp; Engineering</h3>
-            <p id="caseEngineering"></p>
-          </div>
-          <div class="case-section">
-            <h3>Design Decisions</h3>
-            <p id="caseDesign"></p>
-          </div>
-          <div class="case-section">
-            <h3>Results &amp; Verification</h3>
-            <p id="caseResult"></p>
-          </div>
-          <div class="case-section">
-            <h3>Technology Stack</h3>
-            <div id="caseStack" class="work-stack"></div>
-          </div>
-          <div class="case-section">
-            <a id="caseGithub" class="btn btn-primary" href="#" target="_blank" rel="noreferrer" style="width: fit-content;">
-              View Repository on GitHub <svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-            </a>
-          </div>
+    <!-- Shelves Article Reader Dialog -->
+    <dialog id="shelfDialog" class="editorial-dialog" aria-labelledby="shelfDialogClose">
+      <div class="dialog-header">
+        <div id="shelfDialogBreadcrumb" class="dialog-breadcrumb">
+          <span>Shelves</span>
         </div>
+        <button id="shelfDialogClose" class="dialog-close-btn" type="button" aria-label="Close article dialog">&times;</button>
+      </div>
+      <div id="shelfDialogBody" class="dialog-body">
+        <!-- Injected via script.js -->
       </div>
     </dialog>
 
-    <!-- SHELVES EDITORIAL READING DIALOG -->
-    <dialog id="shelfDialog" class="dialog-overlay" aria-labelledby="shelfArticleTitle">
-      <div class="dialog-header">
-        <span id="shelfArticleCat" class="shelf-article-cat">Category</span>
-        <button id="shelfDialogClose" class="dialog-close-btn" type="button" aria-label="Close reading view">✕</button>
-      </div>
-      <div class="dialog-content">
-        <article class="shelf-article">
-          <header class="shelf-article-head">
-            <h2 id="shelfArticleTitle" class="shelf-article-title">Note Title</h2>
-            <div class="shelf-article-meta">
-              <span id="shelfArticleDate">Date</span>
-              <span>·</span>
-              <span id="shelfArticleTags">Tags</span>
-            </div>
-          </header>
-          <div id="shelfArticleBody" class="shelf-article-body">
-            <!-- Parsed Markdown content appears here -->
-          </div>
-        </article>
-      </div>
-    </dialog>
-
-    <!-- CERTIFICATE DIALOG -->
-    <dialog id="certDialog" class="dialog-overlay" aria-labelledby="certTitle">
-      <div class="dialog-header">
-        <h2 id="certTitle">Certificate</h2>
-        <button id="certClose" class="dialog-close-btn" type="button" aria-label="Close preview">✕</button>
-      </div>
-      <div class="dialog-content" style="text-align: center;">
-        <img id="certImage" src="" alt="Certificate preview" style="max-height: 70vh; margin: 0 auto; border-radius: 8px;" />
-      </div>
-    </dialog>
-
-    <!-- SVG SPRITE -->
-    <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <defs>
-        <symbol id="i-download" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" /></symbol>
-        <symbol id="i-github" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></symbol>
-        <symbol id="i-arrow-ur" viewBox="0 0 24 24"><path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
-        <symbol id="i-mail" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></symbol>
-        <symbol id="i-copy" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></symbol>
-        <symbol id="i-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
-        <symbol id="i-figma" viewBox="0 0 24 24"><path d="M8 2h4a4 4 0 0 1 4 4 4 4 0 0 1-4 4H8V2zm0 8h4a4 4 0 0 1 4 4 4 4 0 0 1-4 4H8v-8zm0 8h4a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4zm-4-8a4 4 0 0 1 4-4v8a4 4 0 0 1-4-4zm0-8a4 4 0 0 1 4-4v8a4 4 0 0 1-4-4z"/></symbol>
-        <symbol id="i-terminal" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zm-12-8l4 3-4 3v-2l1.33-1L8 12v-2zm6 5h4v1h-4v-1z"/></symbol>
-        <symbol id="i-layers" viewBox="0 0 24 24"><path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9.07l-9-7-9 7 1.63 1.2L12 16z"/></symbol>
-        <symbol id="i-code" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></symbol>
-      </defs>
-    </svg>
-
-    <script src="./script.js?v=20261110-v3"></script>
+    <!-- Core Script Engine with Cache-Buster -->
+    <script src="./script.js?v=20261111-v1"></script>
   </body>
 </html>
