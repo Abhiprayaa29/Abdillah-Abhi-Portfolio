@@ -224,7 +224,7 @@ const applyTheme = (t, save) => {
   const lbl = $('.theme-toggle-label');
   if (lbl) lbl.textContent = dark ? 'Light mode' : 'Dark mode';
   const m = document.querySelector('meta[name="theme-color"]');
-  if (m) m.setAttribute('content', dark ? '#000000' : '#ffffff');
+  if (m) m.setAttribute('content', dark ? '#090a0f' : '#ffffff');
 };
 applyTheme(document.documentElement.getAttribute('data-theme') || 'light', false);
 $$('.theme-toggle').forEach((btn) =>
@@ -412,6 +412,31 @@ certDialog.addEventListener('click', (e) => {
   if (e.target === certDialog) certDialog.close();
 });
 
+// Interactive certificate category filter
+const certFilterBtns = $$('.cert-filter-btn');
+const certRows = $$('.cert-row');
+if (certFilterBtns.length && certRows.length) {
+  certFilterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      certFilterBtns.forEach((b) => {
+        const isActive = b === btn;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', String(isActive));
+      });
+      certRows.forEach((row) => {
+        const cat = row.dataset.category;
+        const match = filter === 'all' || cat === filter;
+        if (match) {
+          row.classList.remove('is-filtered-out');
+        } else {
+          row.classList.add('is-filtered-out');
+        }
+      });
+    });
+  });
+}
+
 const featuredSlides = [
   {
     key: 'mlbb',
@@ -478,7 +503,7 @@ if (featEl) {
     titleEl.textContent = p.title;
     textEl.textContent = s.text;
     metricsEl.innerHTML = s.metrics
-      .map((m) => `<li><strong>${m[0]}</strong><span>${m[1]}</span></li>`)
+      .map((m) => `<li class="featured-metric-card"><strong>${m[0]}</strong><span>${m[1]}</span></li>`)
       .join('');
     openBtn.dataset.open = s.key;
     repoLink.href = p.github;

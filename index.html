@@ -63,7 +63,7 @@
         document.documentElement.setAttribute('data-theme', t);
         document.addEventListener('DOMContentLoaded', function () {
           var m = document.querySelector('meta[name="theme-color"]');
-          if (m) m.setAttribute('content', t === 'dark' ? '#000000' : '#ffffff');
+          if (m) m.setAttribute('content', t === 'dark' ? '#090a0f' : '#ffffff');
         });
       })();
     </script>
@@ -192,9 +192,18 @@
           <canvas class="hero-cat-art" width="16" height="16"></canvas>
         </div>
         <div class="container">
+          <div class="hero-status">
+            <span class="status-indicator">
+              <span class="status-pulse"></span>
+              <span class="status-dot"></span>
+            </span>
+            <span class="status-text">Available for opportunities</span>
+            <span class="status-sep">·</span>
+            <span class="status-loc">Yogyakarta, ID</span>
+          </div>
           <h1>
-            Hello, I'm Abhipraya 
-            Software Developer &amp; Informatics Student 
+            Hello, I'm <span class="hero-gradient-name">Abhipraya</span>
+            <span class="hero-subhead">Software Developer &amp; Informatics Student</span>
           </h1>
           <p class="hero-support">
             I integrate user interface design (UI/UX) with full-stack web engineering and
@@ -203,7 +212,7 @@
             secure from a system architecture perspective.
           </p>
           <div class="hero-actions">
-            <a class="button button-solid" href="#projects">View projects</a>
+            <a class="button button-solid" href="#projects">View projects <span class="chev" aria-hidden="true">›</span></a>
             <a class="button button-outline" href="#contact">Get in touch</a>
             <a class="text-link" href="./cv/Abdillah-Abhi-CV.pdf" download
               >Download CV <span class="chev" aria-hidden="true">›</span></a
@@ -239,9 +248,9 @@
                 reload.
               </p>
               <ul class="featured-metrics">
-                <li><strong>166</strong><span>backend assertions passed</span></li>
-                <li><strong>121</strong><span>E2E assertions passed</span></li>
-                <li><strong>133</strong><span>heroes validated 0 errors</span></li>
+                <li class="featured-metric-card"><strong>166</strong><span>backend assertions passed</span></li>
+                <li class="featured-metric-card"><strong>121</strong><span>E2E assertions passed</span></li>
+                <li class="featured-metric-card"><strong>133</strong><span>heroes validated 0 errors</span></li>
               </ul>
               <div class="featured-actions">
                 <button class="row-open" type="button" data-open="mlbb">View details</button>
@@ -640,20 +649,37 @@
                 reliable.
               </p>
               <ul class="signals">
-                <li>
-                  <strong>166 + 121</strong
-                  ><span>Backend &amp; E2E assertions passed on MLBB Draft Studio</span>
+                <li class="signal-card">
+                  <div class="signal-header">
+                    <span class="signal-badge">Engineering</span>
+                    <svg class="signal-icon" aria-hidden="true"><use href="#i-check" /></svg>
+                  </div>
+                  <strong class="signal-val">166 + 121</strong>
+                  <span class="signal-desc">Backend &amp; E2E assertions passed on MLBB Draft Studio</span>
                 </li>
-                <li>
-                  <strong>5 projects</strong
-                  ><span>Public projects on GitHub: web, Telegram bot, AR, and orchestration</span>
+                <li class="signal-card">
+                  <div class="signal-header">
+                    <span class="signal-badge">Open Source</span>
+                    <svg class="signal-icon" aria-hidden="true"><use href="#i-github" /></svg>
+                  </div>
+                  <strong class="signal-val">5 projects</strong>
+                  <span class="signal-desc">Public projects on GitHub: web, Telegram bot, AR, and orchestration</span>
                 </li>
-                <li>
-                  <strong>Academic automation</strong
-                  ><span>Deadline reminders, automated attendance, and 07:00 daily briefing</span>
+                <li class="signal-card">
+                  <div class="signal-header">
+                    <span class="signal-badge">Workflow</span>
+                    <svg class="signal-icon" aria-hidden="true"><use href="#i-fastapi" /></svg>
+                  </div>
+                  <strong class="signal-val">Academic automation</strong>
+                  <span class="signal-desc">Deadline reminders, automated attendance, and 07:00 daily briefing</span>
                 </li>
-                <li>
-                  <strong>Best Video</strong><span>Find IT! UGM 2026 — national UX competition</span>
+                <li class="signal-card signal-card-award">
+                  <div class="signal-header">
+                    <span class="signal-badge">UX Award</span>
+                    <svg class="signal-icon" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+                  </div>
+                  <strong class="signal-val">Best Video</strong>
+                  <span class="signal-desc">Find IT! UGM 2026 — national UX competition</span>
                 </li>
               </ul>
             </div>
@@ -668,6 +694,7 @@
             <div class="timeline-row">
               <div class="period">May 2026 — Present</div>
               <div>
+                <span class="timeline-tag">Research &amp; Systems</span>
                 <h3>UI/UX Designer &amp; System Analyst (Research Assistant)</h3>
                 <p class="org">Financial Management Application Research · UPN “Veteran” Yogyakarta</p>
                 <ul>
@@ -689,6 +716,7 @@
             <div class="timeline-row">
               <div class="period">Sep 2025 — Sep 2026</div>
               <div>
+                <span class="timeline-tag timeline-tag-lead">Leadership</span>
                 <h3>Deputy Head of Media &amp; Information Department</h3>
                 <p class="org">Badan Keluarga Mahasiswa Kebumen (BKMK)</p>
                 <p>
@@ -700,6 +728,7 @@
             <div class="timeline-row">
               <div class="period">Oct 2025 — Jan 2026</div>
               <div>
+                <span class="timeline-tag timeline-tag-event">Media &amp; Publication</span>
                 <h3>PDD Coordinator (Documentation &amp; Publication)</h3>
                 <p class="org">Kebumen Campus Festival 2026</p>
                 <p>
@@ -711,6 +740,7 @@
             <div class="timeline-row">
               <div class="period">Oct 2025 — Jan 2026</div>
               <div>
+                <span class="timeline-tag timeline-tag-event">Media &amp; Publication</span>
                 <h3>PDD Coordinator (Documentation &amp; Publication)</h3>
                 <p class="org">SMANSAKU Campus Expo</p>
                 <p>
@@ -722,6 +752,7 @@
             <div class="timeline-row">
               <div class="period">Aug 2026 — Sep 2026</div>
               <div>
+                <span class="timeline-tag timeline-tag-event">Media &amp; Publication</span>
                 <h3>PDD Coordinator (Documentation &amp; Publication)</h3>
                 <p class="org">
                   Informatics Department Gathering · Informatics Student Association, UPN “Veteran”
@@ -738,6 +769,7 @@
             <div class="timeline-row">
               <div class="period">2024 — Present</div>
               <div>
+                <span class="timeline-tag">Academic</span>
                 <h3>Bachelor’s in Informatics Engineering</h3>
                 <p class="org">UPN “Veteran” Yogyakarta</p>
               </div>
@@ -745,7 +777,7 @@
           </div>
           <div class="achievement">
             <div>
-              <span class="row-label">Achievement</span>
+              <span class="award-badge">🏆 National Award</span>
               <h3>Finalist &amp; Best Video Awardee — Find IT! UGM 2026</h3>
               <p>Honored at a national-level UX design competition.</p>
             </div>
@@ -870,8 +902,14 @@
             and a Micro Skill training from Komdigi, complete with official credentials and verification
             links where available.
           </p>
+          <div class="cert-filters" role="tablist" aria-label="Filter certificates">
+            <button class="cert-filter-btn active" type="button" role="tab" aria-selected="true" data-filter="all">All Certificates <span class="filter-count">12</span></button>
+            <button class="cert-filter-btn" type="button" role="tab" aria-selected="false" data-filter="ibm">IBM SkillsBuild <span class="filter-count">4</span></button>
+            <button class="cert-filter-btn" type="button" role="tab" aria-selected="false" data-filter="dicoding">Dicoding <span class="filter-count">5</span></button>
+            <button class="cert-filter-btn" type="button" role="tab" aria-selected="false" data-filter="awards">Awards &amp; Training <span class="filter-count">3</span></button>
+          </div>
           <div class="cert-list">
-            <div class="cert-row">
+            <div class="cert-row" data-category="ibm">
               <span class="cert-date">Oct 2026</span>
               <button
                 class="cert-thumb"
@@ -891,7 +929,7 @@
               </button>
               <div>
                 <h3>Getting Started with Data</h3>
-                <span class="cert-issuer">IBM SkillsBuild</span>
+                <span class="cert-badge cert-badge-ibm">IBM SkillsBuild</span>
               </div>
               <div class="cert-links">
                 <a
@@ -911,7 +949,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="ibm">
               <span class="cert-date">Oct 2026</span>
               <button
                 class="cert-thumb"
@@ -931,7 +969,7 @@
               </button>
               <div>
                 <h3>Introduction to Large Language Models</h3>
-                <span class="cert-issuer">IBM SkillsBuild</span>
+                <span class="cert-badge cert-badge-ibm">IBM SkillsBuild</span>
               </div>
               <div class="cert-links">
                 <a
@@ -951,7 +989,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="ibm">
               <span class="cert-date">Oct 2026</span>
               <button
                 class="cert-thumb"
@@ -971,7 +1009,7 @@
               </button>
               <div>
                 <h3>Intelligent by Design: Build an AI Agent</h3>
-                <span class="cert-issuer">IBM SkillsBuild</span>
+                <span class="cert-badge cert-badge-ibm">IBM SkillsBuild</span>
               </div>
               <div class="cert-links">
                 <a
@@ -991,7 +1029,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="ibm">
               <span class="cert-date">Oct 2026</span>
               <button
                 class="cert-thumb"
@@ -1011,7 +1049,7 @@
               </button>
               <div>
                 <h3>Lab: Troubleshoot Your Code Using IBM Bob</h3>
-                <span class="cert-issuer">IBM SkillsBuild</span>
+                <span class="cert-badge cert-badge-ibm">IBM SkillsBuild</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1031,7 +1069,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="dicoding">
               <span class="cert-date">Oct 2026</span>
               <button
                 class="cert-thumb"
@@ -1051,7 +1089,7 @@
               </button>
               <div>
                 <h3>Fundamental Data Analysis</h3>
-                <span class="cert-issuer">Dicoding</span>
+                <span class="cert-badge cert-badge-dicoding">Dicoding</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1071,7 +1109,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="awards">
               <span class="cert-date">Oct 2026</span>
               <button
                 class="cert-thumb"
@@ -1093,7 +1131,7 @@
                 <h3>
                   Artificial Intelligence No-Code Studio: Building Apps and Websites Without Coding
                 </h3>
-                <span class="cert-issuer">BBLSDM Komdigi</span>
+                <span class="cert-badge cert-badge-komdigi">BBLSDM Komdigi</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1106,7 +1144,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="dicoding">
               <span class="cert-date">Sep 2026</span>
               <button
                 class="cert-thumb"
@@ -1126,7 +1164,7 @@
               </button>
               <div>
                 <h3>Machine Learning for Beginners</h3>
-                <span class="cert-issuer">Dicoding</span>
+                <span class="cert-badge cert-badge-dicoding">Dicoding</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1146,7 +1184,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="dicoding">
               <span class="cert-date">Aug 2026</span>
               <button
                 class="cert-thumb"
@@ -1166,7 +1204,7 @@
               </button>
               <div>
                 <h3>Data Science Fundamentals</h3>
-                <span class="cert-issuer">Dicoding</span>
+                <span class="cert-badge cert-badge-dicoding">Dicoding</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1186,7 +1224,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="dicoding">
               <span class="cert-date">Aug 2026</span>
               <button
                 class="cert-thumb"
@@ -1206,7 +1244,7 @@
               </button>
               <div>
                 <h3>Getting Started with Python</h3>
-                <span class="cert-issuer">Dicoding</span>
+                <span class="cert-badge cert-badge-dicoding">Dicoding</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1226,7 +1264,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="dicoding">
               <span class="cert-date">Aug 2026</span>
               <button
                 class="cert-thumb"
@@ -1246,7 +1284,7 @@
               </button>
               <div>
                 <h3>Basic Structured Query Language (SQL)</h3>
-                <span class="cert-issuer">Dicoding</span>
+                <span class="cert-badge cert-badge-dicoding">Dicoding</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1266,7 +1304,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="awards">
               <span class="cert-date">May 2026</span>
               <button
                 class="cert-thumb"
@@ -1286,7 +1324,7 @@
               </button>
               <div>
                 <h3>UX Competition Finalist — Find IT! 2026</h3>
-                <span class="cert-issuer">KMTETI · FT UGM</span>
+                <span class="cert-badge cert-badge-ugm">KMTETI · FT UGM</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1299,7 +1337,7 @@
               </div>
             </div>
 
-            <div class="cert-row">
+            <div class="cert-row" data-category="awards">
               <span class="cert-date">May 2026</span>
               <button
                 class="cert-thumb"
@@ -1319,7 +1357,7 @@
               </button>
               <div>
                 <h3>Best Video — Find IT! 2026</h3>
-                <span class="cert-issuer">KMTETI · FT UGM</span>
+                <span class="cert-badge cert-badge-ugm">KMTETI · FT UGM</span>
               </div>
               <div class="cert-links">
                 <a
@@ -1355,7 +1393,7 @@
                       and three transparent overlays (draft, scoreboard, and Sponsor Edition) synchronized in real time.
                     </p>
                     <p class="repo-meta">
-                      <span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-javascript" /></svg>JavaScript</span><span>Updated Oct 2026</span>
+                      <span class="tech"><span class="lang-dot lang-js"></span>JavaScript</span><span>Updated Oct 2026</span>
                     </p>
                   </div>
                   <div class="repo-actions">
@@ -1377,7 +1415,7 @@
                       Unity AR application: surface detection, object placement, rotation, scaling, and reset
                       (AR Foundation + ARCore).
                     </p>
-                    <p class="repo-meta"><span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-csharp" /></svg>C#</span><span>Updated Oct 2026</span></p>
+                    <p class="repo-meta"><span class="tech"><span class="lang-dot lang-cs"></span>C#</span><span>Updated Oct 2026</span></p>
                   </div>
                   <div class="repo-actions">
                     <button class="row-open" type="button" data-open="ar">Case study</button>
@@ -1398,7 +1436,7 @@
                       Web programming project: CRUD operations, authentication, and relational database integration
                       using PHP, HTML, CSS, and JavaScript.
                     </p>
-                    <p class="repo-meta"><span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-php" /></svg>PHP</span><span>Updated Dec 2025</span></p>
+                    <p class="repo-meta"><span class="tech"><span class="lang-dot lang-php"></span>PHP</span><span>Updated Dec 2025</span></p>
                   </div>
                   <div class="repo-actions">
                     <button class="row-open" type="button" data-open="jogjalensa">
@@ -1448,7 +1486,7 @@
                       Telegram bot and web dashboard for managing academic courses on SPADA WIMAYA: automated login,
                       assignment deadline reminders, and automated attendance.
                     </p>
-                    <p class="repo-meta"><span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-python" /></svg>Python</span><span>Updated Sep 2026</span></p>
+                    <p class="repo-meta"><span class="tech"><span class="lang-dot lang-py"></span>Python</span><span>Updated Sep 2026</span></p>
                   </div>
                   <div class="repo-actions">
                     <button class="row-open" type="button" data-open="spada">Case study</button>
@@ -1497,7 +1535,7 @@
                       Semester 5 Cryptography course project, developed collaboratively in a team.
                     </p>
                     <p class="repo-meta">
-                      <span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-python" /></svg>Python</span><span>Updated Sep 2026</span>
+                      <span class="tech"><span class="lang-dot lang-py"></span>Python</span><span>Updated Sep 2026</span>
                     </p>
                   </div>
                   <div class="repo-actions">
@@ -1560,7 +1598,7 @@
                       Security research: Time-Based Blind SQLi exploitation proof-of-concept with dual-verification
                       mechanisms and PDO mitigation examples.
                     </p>
-                    <p class="repo-meta"><span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-python" /></svg>Python</span><span>Updated Apr 2026</span></p>
+                    <p class="repo-meta"><span class="tech"><span class="lang-dot lang-py"></span>Python</span><span>Updated Apr 2026</span></p>
                   </div>
                   <div class="repo-actions">
                     <a
@@ -1585,7 +1623,7 @@
                       Source repository for this dependency-free static developer portfolio, including the
                       accompanying React/Vite design scaffold.
                     </p>
-                    <p class="repo-meta"><span class="tech"><svg class="ico" aria-hidden="true"><use href="#i-html5" /></svg>HTML</span><span>Updated Oct 2026</span></p>
+                    <p class="repo-meta"><span class="tech"><span class="lang-dot lang-html"></span>HTML</span><span>Updated Oct 2026</span></p>
                   </div>
                   <div class="repo-actions">
                     <a
@@ -1624,33 +1662,39 @@
       </section>
 
       <section id="contact" class="sec-alt section-pad">
-        <div class="container contact-wrap">
-          <div>
-            <h2 class="section-title">Contact</h2>
-            <p class="contact-copy">
-              Open to internships, software development opportunities, web project collaborations, and
-              other aligned technical roles.
-            </p>
-          </div>
-          <div class="contact-links">
-            <a href="mailto:abdillahabhi12@gmail.com"
-              ><span class="with-ico"
-                ><svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg
-                >abdillahabhi12@gmail.com</span
-              ><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg
-            ></a>
-            <button id="copyEmail" type="button">
-              <span id="copyLabel" class="with-ico" aria-live="polite"
-                ><svg class="ico" id="copyIcon" aria-hidden="true"><use href="#i-copy" /></svg>Copy
-                email</span
-              ><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
-            </button>
-            <a href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer"
-              ><span class="with-ico"
-                ><svg class="ico" aria-hidden="true"><use href="#i-github" /></svg
-                >github.com/Abhiprayaa29</span
-              ><svg class="ico" aria-hidden="true"><use href="#i-arrow-ur" /></svg
-            ></a>
+        <div class="container">
+          <div class="contact-card">
+            <div>
+              <span class="row-label">Get in Touch</span>
+              <h2 class="contact-title">Let's build something exceptional together.</h2>
+              <p class="contact-copy">
+                Open to internships, software development opportunities, web project collaborations, and
+                other aligned technical roles.
+              </p>
+            </div>
+            <div class="contact-actions-grid">
+              <a class="contact-btn contact-btn-primary" href="mailto:abdillahabhi12@gmail.com">
+                <span class="with-ico">
+                  <svg class="ico" aria-hidden="true"><use href="#i-mail" /></svg>
+                  <span>abdillahabhi12@gmail.com</span>
+                </span>
+                <svg class="ico ico-arr" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
+              <button id="copyEmail" class="contact-btn contact-btn-secondary" type="button">
+                <span id="copyLabel" class="with-ico" aria-live="polite">
+                  <svg class="ico" id="copyIcon" aria-hidden="true"><use href="#i-copy" /></svg>
+                  <span>Copy email</span>
+                </span>
+                <svg class="ico ico-arr" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </button>
+              <a class="contact-btn contact-btn-secondary" href="https://github.com/Abhiprayaa29" target="_blank" rel="noreferrer">
+                <span class="with-ico">
+                  <svg class="ico" aria-hidden="true"><use href="#i-github" /></svg>
+                  <span>GitHub · @Abhiprayaa29</span>
+                </span>
+                <svg class="ico ico-arr" aria-hidden="true"><use href="#i-arrow-ur" /></svg>
+              </a>
+            </div>
           </div>
         </div>
       </section>
