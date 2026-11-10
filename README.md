@@ -24,7 +24,7 @@ You can also open `index.html` directly, but a local server is recommended so al
 - `react-vite-source/` — React/Vite/Tailwind implementation source.
 - `react-vite-source/AUDIT.md` — source audit and selection rationale.
 - `docs/VALIDATION.md` — current verification results (responsive, accessibility, print, Lighthouse).
-- `.editorconfig` / `.gitattributes` / `.prettierrc.json` — konsistensi format (LF, 2 spasi) agar tidak muncul diff line-ending di Windows.
+- `.editorconfig` / `.gitattributes` / `.prettierrc.json` — formatting consistency (LF, 2 spaces) to avoid line-ending diffs on Windows.
 
 ## Visitor tracking (Cloudflare Pages + D1)
 

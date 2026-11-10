@@ -138,11 +138,11 @@ const projects = [
 ]
 
 const experience = [
-  { period: 'Aug 2026 — Now', title: 'Koordinator PDD', org: 'Serasehan Jurusan Informatika · Himpunan Mahasiswa Informatika, UPN “Veteran” Yogyakarta', note: 'Memimpin tim dokumentasi dan publikasi visual untuk event yang sedang berlangsung.' },
-  { period: 'May 2026 — Now', title: 'Asisten Dosen', org: 'Riset Pengembangan Aplikasi Manajemen Keuangan · UPN “Veteran” Yogyakarta', note: 'Analisis kebutuhan, evaluasi arsitektur perangkat lunak, serta wireframe dan prototype UI/UX dengan Figma.' },
-  { period: 'Sep 2025 — Now', title: 'Wakil Kepala Departemen Media & Informasi', org: 'Badan Keluarga Mahasiswa Kebumen (KBMK)', note: 'Koordinasi tim Medinfo, strategi konten, kalender editorial, dan pengawasan aset visual lintas platform.' },
-  { period: 'Oct 2025 — Jan 2026', title: 'Koordinator PDD', org: 'Kebumen Campus Festival 2026', note: 'Memimpin 9 anggota dan membagi pipeline fotografi, videografi, desain grafis, serta copywriting.' },
-  { period: 'Oct 2025 — Jan 2026', title: 'Koordinator PDD', org: 'SMANSAKU Campus Expo', note: 'Memimpin 4 anggota untuk strategi publikasi visual end-to-end dan produksi konten multi-platform.' },
+  { period: 'Aug 2026 — Present', title: 'PDD Coordinator', org: 'Informatics Department Gathering · Informatics Student Association, UPN “Veteran” Yogyakarta', note: 'Leading documentation and visual publication teams for ongoing departmental events.' },
+  { period: 'May 2026 — Present', title: 'Research Assistant', org: 'Financial Management Application Research · UPN “Veteran” Yogyakarta', note: 'Requirements analysis, software architecture evaluation, and Figma UI/UX wireframes and prototypes.' },
+  { period: 'Sep 2025 — Present', title: 'Deputy Head of Media & Information Department', org: 'Badan Keluarga Mahasiswa Kebumen (KBMK)', note: 'Coordinated the Medinfo team, content strategy, editorial calendar, and multi-platform visual asset supervision.' },
+  { period: 'Oct 2025 — Jan 2026', title: 'PDD Coordinator', org: 'Kebumen Campus Festival 2026', note: 'Led a 9-member team and managed workflows across photography, videography, graphic design, and copywriting.' },
+  { period: 'Oct 2025 — Jan 2026', title: 'PDD Coordinator', org: 'SMANSAKU Campus Expo', note: 'Led a 4-member team for end-to-end visual publication strategy and multi-platform content production.' },
 ]
 
 const skills = [
@@ -377,17 +377,17 @@ function App() {
 
         <section id="about" className="border-t border-[#211f1b]">
           <div className="mx-auto max-w-6xl px-5 py-20 sm:px-7 sm:py-24 lg:px-10">
-            <Reveal><SectionHeading kicker="01 · About" title="A developer with range — grounded in building." copy="Latar saya menggabungkan Teknik Informatika dengan pengalaman organisasi kreatif. Itu membuat saya terbiasa berpindah dari requirement, logic, dan architecture ke interface serta execution."/></Reveal>
+            <Reveal><SectionHeading kicker="01 · About" title="A developer with range — grounded in building." copy="My background bridges Informatics Engineering with creative organizational leadership. That makes me comfortable moving between requirements, logic, architecture, interfaces, and execution."/></Reveal>
             <div className="mt-14 grid gap-10 lg:grid-cols-[.9fr_1.1fr]">
-              <Reveal><div className="border-l border-[#d7a441] pl-5 text-2xl leading-8 text-[#ece7dc] sm:text-3xl">“Saya belajar paling cepat ketika ide harus berubah menjadi sesuatu yang benar-benar bisa dijalankan.”</div></Reveal>
-              <Reveal delay={100}><div className="grid gap-4 text-sm leading-7 text-[#a7a195]"><p>Saat ini saya menempuh S1 Teknik Informatika di UPN “Veteran” Yogyakarta. Di repositori saya, fokus teknisnya terlihat lintas domain: aplikasi web, bot dan scraping, real-time interface, augmented reality, serta orkestrasi AI.</p><p>Di luar coding, saya memimpin dan mengoordinasikan tim PDD/Medinfo dalam beberapa event. Pengalaman tersebut memperkuat kemampuan memecah pekerjaan, menjaga kualitas, berkomunikasi, dan bekerja dengan deadline.</p><div className="grid gap-3 sm:grid-cols-3"><div className="border border-[#2c2a25] p-4"><GraduationCap size={18} className="text-[#d7a441]"/><div className="mt-4 text-[10px] uppercase tracking-[.18em] text-[#777269]">Education</div><div className="mt-1 text-sm text-white">S1 Teknik Informatika</div></div><div className="border border-[#2c2a25] p-4"><BriefcaseBusiness size={18} className="text-[#d7a441]"/><div className="mt-4 text-[10px] uppercase tracking-[.18em] text-[#777269]">Leadership</div><div className="mt-1 text-sm text-white">PDD / Medinfo</div></div><div className="border border-[#2c2a25] p-4"><Code2 size={18} className="text-[#d7a441]"/><div className="mt-4 text-[10px] uppercase tracking-[.18em] text-[#777269]">Build mode</div><div className="mt-1 text-sm text-white">Hands-on</div></div></div></div></Reveal>
+              <Reveal><div className="border-l border-[#d7a441] pl-5 text-2xl leading-8 text-[#ece7dc] sm:text-3xl">“I learn fastest when ideas need to become something that actually runs.”</div></Reveal>
+              <Reveal delay={100}><div className="grid gap-4 text-sm leading-7 text-[#a7a195]"><p>Currently pursuing a Bachelor’s in Informatics Engineering at UPN “Veteran” Yogyakarta. Across my repositories, my technical focus spans multiple domains: web applications, bots and scraping, real-time interfaces, augmented reality, and AI orchestration.</p><p>Outside of coding, I lead and coordinate documentation and media teams across major events. That experience sharpens my ability to break down complex goals, ensure quality, communicate clearly, and deliver under deadlines.</p><div className="grid gap-3 sm:grid-cols-3"><div className="border border-[#2c2a25] p-4"><GraduationCap size={18} className="text-[#d7a441]"/><div className="mt-4 text-[10px] uppercase tracking-[.18em] text-[#777269]">Education</div><div className="mt-1 text-sm text-white">Bachelor’s in Informatics</div></div><div className="border border-[#2c2a25] p-4"><BriefcaseBusiness size={18} className="text-[#d7a441]"/><div className="mt-4 text-[10px] uppercase tracking-[.18em] text-[#777269]">Leadership</div><div className="mt-1 text-sm text-white">PDD / Medinfo</div></div><div className="border border-[#2c2a25] p-4"><Code2 size={18} className="text-[#d7a441]"/><div className="mt-4 text-[10px] uppercase tracking-[.18em] text-[#777269]">Build mode</div><div className="mt-1 text-sm text-white">Hands-on</div></div></div></div></Reveal>
             </div>
           </div>
         </section>
 
         <section id="projects" className="border-t border-[#211f1b]">
           <div className="mx-auto max-w-6xl px-5 py-20 sm:px-7 sm:py-24 lg:px-10">
-            <Reveal><SectionHeading kicker="02 · Selected Projects" title="Proof over buzzwords." copy="Lima project berikut dipilih karena paling jelas menunjukkan problem solving, system thinking, implementation depth, dan kemampuan menghubungkan beberapa layer teknis."/></Reveal>
+            <Reveal><SectionHeading kicker="02 · Selected Projects" title="Proof over buzzwords." copy="These five projects were selected because they most clearly demonstrate problem solving, systems thinking, implementation depth, and the ability to connect multiple technical layers."/></Reveal>
             <div className="mt-14 grid gap-5 lg:grid-cols-2">
               {projects.map((project, i) => <Reveal key={project.id} delay={(i % 2) * 80}><ProjectCard project={project} onOpen={setActiveProject} /></Reveal>)}
             </div>
@@ -396,17 +396,17 @@ function App() {
 
         <section id="experience" className="border-t border-[#211f1b]">
           <div className="mx-auto max-w-6xl px-5 py-20 sm:px-7 sm:py-24 lg:px-10">
-            <Reveal><SectionHeading kicker="03 · Experience" title="Ownership shows up in the work." copy="Pengalaman di bawah mengikuti kategori CV: organisasi, riset/asistensi dosen, serta leadership event — tanpa mengubahnya menjadi klaim professional employment yang tidak tercantum."/></Reveal>
+            <Reveal><SectionHeading kicker="03 · Experience" title="Ownership shows up in the work." copy="The experiences below reflect verified roles from my CV: student organizations, faculty research assistance, and event leadership."/></Reveal>
             <div className="mt-14 divide-y divide-[#2c2a25] border-y border-[#2c2a25]">
               {experience.map((item, i) => <Reveal key={`${item.title}-${item.period}`} delay={i*40}><div className="grid gap-3 py-6 md:grid-cols-[170px_1fr_auto] md:items-start md:gap-8"><div className="text-xs text-[#7f7a70]">{item.period}</div><div><div className="text-lg font-semibold text-white">{item.title}</div><div className="mt-1 text-sm text-[#d7a441]">{item.org}</div><p className="mt-2 max-w-2xl text-sm leading-6 text-[#a7a195]">{item.note}</p></div><MoveUpRight size={17} className="hidden text-[#69645b] md:block"/></div></Reveal>)}
             </div>
-            <Reveal delay={100}><div className="mt-10 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center border border-[#3a352c] bg-[#121211] p-6 sm:p-7"><div><div className="text-[10px] uppercase tracking-[0.2em] text-[#d7a441]">Achievement</div><div className="mt-2 text-xl font-semibold">Finalist & Best Video Awardee — Find IT! UGM 2026</div><p className="mt-2 max-w-2xl text-sm leading-6 text-[#a7a195]">Penghargaan pada kompetisi UX Design tingkat nasional, sebagaimana tercantum di CV.</p></div><div className="hidden border-l border-[#2c2a25] pl-6 text-xs text-[#817b72] lg:block">May 2026<br/>KMTETI · FT UGM</div></div></Reveal>
+            <Reveal delay={100}><div className="mt-10 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-center border border-[#3a352c] bg-[#121211] p-6 sm:p-7"><div><div className="text-[10px] uppercase tracking-[0.2em] text-[#d7a441]">Achievement</div><div className="mt-2 text-xl font-semibold">Finalist & Best Video Awardee — Find IT! UGM 2026</div><p className="mt-2 max-w-2xl text-sm leading-6 text-[#a7a195]">Honored at a national-level UX design competition.</p></div><div className="hidden border-l border-[#2c2a25] pl-6 text-xs text-[#817b72] lg:block">May 2026<br/>KMTETI · FT UGM</div></div></Reveal>
           </div>
         </section>
 
         <section id="skills" className="border-t border-[#211f1b]">
           <div className="mx-auto max-w-6xl px-5 py-20 sm:px-7 sm:py-24 lg:px-10">
-            <Reveal><SectionHeading kicker="04 · Skills" title="A stack mapped to real work." copy="Tidak ada progress bar atau angka proficiency. Teknologi di sini diturunkan dari CV dan evidence di repository."/></Reveal>
+            <Reveal><SectionHeading kicker="04 · Skills" title="A stack mapped to real work." copy="No progress bars or arbitrary proficiency scores. The technologies listed here are drawn directly from real project implementations across my repositories."/></Reveal>
             <div className="mt-14 grid gap-5 lg:grid-cols-3">
               {skills.map((group, i) => <Reveal key={group.title} delay={i*80}><div className="border border-[#2c2a25] p-5 sm:p-6"><div className="text-[10px] uppercase tracking-[0.2em] text-[#d7a441]">{group.title}</div><div className="mt-5 flex flex-wrap gap-2">{group.items.map(item => <span key={item} className="border border-[#312f29] bg-white/[.02] px-3 py-2 text-xs text-[#d4cdc1]">{item}</span>)}</div></div></Reveal>)}
             </div>
@@ -417,7 +417,7 @@ function App() {
           <div className="mx-auto max-w-6xl px-5 py-20 sm:px-7 sm:py-24 lg:px-10">
             <Reveal>
               <div className="grid gap-8 border border-[#3a352c] bg-[#121211] p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-end">
-                <div><div className="text-[10px] uppercase tracking-[0.22em] text-[#d7a441]">05 · Contact</div><h2 className="display mt-3 max-w-2xl text-4xl font-semibold leading-[.98] sm:text-6xl">Let’s build something worth putting in production.</h2><p className="mt-5 max-w-xl text-sm leading-7 text-[#a7a195]">Terbuka untuk kesempatan software development, web projects, collaboration, dan technical opportunities yang sejalan.</p></div>
+                <div><div className="text-[10px] uppercase tracking-[0.22em] text-[#d7a441]">05 · Contact</div><h2 className="display mt-3 max-w-2xl text-4xl font-semibold leading-[.98] sm:text-6xl">Let’s build something worth putting in production.</h2><p className="mt-5 max-w-xl text-sm leading-7 text-[#a7a195]">Open to software development opportunities, web projects, technical collaboration, and aligned engineering roles.</p></div>
                 <div className="flex flex-col gap-2 sm:flex-row lg:flex-col"><a href={`mailto:${EMAIL}`} className="inline-flex items-center justify-between gap-4 border border-[#2f2d27] px-4 py-3 text-sm text-[#e3dccf] hover:border-[#d7a441]"><span>{EMAIL}</span><ArrowUpRight size={16}/></a><button type="button" onClick={copyEmail} className="inline-flex items-center justify-between gap-4 border border-[#2f2d27] px-4 py-3 text-sm text-[#e3dccf] hover:border-[#d7a441]"><span>{copied ? 'Email copied' : 'Copy email'}</span>{copied ? <Check size={16}/> : <Copy size={16}/>}</button><a href={GITHUB} target="_blank" rel="noreferrer" className="inline-flex items-center justify-between gap-4 border border-[#2f2d27] px-4 py-3 text-sm text-[#e3dccf] hover:border-[#d7a441]"><span>github.com/Abhiprayaa29</span><Github size={16}/></a></div>
               </div>
             </Reveal>

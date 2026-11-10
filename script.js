@@ -2,58 +2,58 @@ const data = {
   mlbb: {
     title: 'MLBB Draft Studio',
     role: 'Full-stack developer',
-    status: 'Repository publik',
+    status: 'Public repository',
     demo: null,
     stack: ['React 18', 'Vite', 'Tailwind CSS v4', 'Express', 'Socket.IO'],
     problem:
-      'Operator turnamen membutuhkan satu sumber kebenaran untuk aksi draft, timer, konfigurasi tim, state pertandingan, dan overlay siap siar.',
+      'Tournament operators need a single source of truth for draft actions, timers, team configuration, match state, and broadcast-ready overlays.',
     contribution:
-      'Repository memisahkan state bersama dari UI: engine draft di sisi server memiliki transisi state, sementara antarmuka mengonsumsi state otoritatif melalui Socket.IO.',
+      'The repository decouples shared state from the UI: the server-side draft engine owns state transitions, while the interface consumes authoritative state over Socket.IO.',
     challenge:
-      'Menyinkronkan draft, timer, dan skor antara panel operator dan beberapa Browser Source OBS secara real-time tanpa reload — state dipegang penuh oleh server, ditulis atomik (file .tmp lalu rename) dengan autosave dan retensi backup, sehingga state pertandingan pulih persis setelah crash atau restart. Sumber data eksternal (GRID, OCR OBS, ScoreSight) dijaga terisolasi dari draft engine, dengan kredensial yang hanya hidup di server.',
+      'Synchronizing draft picks, timers, and scores between the operator panel and multiple OBS Browser Sources in real time without page reloads — state is managed entirely by the server, written atomically (.tmp file then rename) with autosave and backup retention, allowing exact match state recovery after crashes or restarts. External data sources (GRID, OBS OCR, ScoreSight) are kept isolated from the draft engine, with credentials living strictly on the server.',
     features: [
-      'Engine draft dengan urutan aksi pick/ban, pencegahan duplikat, undo, lock, reset, dan preset turnamen.',
-      'Tiga overlay OBS transparan — draft, scoreboard, dan Sponsor Edition — dengan timer pertandingan dan branding turnamen.',
-      'Editor tema scoreboard (preset, preview live 16:9) serta integrasi GRID monitor/semi/auto, OCR OBS, dan ScoreSight yang seluruhnya dikonfigurasi dari server.',
-      'State pertandingan persisten dengan autosave dan retensi backup, serta perlindungan operator-token opsional.',
+      'Draft engine with ordered pick/ban sequences, duplicate prevention, undo, lock, reset, and tournament presets.',
+      'Three transparent OBS broadcast overlays — draft, scoreboard, and Sponsor Edition — with match timers and tournament branding.',
+      'Scoreboard theme editor (presets, 16:9 live preview) alongside server-configured GRID (monitor/semi/auto), OBS OCR, and ScoreSight integrations.',
+      'Persistent match state with autosave, backup retention, and optional operator-token protection.',
     ],
     result:
-      'Dirancang sebagai sumber siaran OBS: control panel di PC operator, tiga overlay transparan (draft, scoreboard, dan Sponsor Edition; 1920×1080, aman juga di 1280×720 tanpa scrollbar) di PC siaran lewat LAN. Pengujian otomatis: 166 asersi backend dan 121 asersi E2E lulus; dataset 133 hero tervalidasi 0 error. Status: fixture teruji, koneksi grid live belum terverifikasi.',
+      'Designed as an OBS broadcast source: control panel on the operator PC, three transparent overlays (draft, scoreboard, and Sponsor Edition; 1920×1080, responsive down to 1280×720 without scrollbars) delivered to the broadcast PC over LAN. Automated test suite: 166 backend assertions and 121 E2E assertions passed; 133-hero dataset validated with 0 errors. Status: fixture tested, live grid connection unverified.',
     engineering:
-      'Engine draft dijaga tetap terpisah dari UI berupa fungsi transisi state; server memiliki state bersama dan menyiarkan perubahan ke klien.',
+      'The draft engine is decoupled from the UI as pure state-transition functions; the server owns shared state and broadcasts updates to connected clients.',
     github: 'https://github.com/Abhiprayaa29/mlbb-draft-studio',
     image: './assets/projects/mlbb/control-panel-operator.webp',
-    alt: 'Panel operator MLBB Draft Studio pada sesi selftest: fase pick, statistik game, dan grid 133 hero',
+    alt: 'MLBB Draft Studio operator panel during selftest: pick phase, game statistics, and 133-hero grid',
     iw: 1600,
     ih: 1000,
     gallery: [
       {
         src: './assets/projects/mlbb/control-panel-operator.webp',
-        alt: 'Panel operator MLBB Draft Studio pada sesi selftest: fase pick, statistik game, dan grid 133 hero',
+        alt: 'MLBB Draft Studio operator panel during selftest: pick phase, game statistics, and 133-hero grid',
         iw: 1600,
         ih: 1000,
       },
       {
         src: './assets/projects/mlbb/control-panel-grid.webp',
-        alt: 'Tab GRID panel operator: pilihan sumber data (manual, GRID live, fixture, ScoreSight files) saat fase ban dengan fixture tersambung',
+        alt: 'Operator panel GRID tab: data source selection (manual, GRID live, fixture, ScoreSight files) during ban phase with connected fixture',
         iw: 1600,
         ih: 1000,
       },
       {
         src: './assets/projects/mlbb/control-panel-tema.webp',
-        alt: 'Tab Tema panel editor: tema scoreboard dengan preset tersimpan dan preview live 16:9 di samping draft berjalan',
+        alt: 'Editor panel Theme tab: scoreboard themes with saved presets and 16:9 live preview alongside active draft',
         iw: 1600,
         ih: 1000,
       },
       {
         src: './assets/projects/mlbb/overlay-draft.webp',
-        alt: 'Overlay draft broadcast 1920x1080: slot pick kedua tim, panel fase pick, dan branding turnamen',
+        alt: '1920x1080 broadcast draft overlay: dual-team pick slots, pick phase panel, and tournament branding',
         iw: 1600,
         ih: 900,
       },
       {
         src: './assets/projects/mlbb/overlay-score.webp',
-        alt: 'Overlay scoreboard 1920x1080 bertema emas-biru: skor, kill, gold, turret, lord, lineup hero, dan sponsor saat menunggu data pertandingan',
+        alt: '1920x1080 gold-blue themed scoreboard overlay: scores, kills, gold, turrets, lord, hero lineup, and sponsors awaiting match data',
         iw: 1600,
         ih: 900,
       },
@@ -62,123 +62,123 @@ const data = {
   spada: {
     title: 'SPADA Telegram Bot',
     role: 'Developer & automation',
-    status: 'Pemakaian personal · repo publik',
+    status: 'Personal use · Public repo',
     demo: null,
     stack: ['Python', 'Telegram Bot', 'FastAPI', 'BeautifulSoup'],
     problem:
-      'Data mata kuliah, deadline, kehadiran, tugas, dan nilai tersebar di alur LMS yang merepotkan untuk dicek secara manual.',
+      'Course schedules, deadlines, attendance, assignments, and grades are scattered across an LMS workflow that is tedious to check manually.',
     contribution:
-      'Repository menggabungkan bot Telegram, scraper LMS, tracker, dan dashboard FastAPI read-only di sekitar state lokal bersama.',
+      'The repository integrates a Telegram bot, LMS scraper, local tracker, and read-only FastAPI dashboard around shared local state.',
     challenge:
-      'Menjaga sesi login SPADA tetap dipakai scraper otomatis (pengecekan deadline tiap 30 menit, absensi 5 menit sebelum kelas berakhir) dengan state lokal yang aman — kredensial tidak pernah masuk .env — plus pairing QR agar dashboard web read-only bisa mengakses data tanpa login ulang.',
+      'Maintaining active SPADA LMS sessions for automated scraping (deadline checks every 30 minutes, automated attendance 5 minutes before class ends) with secure local state — credentials are never stored in .env — plus QR code pairing so the read-only web dashboard can access data without re-authenticating.',
     features: [
-      'Login SPADA dan deteksi semester dengan penyimpanan data sesi.',
-      'Pengingat deadline 24 jam, 1 jam, dan 15 menit sebelum tenggat.',
-      'Alur kehadiran terjadwal dengan bukti screenshot dikirim kembali ke Telegram.',
-      'Dashboard FastAPI dengan pairing QR, cookie sesi, jadwal, tugas, nilai, dan tampilan kehadiran.',
+      'SPADA authentication and semester detection with persistent session data.',
+      'Deadline reminders at 24 hours, 1 hour, and 15 minutes before due time.',
+      'Scheduled attendance automation with screenshot proof delivered back to Telegram.',
+      'FastAPI dashboard with QR pairing, session cookies, schedule, assignments, grades, and attendance views.',
     ],
     result:
-      'Dipakai untuk kebutuhan kuliah sendiri di UPNYK: pengingat deadline, absensi otomatis dengan screenshot bukti ke Telegram, dan briefing harian jam 07:00 WIB. Bisa di-deploy ke GCP e2-micro (1 CPU, 512 MB RAM) dengan systemd yang start otomatis saat reboot.',
+      'Used for personal university studies at UPNYK: deadline reminders, automated attendance with screenshot verification sent to Telegram, and a 07:00 WIB daily briefing. Deployable to GCP e2-micro (1 vCPU, 512 MB RAM) with systemd auto-restart on reboot.',
     engineering:
-      'Proyek ini menghubungkan otomasi web eksternal, state lokal, pesan Telegram, pengecekan terjadwal, dan antarmuka web terpisah tanpa membocorkan sesi rahasia ke frontend.',
+      'Connects external web automation, local state, Telegram messaging, scheduled tasks, and a decoupled web interface without exposing session secrets to the frontend.',
     github: 'https://github.com/Abhiprayaa29/bot_spada',
   },
   jogjalensa: {
     title: 'JogjaLensa',
     role: 'Full-stack developer',
-    status: 'Proyek kuliah · repo publik',
+    status: 'Academic project · Public repo',
     demo: null,
     stack: ['PHP 8', 'Bootstrap 5.3', 'MySQL / MariaDB', 'Apache'],
     problem:
-      'Orang yang mencari fotografer membutuhkan cara lebih mudah untuk membandingkan layanan, harga, portofolio, dan informasi booking di satu tempat.',
+      'People looking for photographers need a streamlined way to compare services, pricing, portfolios, and booking availability in one place.',
     contribution:
-      'Repository mengimplementasikan struktur aplikasi PHP yang mencakup landing page, autentikasi, dashboard klien dan vendor, booking, bukti pembayaran, ulasan, dan manajemen profil vendor.',
+      'Implemented the PHP application architecture covering landing page, authentication, client and vendor dashboards, booking workflows, payment proof uploads, reviews, and vendor profile management.',
     challenge:
-      'PHP native prosedural dengan mysqli dan relasi foreign key, dibagi menjadi dua alur peran dalam satu aplikasi: klien (cari vendor, booking, unggah bukti bayar, review, invoice) dan vendor (CRUD paket, galeri portofolio, terima/tolak/selesaikan order) yang saling bergantung pada data yang sama.',
+      'Procedural native PHP with MySQLi and foreign key relations, structured into two role workflows within a single application: clients (search vendors, book, upload payment receipts, review, view invoices) and vendors (package CRUD, portfolio gallery, accept/reject/complete orders) interdependent on the same data schema.',
     features: [
-      'Pencarian vendor dengan filter kategori/lokasi dan pengurutan harga.',
-      'Dashboard klien dengan status booking dan alur invoice.',
-      'Dashboard vendor dengan CRUD paket, galeri portofolio, dan manajemen order.',
-      'Statistik berbasis database serta alur ulasan/rating.',
+      'Vendor search with category and location filtering and price sorting.',
+      'Client dashboard with booking status tracking and invoice workflows.',
+      'Vendor dashboard with package CRUD, portfolio gallery, and order management.',
+      'Database-driven analytics alongside a customer review and rating system.',
     ],
     result:
-      'Proyek Pemrograman Web semester 3 — aplikasi full-stack yang berjalan lokal via XAMPP/Laragon (Apache + MySQL/MariaDB), dari landing page sampai alur pembayaran dan ulasan dengan dua alur peran: klien dan vendor.',
+      'Semester 3 Web Programming course project — full-stack application running locally via XAMPP/Laragon (Apache + MySQL/MariaDB), from public landing page through booking, payment, and review cycles.',
     engineering:
-      'Proyek ini menunjukkan pemikiran aplikasi web end-to-end: komposisi UI, penanganan request, alur kerja per peran, unggah file, dan akses data relasional.',
+      'Demonstrates end-to-end web engineering: UI layout composition, HTTP request handling, role-based access control, file uploads, and relational database operations.',
     github: 'https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi',
   },
   ar: {
     title: 'SimpleARPlacement',
     role: 'Unity AR developer',
-    status: 'Repository publik',
+    status: 'Public repository',
     demo: null,
     stack: ['Unity', 'AR Foundation 6.5', 'ARCore 6.5', 'C#'],
     problem:
-      'Pengguna membutuhkan model interaksi mobile yang langsung untuk menempatkan objek 3D ke permukaan dunia nyata yang terdeteksi.',
+      'Users require an intuitive mobile interaction model to place, inspect, rotate, scale, and reset 3D objects onto detected real-world surfaces.',
     contribution:
-      'Repository mengimplementasikan logika penempatan yang melakukan raycast ke plane terdeteksi, mengelola anchor AR opsional, serta menyediakan aksi UI untuk rotasi, skala, dan reset.',
+      'Implemented placement logic that raycasts against detected planes, manages an optional AR anchor, and provides touch-based UI controls for rotation, scaling, and reset.',
     challenge:
-      'Menempatkan objek pada hasil deteksi permukaan lewat raycast + anchor AR, dengan seluruh input memakai Unity Input System (bukan input legacy), di atas konfigurasi Android yang ketat untuk ARCore: IL2CPP, ARM64, minimum API 26, OpenGLES3.',
+      'Object placement on surface plane detection via AR raycasting + AR anchors, using the Unity Input System (avoiding legacy input), built on strict Android ARCore specifications: IL2CPP, ARM64, minimum API 26, OpenGLES3.',
     features: [
-      'Penempatan dengan sekali tap menggunakan raycast AR terhadap geometri plane terdeteksi.',
-      'Pemasangan anchor agar objek tetap sejajar dengan permukaan terdeteksi bila memungkinkan.',
-      'Kontrol rotasi dan skala dengan batas terlindungi serta jeda penempatan.',
-      'Penyegaran state UI dan perlindungan pointer-over-UI untuk interaksi sentuh.',
+      'Tap-to-place interaction using AR raycasts against detected plane geometry.',
+      'AR Anchor attachment to keep placed models pinned to detected surfaces.',
+      'Rotation and scale sliders with clamped boundaries and placement cooldowns.',
+      'Dynamic UI state updates and pointer-over-UI event suppression for touch interactions.',
     ],
     result:
-      'APK berhasil dibangun dan berjalan di Samsung Galaxy A54 dengan sesi AR aktif dan UI tampil. Lima skenario pengujian terdokumentasi: permukaan bertekstur/polos, cahaya terang/redup, dan gerakan kamera cepat.',
+      'APK built and verified on Samsung Galaxy A54 with active AR session and responsive UI. Five documented test cases: textured vs. plain planes, bright vs. dim ambient lighting, and rapid device movement.',
     engineering:
-      'Proyek memisahkan logika penempatan dari kontrol UI dan memakai Unity Input System + AR Foundation alih-alih satu skrip interaksi monolitik.',
+      'Decoupled placement logic from UI controls, leveraging Unity Input System and AR Foundation APIs rather than a monolithic interaction script.',
     github: 'https://github.com/Abhiprayaa29/simple-ar-placement',
     image: './assets/projects/ar/simple-ar-placement-ui.webp',
-    alt: 'Tangkapan layar SimpleARPlacement di Android: prompt Tap to Place di atas kamera AR dengan palet objek 3D di bawah',
+    alt: 'SimpleARPlacement Android screenshot: Tap to Place prompt over AR camera feed with 3D object palette below',
     iw: 1080,
     ih: 2340,
   },
   cerberus: {
     title: 'Cerberus',
-    role: 'Kustomisasi & orkestrasi',
-    status: 'Bagian dari oh-my-open-pentest',
+    role: 'Customization & orchestration',
+    status: 'Part of oh-my-open-pentest',
     demo: null,
     stack: ['Bun', 'TypeScript', 'OpenCode', 'Multi-Agent'],
     problem:
-      'Pengujian keamanan yang kompleks diuntungkan dari dekomposisi: perencanaan, riset, eksekusi, verifikasi, dan pelaporan sebaiknya tidak ditangani sebagai satu tugas agen tunggal.',
+      'Complex security assessments benefit from task decomposition: planning, reconnaissance, exploitation, validation, and reporting should not be handled by an undifferentiated single agent.',
     contribution:
-      'Repository mendefinisikan Cerberus sebagai orkektor yang mengarahkan pekerjaan ke agen khusus dan playbook keamanan terstruktur untuk pengujian yang berizin.',
+      'Configured Cerberus as an orchestration layer routing operations to specialized security sub-agents and structured playbooks for authorized engagements.',
     challenge:
-      'Merutekan tiap permintaan berdasarkan intent lalu mendelegasikan ke sub-agent spesialis (Scout, Intel, Sentinel, Talos, dan lainnya) yang bisa berjalan paralel, dengan verifikasi setiap temuan sebelum masuk laporan dan fallback chain antar provider model.',
+      'Intent-based request routing delegating to parallel specialist sub-agents (Scout, Intel, Sentinel, Talos, etc.), with verification of every finding before inclusion in reports and cross-provider model fallback chains.',
     features: [
-      'Perutean berbasis intent untuk tugas riset, implementasi, investigasi, dan perbaikan.',
-      'Peran agen spesialis seperti Scout, Intel, Sentinel, Talos, dan Cerberus-Junior.',
-      'Tugas latar belakang paralel dan perutean model berbasis kategori.',
-      'Batas cakupan dan keselamatan yang eksplisit untuk pengujian keamanan yang berizin.',
+      'Intent-based routing for reconnaissance, implementation, investigation, and remediation tasks.',
+      'Specialist agent roles including Scout, Intel, Sentinel, Talos, and Cerberus-Junior.',
+      'Parallel background task execution with category-based model routing.',
+      'Explicit scope boundaries and guardrails for authorized security testing.',
     ],
     result:
-      'Dikustomisasi dan diadaptasi sebagai bagian kerangka oh-my-open-pentest (bunx oh-my-open-pentest install; verifikasi lewat perintah doctor). Kerangka menyediakan 109+ tools keamanan terintegrasi, 250+ skill playbooks, dan 10 mode engagement dengan laporan ber-CVSS.',
+      'Customized and integrated as part of the oh-my-open-pentest framework (bunx oh-my-open-pentest install; verified via doctor command). Framework provides 109+ integrated security tools, 250+ skill playbooks, and 10 engagement modes with CVSS-scored reporting.',
     engineering:
-      'Sinyal terkuat adalah desain orkestrasi: mendekomposisi masalah besar menjadi tanggung jawab spesialis yang terbatas, lalu memverifikasi hasil kerja sebelum dilanjutkan.',
-    note: 'Hanya untuk pengujian yang berizin di lingkungan lab: sistem milik sendiri, lab pribadi, atau program bug bounty dalam scope — sesuai disclaimer di repository. Tidak untuk menguji sistem pihak lain tanpa izin tertulis.',
+      'Core orchestration architecture: decomposing complex goals into bounded specialist responsibilities, then verifying outcomes before downstream progression.',
+    note: 'Exclusively for authorized security assessments in lab environments: self-owned systems, private labs, or in-scope bug bounty programs — in accordance with repository disclaimers. Never for unauthorized third-party testing.',
     github: 'https://github.com/Abhiprayaa29/Cerberus',
     image: './assets/projects/cerberus/orchestrator-atlas.webp',
-    alt: 'Konsol orkestrasi Cerberus: terminal agen dan tabel tugas paralel dengan status eksekusi',
+    alt: 'Cerberus orchestration console: agent terminal and parallel task table with execution status',
     iw: 1600,
     ih: 540,
     gallery: [
       {
         src: './assets/projects/cerberus/orchestrator-atlas.webp',
-        alt: 'Konsol orkestrasi Cerberus: terminal agen dan tabel tugas paralel dengan status eksekusi',
+        alt: 'Cerberus orchestration console: agent terminal and parallel task table with execution status',
         iw: 1600,
         ih: 540,
       },
       {
         src: './assets/projects/cerberus/core-loop.webp',
-        alt: 'Diagram alur inti Cerberus: Human Intent, Agent Execution, dan Verified Result dengan prinsip minimum intervention',
+        alt: 'Cerberus core flow diagram: Human Intent, Agent Execution, and Verified Result under the minimum intervention principle',
         iw: 1408,
         ih: 768,
       },
       {
         src: './assets/projects/cerberus/ultrawork-flow.webp',
-        alt: 'Diagram alur Ultrawork: jalur langsung ulw dibandingkan alur multi-tahap Prometheus ke Atlas hingga selesai',
+        alt: 'Ultrawork flow diagram: direct ulw pathway compared to multi-phase Prometheus-to-Atlas execution',
         iw: 1408,
         ih: 768,
       },
@@ -195,7 +195,7 @@ const menuBtn = $('#menuBtn');
 const mobileNav = $('#mobileNav');
 const setMenu = (open) => {
   menuBtn.setAttribute('aria-expanded', String(open));
-  menuBtn.setAttribute('aria-label', open ? 'Tutup navigasi' : 'Buka navigasi');
+  menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
   menuBtn.textContent = open ? '×' : '☰';
   mobileNav.classList.toggle('open', open);
   document.documentElement.classList.toggle('menu-open', open);
@@ -219,10 +219,10 @@ const applyTheme = (t, save) => {
   const dark = t === 'dark';
   $$('.theme-toggle').forEach((b) => {
     b.setAttribute('aria-pressed', String(dark));
-    b.setAttribute('aria-label', dark ? 'Aktifkan mode terang' : 'Aktifkan mode malam');
+    b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
   });
   const lbl = $('.theme-toggle-label');
-  if (lbl) lbl.textContent = dark ? 'Mode terang' : 'Mode malam';
+  if (lbl) lbl.textContent = dark ? 'Light mode' : 'Dark mode';
   const m = document.querySelector('meta[name="theme-color"]');
   if (m) m.setAttribute('content', dark ? '#000000' : '#ffffff');
 };
@@ -402,7 +402,7 @@ $$('.cert-thumb').forEach((btn) => {
   btn.addEventListener('click', () => {
     const img = $('#certImage');
     img.src = `assets/sertifikat/preview/${btn.dataset.cert}-full.webp`;
-    img.alt = `Sertifikat ${btn.dataset.title}`;
+    img.alt = `Certificate: ${btn.dataset.title}`;
     $('#certTitle').textContent = btn.dataset.title;
     certDialog.showModal();
   });
@@ -415,47 +415,47 @@ certDialog.addEventListener('click', (e) => {
 const featuredSlides = [
   {
     key: 'mlbb',
-    text: 'Panel operator dan overlay OBS transparan (1920×1080) yang dirancang sebagai sumber siaran turnamen lewat LAN — draft, timer, dan skor tersinkron real-time tanpa reload.',
+    text: 'Operator control panel and transparent OBS broadcast overlays (1920×1080) designed for LAN tournament production — draft, timer, and scores synchronized in real time without reload.',
     metrics: [
-      ['166', 'asersi backend lulus'],
-      ['121', 'asersi E2E lulus'],
-      ['133', 'hero tervalidasi 0 error'],
+      ['166', 'backend assertions passed'],
+      ['121', 'E2E assertions passed'],
+      ['133', 'heroes validated 0 errors'],
     ],
   },
   {
     key: 'spada',
-    text: 'Bot Telegram untuk jadwal kuliah: pengingat deadline 24 jam / 1 jam / 15 menit, absensi otomatis dengan screenshot bukti, dan dashboard web read-only dengan pairing QR.',
+    text: 'Telegram bot for academic schedules: 24h / 1h / 15m deadline reminders, automated attendance with screenshot proof, and read-only web dashboard with QR pairing.',
     metrics: [
-      ['3', 'pengingat deadline'],
-      ['30', 'menit sekali cek tugas'],
-      ['512', 'MB RAM GCP e2-micro'],
+      ['3', 'deadline reminders'],
+      ['30', 'minute task check interval'],
+      ['512', 'MB RAM on GCP e2-micro'],
     ],
   },
   {
     key: 'jogjalensa',
-    text: 'Marketplace fotografi dua peran: klien mencari vendor, booking, unggah bukti bayar, dan ulasan bintang; vendor mengelola paket, galeri portofolio, serta order.',
+    text: 'Two-role photography marketplace: clients search vendors, book sessions, upload payment receipts, and leave reviews; vendors manage packages, portfolio galleries, and orders.',
     metrics: [
-      ['2', 'alur peran: klien & vendor'],
-      ['4', 'modul inti aplikasi'],
-      ['PHP 8', 'prosedural + MySQL (XAMPP)'],
+      ['2', 'role workflows: client & vendor'],
+      ['4', 'core application modules'],
+      ['PHP 8', 'procedural + MySQL (XAMPP)'],
     ],
   },
   {
     key: 'ar',
-    text: 'Aplikasi Android AR: tap untuk menempatkan objek 3D di permukaan yang terdeteksi, dengan kontrol rotasi, skala, dan reset langsung dari UI.',
+    text: 'Android AR application: tap to place 3D models onto detected planes, with rotation, scaling, and reset controls directly from the UI.',
     metrics: [
-      ['5', 'skenario pengujian AR'],
-      ['26', 'minimum API Android'],
-      ['3', 'kontrol objek di UI'],
+      ['5', 'AR test scenarios'],
+      ['26', 'minimum Android API'],
+      ['3', 'on-screen object controls'],
     ],
   },
   {
     key: 'cerberus',
-    text: 'Orkestrasi multi-agent berbasis intent: masalah dipecah untuk sub-agent spesialis, lalu hasilnya diverifikasi sebelum pekerjaan berlanjut.',
+    text: 'Intent-based multi-agent orchestration: problems are decomposed for specialist sub-agents, with results verified before downstream execution.',
     metrics: [
-      ['109+', 'tools keamanan terintegrasi'],
+      ['109+', 'integrated security tools'],
       ['250+', 'skill playbooks'],
-      ['10', 'mode engagement'],
+      ['10', 'engagement modes'],
     ],
   },
 ];
@@ -519,7 +519,7 @@ if (featEl) {
     b.className = 'featured-dot';
     b.setAttribute(
       'aria-label',
-      `Proyek unggulan ${i + 1} dari ${featuredSlides.length}: ${data[s.key].title}`,
+      `Featured project ${i + 1} of ${featuredSlides.length}: ${data[s.key].title}`,
     );
     b.addEventListener('click', () => go(i, true));
     dotsWrap.appendChild(b);
@@ -594,10 +594,10 @@ copyBtn?.addEventListener('click', async () => {
   const email = 'abdillahabhi12@gmail.com';
   try {
     await navigator.clipboard.writeText(email);
-    $('#copyLabel').lastChild.textContent = 'Email tersalin';
+    $('#copyLabel').lastChild.textContent = 'Email copied';
     copyUse?.setAttribute('href', '#i-check');
     setTimeout(() => {
-      $('#copyLabel').lastChild.textContent = 'Salin email';
+      $('#copyLabel').lastChild.textContent = 'Copy email';
       copyUse?.setAttribute('href', '#i-copy');
     }, 1500);
   } catch {
