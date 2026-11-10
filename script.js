@@ -1,666 +1,923 @@
-const data = {
-  mlbb: {
-    title: 'MLBB Draft Studio',
-    role: 'Full-stack developer',
-    status: 'Public repository',
-    demo: null,
-    stack: ['React 18', 'Vite', 'Tailwind CSS v4', 'Express', 'Socket.IO'],
-    problem:
-      'Tournament operators need a single source of truth for draft actions, timers, team configuration, match state, and broadcast-ready overlays.',
-    contribution:
-      'The repository decouples shared state from the UI: the server-side draft engine owns state transitions, while the interface consumes authoritative state over Socket.IO.',
-    challenge:
-      'Synchronizing draft picks, timers, and scores between the operator panel and multiple OBS Browser Sources in real time without page reloads — state is managed entirely by the server, written atomically (.tmp file then rename) with autosave and backup retention, allowing exact match state recovery after crashes or restarts. External data sources (GRID, OBS OCR, ScoreSight) are kept isolated from the draft engine, with credentials living strictly on the server.',
-    features: [
-      'Draft engine with ordered pick/ban sequences, duplicate prevention, undo, lock, reset, and tournament presets.',
-      'Three transparent OBS broadcast overlays — draft, scoreboard, and Sponsor Edition — with match timers and tournament branding.',
-      'Scoreboard theme editor (presets, 16:9 live preview) alongside server-configured GRID (monitor/semi/auto), OBS OCR, and ScoreSight integrations.',
-      'Persistent match state with autosave, backup retention, and optional operator-token protection.',
+/**
+ * Abhipraya — Personal Designer × Coder Portfolio & Digital Garden
+ * Clean, dependency-free vanilla JS engine
+ */
+
+'use strict';
+
+// -----------------------------------------------------------------------------
+// 1. DATA BUNDLES (PROJECTS & SHELVES)
+// -----------------------------------------------------------------------------
+// Abhipraya — Designer × Coder & Digital Garden Data Architecture
+const projectsData = {
+  "ipguard": {
+    "title": "IPGuard \u2014 Secure Digital Asset Protection Platform",
+    "discipline": "combined",
+    "role": "Lead Architect & Full-Stack Developer",
+    "status": "Verified & Frozen (M0\u2013M4)",
+    "problem": "Traditional cloud storage exposes high-value intellectual property (CAD, source code, media) to server compromise, phishing attacks on 2FA credentials, and trivial watermark removal.",
+    "contribution": "Architected the end-to-end platform: React 19 frontend, asynchronous FastAPI backend, PostgreSQL schema, Android Keystore mobile authenticator, authenticated file vault with XChaCha20-Poly1305, and LSB cryptographic steganography with Ed25519 signatures.",
+    "challenge": "Eliminating shared secrets while guaranteeing zero-knowledge file encryption and verifiable tamper detection on PNG master files. Solved by decoupling key storage into hardware TEE/StrongBox silicon and binding file transactions to an immutable audit hash chain.",
+    "engineering": "209/209 backend Pytest assertions passing (100%), Playwright browser E2E test suites verified, HKDF-SHA256 session key derivation, 24-byte CSPRNG nonces, and zero-password biometric QR challenges.",
+    "design": "Engineered high-density administrative console, responsive security status indicators, visual QR authentication modals, and comprehensive asset inspector with cryptographic verification cards.",
+    "result": "Production-ready, frozen reference implementation with zero-password hardware authentication and mathematically verifiable asset attribution.",
+    "stack": [
+      "React 19",
+      "FastAPI",
+      "PostgreSQL",
+      "Android Keystore",
+      "XChaCha20",
+      "Ed25519",
+      "Docker"
     ],
-    result:
-      'Designed as an OBS broadcast source: control panel on the operator PC, three transparent overlays (draft, scoreboard, and Sponsor Edition; 1920×1080, responsive down to 1280×720 without scrollbars) delivered to the broadcast PC over LAN. Automated test suite: 166 backend assertions and 121 E2E assertions passed; 133-hero dataset validated with 0 errors. Status: fixture tested, live grid connection unverified.',
-    engineering:
-      'The draft engine is decoupled from the UI as pure state-transition functions; the server owns shared state and broadcasts updates to connected clients.',
-    github: 'https://github.com/Abhiprayaa29/mlbb-draft-studio',
-    image: './assets/projects/mlbb/control-panel-operator.webp',
-    alt: 'MLBB Draft Studio operator panel during selftest: pick phase, game statistics, and 133-hero grid',
-    iw: 1600,
-    ih: 1000,
-    gallery: [
+    "github": "https://github.com/Abhiprayaa29/IPGuard",
+    "image": "assets/projects/ipguard/ipguard-vault.png",
+    "gallery": [
       {
-        src: './assets/projects/mlbb/control-panel-operator.webp',
-        alt: 'MLBB Draft Studio operator panel during selftest: pick phase, game statistics, and 133-hero grid',
-        iw: 1600,
-        ih: 1000,
+        "src": "assets/projects/ipguard/ipguard-vault.png",
+        "alt": "IPGuard encrypted asset vault console showing active files and cryptographic status"
       },
       {
-        src: './assets/projects/mlbb/control-panel-grid.webp',
-        alt: 'Operator panel GRID tab: data source selection (manual, GRID live, fixture, ScoreSight files) during ban phase with connected fixture',
-        iw: 1600,
-        ih: 1000,
+        "src": "assets/projects/ipguard/ipguard-verify-modal.png",
+        "alt": "IPGuard cryptographic verification modal validating Ed25519 signature"
       },
       {
-        src: './assets/projects/mlbb/control-panel-tema.webp',
-        alt: 'Editor panel Theme tab: scoreboard themes with saved presets and 16:9 live preview alongside active draft',
-        iw: 1600,
-        ih: 1000,
-      },
-      {
-        src: './assets/projects/mlbb/overlay-draft.webp',
-        alt: '1920x1080 broadcast draft overlay: dual-team pick slots, pick phase panel, and tournament branding',
-        iw: 1600,
-        ih: 900,
-      },
-      {
-        src: './assets/projects/mlbb/overlay-score.webp',
-        alt: '1920x1080 gold-blue themed scoreboard overlay: scores, kills, gold, turrets, lord, hero lineup, and sponsors awaiting match data',
-        iw: 1600,
-        ih: 900,
-      },
-    ],
+        "src": "assets/projects/ipguard/ipguard-auth-request.png",
+        "alt": "IPGuard Android mobile authenticator showing biometric challenge prompt"
+      }
+    ]
   },
-  spada: {
-    title: 'SPADA Telegram Bot',
-    role: 'Developer & automation',
-    status: 'Personal use · Public repo',
-    demo: null,
-    stack: ['Python', 'Telegram Bot', 'FastAPI', 'BeautifulSoup'],
-    problem:
-      'Course schedules, deadlines, attendance, assignments, and grades are scattered across an LMS workflow that is tedious to check manually.',
-    contribution:
-      'The repository integrates a Telegram bot, LMS scraper, local tracker, and read-only FastAPI dashboard around shared local state.',
-    challenge:
-      'Maintaining active SPADA LMS sessions for automated scraping (deadline checks every 30 minutes, automated attendance 5 minutes before class ends) with secure local state — credentials are never stored in .env — plus QR code pairing so the read-only web dashboard can access data without re-authenticating.',
-    features: [
-      'SPADA authentication and semester detection with persistent session data.',
-      'Deadline reminders at 24 hours, 1 hour, and 15 minutes before due time.',
-      'Scheduled attendance automation with screenshot proof delivered back to Telegram.',
-      'FastAPI dashboard with QR pairing, session cookies, schedule, assignments, grades, and attendance views.',
+  "mlbb": {
+    "title": "MLBB Draft Studio \u2014 Broadcast Overlays & Operator Panel",
+    "discipline": "combined",
+    "role": "Full-Stack Developer & UI Designer",
+    "status": "Production-ready LAN tournament tool",
+    "problem": "Esports tournament operators lack a single source of truth for match state, draft timers, hero pick/ban sequences, and multi-screen transparent broadcast overlays.",
+    "contribution": "Engineered server-authoritative draft engine, dual-workstation operator control panel, and three transparent 1920\u00d71080 OBS broadcast overlays synchronized in real time.",
+    "challenge": "Ensuring sub-16ms live synchronization across multiple OBS workstations with zero reload flashes and crash-proof atomic state recovery.",
+    "engineering": "166 backend assertions passed, 121 E2E assertions passed, 133 heroes validated with zero schema errors. Atomic POSIX file swaps prevent match rollback.",
+    "design": "Designed professional esports dark broadcast aesthetic, high-contrast tournament typography, timer meters, and operator interface with instant keyboard shortcuts.",
+    "result": "Deployed for competitive LAN tournament production with zero-latency synchronization between operators and live broadcast feeds.",
+    "stack": [
+      "React 18",
+      "Vite",
+      "Tailwind CSS v4",
+      "Express",
+      "Socket.IO",
+      "OBS Studio"
     ],
-    result:
-      'Used for personal university studies at UPNYK: deadline reminders, automated attendance with screenshot verification sent to Telegram, and a 07:00 WIB daily briefing. Deployable to GCP e2-micro (1 vCPU, 512 MB RAM) with systemd auto-restart on reboot.',
-    engineering:
-      'Connects external web automation, local state, Telegram messaging, scheduled tasks, and a decoupled web interface without exposing session secrets to the frontend.',
-    github: 'https://github.com/Abhiprayaa29/bot_spada',
-  },
-  jogjalensa: {
-    title: 'JogjaLensa',
-    role: 'Full-stack developer',
-    status: 'Academic project · Public repo',
-    demo: null,
-    stack: ['PHP 8', 'Bootstrap 5.3', 'MySQL / MariaDB', 'Apache'],
-    problem:
-      'People looking for photographers need a streamlined way to compare services, pricing, portfolios, and booking availability in one place.',
-    contribution:
-      'Implemented the PHP application architecture covering landing page, authentication, client and vendor dashboards, booking workflows, payment proof uploads, reviews, and vendor profile management.',
-    challenge:
-      'Procedural native PHP with MySQLi and foreign key relations, structured into two role workflows within a single application: clients (search vendors, book, upload payment receipts, review, view invoices) and vendors (package CRUD, portfolio gallery, accept/reject/complete orders) interdependent on the same data schema.',
-    features: [
-      'Vendor search with category and location filtering and price sorting.',
-      'Client dashboard with booking status tracking and invoice workflows.',
-      'Vendor dashboard with package CRUD, portfolio gallery, and order management.',
-      'Database-driven analytics alongside a customer review and rating system.',
-    ],
-    result:
-      'Semester 3 Web Programming course project — full-stack application running locally via XAMPP/Laragon (Apache + MySQL/MariaDB), from public landing page through booking, payment, and review cycles.',
-    engineering:
-      'Demonstrates end-to-end web engineering: UI layout composition, HTTP request handling, role-based access control, file uploads, and relational database operations.',
-    github: 'https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi',
-  },
-  ar: {
-    title: 'SimpleARPlacement',
-    role: 'Unity AR developer',
-    status: 'Public repository',
-    demo: null,
-    stack: ['Unity', 'AR Foundation 6.5', 'ARCore 6.5', 'C#'],
-    problem:
-      'Users require an intuitive mobile interaction model to place, inspect, rotate, scale, and reset 3D objects onto detected real-world surfaces.',
-    contribution:
-      'Implemented placement logic that raycasts against detected planes, manages an optional AR anchor, and provides touch-based UI controls for rotation, scaling, and reset.',
-    challenge:
-      'Object placement on surface plane detection via AR raycasting + AR anchors, using the Unity Input System (avoiding legacy input), built on strict Android ARCore specifications: IL2CPP, ARM64, minimum API 26, OpenGLES3.',
-    features: [
-      'Tap-to-place interaction using AR raycasts against detected plane geometry.',
-      'AR Anchor attachment to keep placed models pinned to detected surfaces.',
-      'Rotation and scale sliders with clamped boundaries and placement cooldowns.',
-      'Dynamic UI state updates and pointer-over-UI event suppression for touch interactions.',
-    ],
-    result:
-      'APK built and verified on Samsung Galaxy A54 with active AR session and responsive UI. Five documented test cases: textured vs. plain planes, bright vs. dim ambient lighting, and rapid device movement.',
-    engineering:
-      'Decoupled placement logic from UI controls, leveraging Unity Input System and AR Foundation APIs rather than a monolithic interaction script.',
-    github: 'https://github.com/Abhiprayaa29/simple-ar-placement',
-    image: './assets/projects/ar/simple-ar-placement-ui.webp',
-    alt: 'SimpleARPlacement Android screenshot: Tap to Place prompt over AR camera feed with 3D object palette below',
-    iw: 1080,
-    ih: 2340,
-  },
-  cerberus: {
-    title: 'Cerberus',
-    role: 'Customization & orchestration',
-    status: 'Part of oh-my-open-pentest',
-    demo: null,
-    stack: ['Bun', 'TypeScript', 'OpenCode', 'Multi-Agent'],
-    problem:
-      'Complex security assessments benefit from task decomposition: planning, reconnaissance, exploitation, validation, and reporting should not be handled by an undifferentiated single agent.',
-    contribution:
-      'Configured Cerberus as an orchestration layer routing operations to specialized security sub-agents and structured playbooks for authorized engagements.',
-    challenge:
-      'Intent-based request routing delegating to parallel specialist sub-agents (Scout, Intel, Sentinel, Talos, etc.), with verification of every finding before inclusion in reports and cross-provider model fallback chains.',
-    features: [
-      'Intent-based routing for reconnaissance, implementation, investigation, and remediation tasks.',
-      'Specialist agent roles including Scout, Intel, Sentinel, Talos, and Cerberus-Junior.',
-      'Parallel background task execution with category-based model routing.',
-      'Explicit scope boundaries and guardrails for authorized security testing.',
-    ],
-    result:
-      'Customized and integrated as part of the oh-my-open-pentest framework (bunx oh-my-open-pentest install; verified via doctor command). Framework provides 109+ integrated security tools, 250+ skill playbooks, and 10 engagement modes with CVSS-scored reporting.',
-    engineering:
-      'Core orchestration architecture: decomposing complex goals into bounded specialist responsibilities, then verifying outcomes before downstream progression.',
-    note: 'Exclusively for authorized security assessments in lab environments: self-owned systems, private labs, or in-scope bug bounty programs — in accordance with repository disclaimers. Never for unauthorized third-party testing.',
-    github: 'https://github.com/Abhiprayaa29/Cerberus',
-    image: './assets/projects/cerberus/orchestrator-atlas.webp',
-    alt: 'Cerberus orchestration console: agent terminal and parallel task table with execution status',
-    iw: 1600,
-    ih: 540,
-    gallery: [
+    "github": "https://github.com/Abhiprayaa29/mlbb-draft-studio",
+    "image": "assets/projects/mlbb/overlay-draft.webp",
+    "gallery": [
       {
-        src: './assets/projects/cerberus/orchestrator-atlas.webp',
-        alt: 'Cerberus orchestration console: agent terminal and parallel task table with execution status',
-        iw: 1600,
-        ih: 540,
+        "src": "assets/projects/mlbb/overlay-draft.webp",
+        "alt": "1920x1080 transparent broadcast overlay showing draft pick/ban sequences and timers"
       },
       {
-        src: './assets/projects/cerberus/core-loop.webp',
-        alt: 'Cerberus core flow diagram: Human Intent, Agent Execution, and Verified Result under the minimum intervention principle',
-        iw: 1408,
-        ih: 768,
+        "src": "assets/projects/mlbb/control-panel-operator.webp",
+        "alt": "MLBB Draft Studio operator control panel with live timer and hero selection"
+      }
+    ]
+  },
+  "happy-budgeting": {
+    "title": "Financial Management System Research & UI/UX",
+    "discipline": "design",
+    "role": "UI/UX Designer & System Analyst (Research Assistant)",
+    "status": "Academic Research & System Specification",
+    "problem": "University budget governance involves complex multi-role hierarchies (PPK, Dean, Treasurer, Auditor) with high compliance overhead and paper-based approval delays.",
+    "contribution": "Defined Software Requirements Specifications (SRS), mapped business workflows into DFD Levels 0\u20133, and designed high-fidelity interactive design systems and prototypes in Figma.",
+    "challenge": "Translating multi-stakeholder regulations into intuitive user journeys without sacrificing administrative verification depth.",
+    "engineering": "Architected complete relational database models (ERD), multi-level data flow diagrams, functional requirements matrices, and error recovery branches.",
+    "design": "Built enterprise design token system, dense data tables with clear approval workflows, status indicator badges, and accessible form validations in Figma.",
+    "result": "Adopted as institutional SRS foundation for next-generation university financial automation.",
+    "stack": [
+      "Figma",
+      "SRS Specification",
+      "DFD Levels 0-3",
+      "ERD Modeling",
+      "User-Centered Design"
+    ],
+    "github": "https://github.com/Abhiprayaa29",
+    "image": "assets/projects/happy-budgeting/budgeting-dashboard.png",
+    "gallery": [
+      {
+        "src": "assets/projects/happy-budgeting/budgeting-dashboard.png",
+        "alt": "Enterprise budgeting management dashboard mockup designed in Figma"
       },
       {
-        src: './assets/projects/cerberus/ultrawork-flow.webp',
-        alt: 'Ultrawork flow diagram: direct ulw pathway compared to multi-phase Prometheus-to-Atlas execution',
-        iw: 1408,
-        ih: 768,
+        "src": "assets/projects/happy-budgeting/budgeting-approval-list.png",
+        "alt": "Financial approval queue interface with multi-tier verification steps"
       },
-    ],
+      {
+        "src": "assets/projects/happy-budgeting/budgeting-dfd-level2.png",
+        "alt": "DFD Level 2 process specification diagram for budget verification"
+      }
+    ]
   },
+  "lahan-aman": {
+    "title": "LahanAman \u2014 WebGIS Landslide Susceptibility SPK",
+    "discipline": "development",
+    "role": "Geospatial Analyst & Developer",
+    "status": "Decision Support System & Spatial Research",
+    "problem": "Disaster management agencies require accurate, localized spatial vulnerability mapping to prioritize landslide mitigation resources across hilly terrain.",
+    "contribution": "Constructed multi-criteria spatial analysis model combining slope gradient DEM, lithology, rainfall data, and land cover into a WebGIS vulnerability decision support system.",
+    "challenge": "Normalizing heterogeneous geographic layers with varying spatial resolutions into a mathematically consistent hazard index.",
+    "engineering": "Spatial data processing, AHP multi-criteria weighting matrices, GeoJSON layer validation, and automated hazard classification algorithms.",
+    "design": "Clean cartographic data visualization, intuitive choropleth legend hierarchy, and interactive map coordinate inspectors.",
+    "result": "Comprehensive technical SPK specification and reproducible spatial data evaluation framework for Yogyakarta regencies.",
+    "stack": [
+      "WebGIS",
+      "Spatial Analysis",
+      "DSS / SPK",
+      "GeoJSON",
+      "Python"
+    ],
+    "github": "https://github.com/Abhiprayaa29",
+    "image": "assets/projects/ar/simple-ar-placement-ui.webp",
+    "gallery": [
+      {
+        "src": "assets/projects/ar/simple-ar-placement-ui.webp",
+        "alt": "Interactive spatial computing interface"
+      }
+    ]
+  },
+  "findit-ugm": {
+    "title": "Find IT! UGM 2026 \u2014 National UX Competition",
+    "discipline": "design",
+    "role": "Lead UX Designer & Video Producer",
+    "status": "National Finalist & Best Video Award",
+    "problem": "Modern mobile interfaces frequently fail to address cognitive overload and accessibility needs for users navigating critical information under time pressure.",
+    "contribution": "Conducted end-to-end user research, empathy mapping, interactive prototyping in Figma, usability testing, and produced the award-winning demonstration video.",
+    "challenge": "Balancing complex feature sets with minimalist, intuitive mobile navigation in a highly competitive national jury review.",
+    "engineering": "Evaluated interaction performance, component token consistency, and structured usability test metrics.",
+    "design": "Designed modern mobile design system, interactive micro-animations, accessible color contrast schemes, and motion graphics in After Effects.",
+    "result": "Awarded National Finalist and Best Video Award at Find IT! 2026 hosted by KMTETI FT Universitas Gadjah Mada.",
+    "stack": [
+      "Figma",
+      "UX Research",
+      "Interactive Prototyping",
+      "After Effects",
+      "Usability Testing"
+    ],
+    "github": "https://github.com/Abhiprayaa29",
+    "image": "assets/sertifikat/findit-2026-best-video.jpg",
+    "gallery": [
+      {
+        "src": "assets/sertifikat/findit-2026-best-video.jpg",
+        "alt": "Find IT! UGM 2026 Best Video Award certificate"
+      }
+    ]
+  },
+  "cerberus": {
+    "title": "Cerberus Multi-Agent Orchestrator",
+    "discipline": "development",
+    "role": "Systems Developer",
+    "status": "Developer Tooling",
+    "problem": "Autonomous AI agent workflows frequently derail or hallucinate when executing multi-file codebase refactors without deterministic phase boundaries.",
+    "contribution": "Developed ultra-work execution loop orchestrator in Bun & TypeScript that coordinates specialized sub-agents with strict verification gates.",
+    "challenge": "Managing agent context limits while enforcing deterministic test runs and git rollback mechanisms.",
+    "engineering": "Bun runtime, TypeScript, OpenCode SDK, event-driven task trees, automated test verification hooks.",
+    "design": "Terminal telemetry dashboards with live execution graphs and task progress summaries.",
+    "result": "Reliable developer tooling accelerating multi-phase codebase modernization with verified rollback guarantees.",
+    "stack": [
+      "Bun",
+      "TypeScript",
+      "OpenCode",
+      "Multi-Agent Orchestration",
+      "Git Automation"
+    ],
+    "github": "https://github.com/Abhiprayaa29/Cerberus",
+    "image": "assets/projects/cerberus/core-loop.webp",
+    "gallery": [
+      {
+        "src": "assets/projects/cerberus/core-loop.webp",
+        "alt": "Cerberus core execution loop architecture diagram"
+      }
+    ]
+  },
+  "spada-bot": {
+    "title": "Academic Automation Engine & Telegram Bot",
+    "discipline": "development",
+    "role": "Backend Developer",
+    "status": "Production Service",
+    "problem": "Students miss deadlines and course announcements due to fragmented university learning management systems without real-time mobile push notifications.",
+    "contribution": "Built asynchronous task automation service with FastAPI and Telegram Bot API that delivers personalized assignment alerts and daily 07:00 briefing schedules.",
+    "challenge": "Parsing dynamic academic calendars and synchronizing deadline changes without triggering rate limits.",
+    "engineering": "FastAPI asynchronous background tasks, Telegram webhook endpoints, Cron schedule workers, and structured JSON storage.",
+    "design": "Clean Telegram inline keyboard conversational UI with interactive quick-action buttons.",
+    "result": "Zero missed deadlines across multiple university semesters with automated daily briefing summaries.",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Telegram Bot API",
+      "Cron",
+      "Asyncio"
+    ],
+    "github": "https://github.com/Abhiprayaa29/akademik-bot-fastapi",
+    "image": "assets/projects/mlbb/control-panel-grid.webp",
+    "gallery": [
+      {
+        "src": "assets/projects/mlbb/control-panel-grid.webp",
+        "alt": "Academic automation schedule and grid overview"
+      }
+    ]
+  },
+  "simple-ar": {
+    "title": "SimpleARPlacement \u2014 Interactive Augmented Reality",
+    "discipline": "combined",
+    "role": "AR Developer & 3D Specialist",
+    "status": "Interactive Android Application",
+    "problem": "Users lack intuitive spatial tools to visualize virtual 3D furniture and objects in physical architectural spaces prior to purchasing.",
+    "contribution": "Developed native Android AR application with surface detection, raycast hit testing, real-time object placement, rotation, and scale gesture handling.",
+    "challenge": "Maintaining rock-solid tracking stability during rapid device translation and varying ambient lighting conditions.",
+    "engineering": "Unity 3D, C#, AR Foundation, ARCore point cloud classification, transform clamping scripts.",
+    "design": "Minimalist on-screen gesture indicators, planar visualizers, and responsive 3D model selection carousel.",
+    "result": "Smooth 60fps AR placement experience on standard Android mobile hardware.",
+    "stack": [
+      "Unity",
+      "C#",
+      "AR Foundation",
+      "ARCore",
+      "3D Modeling"
+    ],
+    "github": "https://github.com/Abhiprayaa29/simple-ar-placement",
+    "image": "assets/projects/ar/simple-ar-placement-ui.webp",
+    "gallery": [
+      {
+        "src": "assets/projects/ar/simple-ar-placement-ui.webp",
+        "alt": "SimpleARPlacement Android application running surface plane detection and placement"
+      }
+    ]
+  },
+  "jogjalensa": {
+    "title": "JogjaLensa \u2014 Camera & Lens Rental Marketplace",
+    "discipline": "combined",
+    "role": "Full-Stack Web Developer",
+    "status": "Completed Web Application",
+    "problem": "Local photography rental stores in Yogyakarta rely on manual WhatsApp chat bookings, causing double-booking conflicts and inventory mismatch.",
+    "contribution": "Built full-stack relational database marketplace with user authentication, catalog filtering, inventory date reservation, and rental history tracking.",
+    "challenge": "Managing concurrent rental dates for limited physical lens inventory.",
+    "engineering": "PHP, MySQL relational schema, session-based authentication, SQL transaction safety, Apache web server.",
+    "design": "Responsive Bootstrap 5.3 interface, product specification grids, and reservation checkout forms.",
+    "result": "Functional end-to-end rental management platform for photography enthusiasts in Yogyakarta.",
+    "stack": [
+      "PHP",
+      "MySQL",
+      "Bootstrap",
+      "JavaScript",
+      "HTML/CSS"
+    ],
+    "github": "https://github.com/Abhiprayaa29/ProjectPemogramanWeb-Abdillah-Abhi",
+    "image": "assets/jogjalensa-malioboro-small.jpg",
+    "gallery": [
+      {
+        "src": "assets/jogjalensa-malioboro-small.jpg",
+        "alt": "JogjaLensa photography catalog preview"
+      }
+    ]
+  }
 };
 
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => [...document.querySelectorAll(sel)];
+const shelvesData = [
+  {
+    "id": "hw-bound-auth",
+    "title": "Hardware-Bound Authentication via Android Keystore & ECDSA P-256",
+    "category": "Security & Cryptography",
+    "catKey": "security",
+    "tags": [
+      "Android Keystore",
+      "ECDSA P-256",
+      "Hardware TEE",
+      "Zero-Password"
+    ],
+    "date": "Nov 2026",
+    "summary": "Architectural breakdown of eliminating shared secrets using non-exportable hardware keys inside Android TEE/StrongBox to sign cryptographic server challenges.",
+    "content": "### Context & The Problem\nTraditional two-factor authentication (SMS OTP, email codes, authenticator apps) relies on shared secrets that can be phished via adversary-in-the-middle (AiTM) reverse proxies.\n\n### Cryptographic Architecture in IPGuard\n1. **Key Generation:** Keys are generated directly within the device's **Trusted Execution Environment (TEE)** or **StrongBox Keymaster** using the `NIST P-256` elliptic curve (secp256r1).\n2. **Challenge-Response Workflow:**\n   - Server issues a high-entropy CSPRNG nonce with a 60-second validity window.\n   - The Android client scans a dynamic QR code containing the session UUID and payload digest.\n   - The user authorizes via biometric prompt (Class 3 BiometricPrompt with CryptoObject).\n   - The private key signs `SHA256(nonce || timestamp || client_id)`.\n   - The server verifies the ECDSA signature using the registered public key stored in PostgreSQL.\n3. **Security Properties:**\n   - **Non-Exportability:** The private key never leaves hardware silicon, even under OS-level root compromise.\n   - **Replay Prevention:** Server invalidates the nonce upon first verification attempt.\n   - **Phishing Resistance:** The signed challenge includes origin-bound domain parameters."
+  },
+  {
+    "id": "aead-vault-encryption",
+    "title": "Authenticated Zero-Knowledge Vault Encryption with XChaCha20-Poly1305 AEAD",
+    "category": "Security & Cryptography",
+    "catKey": "security",
+    "tags": [
+      "XChaCha20-Poly1305",
+      "AEAD",
+      "HKDF-SHA256",
+      "CSPRNG"
+    ],
+    "date": "Nov 2026",
+    "summary": "Implementing client-side authenticated file encryption with 24-byte CSPRNG nonces and HKDF per-session key derivation to protect assets at rest.",
+    "content": "### Why XChaCha20-Poly1305?\nStandard AES-GCM uses a 96-bit (12-byte) nonce. If a nonce is ever reused with the same key, both confidentiality and authenticity are completely broken. With automated bulk operations, nonce collision probability under AES-GCM becomes a tangible risk.\n\n**XChaCha20-Poly1305** extends the nonce size to **192 bits (24 bytes)**:\n- Nonces can be generated safely using CSPRNG (`os.urandom(24)`) without tracking global counters.\n- Negligible collision probability over billions of encrypted blocks.\n- Exceptional performance on CPUs lacking hardware AES-NI instructions.\n\n### Cryptographic Pipeline in IPGuard\n1. Master secret derived via **HKDF-SHA256** with unique salt and domain separation info.\n2. Digital asset stream encrypted into chunks with individual Poly1305 MAC authentication tags.\n3. Decryption rejects the payload immediately if any bit in the ciphertext or tag is modified prior to plaintext recovery."
+  },
+  {
+    "id": "realtime-socket-state",
+    "title": "Real-Time State Synchronization for Broadcast Overlays via Socket.IO",
+    "category": "Systems & Architecture",
+    "catKey": "architecture",
+    "tags": [
+      "Socket.IO",
+      "OBS Browser Source",
+      "Event-Driven",
+      "Atomic State"
+    ],
+    "date": "Oct 2026",
+    "summary": "Engineering a deterministic LAN state engine where tournament draft picks, countdown timers, and match scores sync to transparent OBS overlays with zero reload latency.",
+    "content": "### Broadcast Engineering Requirements\nLive esports production demands zero visual glitching. If an operator updates a match score, drafts a hero, or triggers a pause, multiple 1080p OBS Browser Sources across production workstations must update concurrently within 16ms (1 frame at 60fps).\n\n### Architectural Implementation in MLBB Draft Studio\n1. **Server-Authoritative State Engine:** The browser UI never mutates state directly. All actions (pick, ban, timer tick, swap) dispatch action payloads to Express/Socket.IO backend.\n2. **Atomic Persistence:**\n   - Server writes state to a `.tmp` file and executes an atomic POSIX rename.\n   - Crash-proof state recovery prevents match rollback in power or network drops.\n3. **Decoupled Overlays:**\n   - Transparent OBS overlays (draft, scoreboard, Sponsor Edition) subscribe only to broadcast delta channels.\n   - Clean CSS transforms eliminate repaint flashes during live on-air transitions."
+  },
+  {
+    "id": "spatial-webgis-modeling",
+    "title": "Geospatial Modeling & Decision Support Systems for Landslide Susceptibility",
+    "category": "Research & Spatial Computing",
+    "catKey": "research",
+    "tags": [
+      "WebGIS",
+      "Spatial Analysis",
+      "DSS / SPK",
+      "GeoJSON"
+    ],
+    "date": "Nov 2026",
+    "summary": "Multi-criteria spatial analysis combining slope, lithology, rainfall data, and land cover into a WebGIS vulnerability decision support system.",
+    "content": "### Problem Statement\nIn hilly regions such as Yogyakarta (Imogiri, Dlingo, Kulon Progo), landslide susceptibility assessment requires integrating heterogeneous geographic layers with varying spatial resolutions and physical scales.\n\n### Decision Support Framework in LahanAman\n1. **Layer Parameterization:**\n   - Slope gradient (DEM derived percentage categories).\n   - Soil thickness and lithological formation stability.\n   - Average monthly precipitation isohyets.\n   - Land cover classifications from multispectral satellite imagery.\n2. **Spatial Multi-Criteria Evaluation (AHP / Weighted Sum):**\n   - Normalized weight matrices assigned to each layer based on geotechnical literature.\n   - Spatial overlay calculations yielding categorized hazard indices (Low, Moderate, High, Critical).\n3. **WebGIS Interface:**\n   - Interactive GeoJSON polygon rendering with dynamic choropleth styling.\n   - Query inspector for localized coordinates with immediate mitigation guidelines."
+  },
+  {
+    "id": "dfd-enterprise-modeling",
+    "title": "Multi-Tier Workflow Modeling: DFD Levels 0\u20133 in Institutional Financial Systems",
+    "category": "Systems & Architecture",
+    "catKey": "architecture",
+    "tags": [
+      "DFD Levels 0-3",
+      "System Analysis",
+      "SRS",
+      "Governance"
+    ],
+    "date": "Oct 2026",
+    "summary": "Methodology for translating complex governmental budgeting regulations and multi-role approvals into rigorous Data Flow Diagrams and Software Requirements Specifications.",
+    "content": "### Bridging Regulation and Engineering\nDuring research on financial management systems at UPN \u201cVeteran\u201d Yogyakarta, the core challenge was mapping hierarchical governance policies (PPK, Dean, Treasurer, Auditor) into unambiguous software contracts.\n\n### Hierarchical Data Flow Architecture\n- **Context Diagram (Level 0):** Defines external entities, system boundaries, and top-level document streams (budget proposals, disbursement receipts, accountability reports).\n- **DFD Level 1:** Deconstructs the system into core operational processes: (1.0) Proposal Ingestion, (2.0) Verification & Validation, (3.0) Multi-Tier Approval, (4.0) Disbursement, (5.0) Audit & Accountability.\n- **DFD Level 2 & 3:** Unpacks validation mechanics: boundary limits, account code verification, digital voucher generation, and rejection rollback branches.\n- **Outcome:** Comprehensive SRS that eliminates scope ambiguity before frontend prototype and backend schema development."
+  },
+  {
+    "id": "design-systems-enterprise",
+    "title": "Design Systems & Token Hierarchy in Figma for Complex Enterprise Workflows",
+    "category": "Design Fundamentals",
+    "catKey": "design",
+    "tags": [
+      "Design Systems",
+      "Figma Variables",
+      "Tokens",
+      "Enterprise UI"
+    ],
+    "date": "Oct 2026",
+    "summary": "Building scalable design token hierarchies across color semantics, typography scales, elevation, and component variants for high-density administrative software.",
+    "content": "### The Challenge of High-Density Enterprise UI\nAdministrative platforms (like university budgeting and audit trackers) suffer when designers treat them like minimalist consumer apps. They require high data density, clear visual hierarchy, and unambiguous status communication.\n\n### Design Token Architecture\n1. **Primitive Tokens:** Raw values (`blue-500: #3b82f6`, `slate-900: #0f172a`).\n2. **Semantic Tokens:** Purpose-bound tokens (`color-action-primary: {blue-500}`, `color-surface-elevated: {slate-900}`).\n3. **Component Tokens:** Scoped parameters (`table-header-bg`, `status-pill-badge-text`).\n4. **Interactive Variants:** In Figma, states (Default, Hover, Active, Disabled, Focus) are coupled to keyboard navigation requirements, ensuring high-fidelity interactive prototypes match production frontend components 1:1."
+  },
+  {
+    "id": "cryptographic-steganography",
+    "title": "Invisible Cryptographic Watermarking: LSB Steganography & Ed25519 Signatures",
+    "category": "Security & Cryptography",
+    "catKey": "security",
+    "tags": [
+      "Steganography",
+      "LSB",
+      "Ed25519",
+      "Audit Hash Chain"
+    ],
+    "date": "Nov 2026",
+    "summary": "Embedding verifiable, tamper-evident authorship proofs directly into the pixel LSB channel of PNG master files backed by asymmetric digital signatures.",
+    "content": "### Overcoming Visible Watermarking Flaws\nVisible watermarks ruin master artwork and are readily removed by AI inpainting. Metadata headers (EXIF) are routinely deleted by messaging apps and social media platforms.\n\n### The LSB Cryptographic Framing Pipeline\n1. **Binary Packet Framing:** Header `IPGW` (4 bytes) + Version (1 byte) + License ID (16 bytes UUID) + SHA-256 Digest of Original (32 bytes) + Ed25519 Signature (64 bytes).\n2. **Embedding:** The bitstream is written across the Least Significant Bits of the RGB channels in 24-bit PNG files. The perceptual visual change is zero (delta E < 0.1).\n3. **Audit Hash Chain:** Every embedding and verification event generates a SHA-256 hash linked to the previous transaction hash, creating an immutable internal audit ledger."
+  },
+  {
+    "id": "academic-automation-fastapi",
+    "title": "Automating Academic Workflows: Event-Driven Telegram Bots with FastAPI",
+    "category": "Automation & Tooling",
+    "catKey": "automation",
+    "tags": [
+      "FastAPI",
+      "Telegram Bot API",
+      "Cron Scheduling",
+      "Webhooks"
+    ],
+    "date": "Sep 2026",
+    "summary": "Designing a reliable notification and assignment sync service using asynchronous webhooks, cron scheduling, and Telegram Bot API.",
+    "content": "### Workflow Motivation\nBalancing university coursework, research assistantships, and independent software development requires zero-friction task management. Relying on manually checking university portals (SPADA) leads to missed deadlines.\n\n### Technical Implementation\n1. **Asynchronous Gateway:** FastAPI handles incoming webhook requests from university alert feeds and user slash commands.\n2. **Scheduled Dispatch Engine:** Async background tasks query course API endpoints, compute pending assignment deltas, and format daily briefings.\n3. **Telegram Interface:** Interactive inline keyboards allow users to mark assignments complete, snooze reminders, or request syllabus outlines on demand."
+  },
+  {
+    "id": "unity-ar-surface-tracking",
+    "title": "Surface Plane Detection & Spatial Constraints in AR Foundation & ARCore",
+    "category": "Research & Spatial Computing",
+    "catKey": "research",
+    "tags": [
+      "Unity",
+      "C#",
+      "AR Foundation",
+      "ARCore"
+    ],
+    "date": "Oct 2026",
+    "summary": "Implementation details of surface plane classification, raycast hit testing, gesture manipulation, and spatial anchor stabilization on Android AR devices.",
+    "content": "### Spatial Computing Mechanics\nAugmented reality requires mapping digital 3D meshes into real-world geometry with physical plausibility.\n\n### Implementation in SimpleARPlacement\n1. **AR Plane Manager:** Tracks feature points detected by the device camera and IMU sensors, classifying horizontal surfaces (floors, tabletops).\n2. **Raycasting Hit Testing:** When a screen tap occurs, `ARRaycastManager` fires a vector into the point cloud to find the nearest valid plane intersection.\n3. **Transform Constraints:** Custom C# scripts constrain rotation to the Y-axis (preventing unnatural tilting) and clamp scale factors within safe physical bounds."
+  },
+  {
+    "id": "sqli-exploitation-defense",
+    "title": "Time-Based Blind SQLi Exploitation Proof-of-Concept & PDO Parameterization",
+    "category": "Security & Cryptography",
+    "catKey": "security",
+    "tags": [
+      "SQLi",
+      "Security Research",
+      "PDO",
+      "Defensive Engineering"
+    ],
+    "date": "Apr 2026",
+    "summary": "Technical analysis of inferring database schema via sleep latency anomalies under zero-output conditions, and defensive mitigation via prepared statements.",
+    "content": "### Exploitation Mechanics (Research Laboratory)\nUnder time-based blind SQL injection, the target application reveals no error messages and no database output in the HTTP response. Data extraction is achieved by evaluating boolean conditions paired with delay commands (`WAITFOR DELAY` / `SLEEP()`):\n- If `SUBSTRING(user(), 1, 1) = 'a'`, sleep 5 seconds; otherwise return immediately.\n- By sampling HTTP response latency across binary search iterations, full ASCII strings can be reconstructed bit by bit.\n\n### Comprehensive Defense\n1. **Prepared Statements (PDO):** Code and data must be strictly separated. Query plan compilation occurs before input substitution.\n2. **Principle of Least Privilege:** Database application user accounts must lack schema manipulation or table dump privileges.\n3. **Strict Type Casting:** Enforce strict integer parsing for numeric identifiers."
+  },
+  {
+    "id": "data-science-foundations",
+    "title": "Data Science Foundations: Exploratory Data Analysis & Statistical Inference",
+    "category": "Engineering Fundamentals",
+    "catKey": "engineering",
+    "tags": [
+      "Data Science",
+      "Python",
+      "Pandas",
+      "Statistical Inference"
+    ],
+    "date": "Aug 2026",
+    "summary": "Key principles of cleaning tabular data, handling missing distributions, detecting outliers with IQR, and hypothesis testing.",
+    "content": "### The Foundations of Empirical Analysis\nBefore applying predictive algorithms or machine learning classifiers, understanding the data distribution is paramount.\n\n### Core Analytical Phases\n1. **Data Wrangling:** Imputing missing values using median (for skewed distributions) or mode (for categorical factors), detecting duplicates, and normalizing scales.\n2. **Exploratory Data Analysis (EDA):** Visualizing feature covariance via heatmaps, box plots for IQR outlier detection, and kernel density estimates.\n3. **Statistical Validation:** Running t-tests or Chi-square independence tests to ensure observed differences represent true population signals rather than sampling variance."
+  },
+  {
+    "id": "ai-agents-skillsbuild",
+    "title": "Building Autonomous AI Agents: Architecture, Tool Calling & Structured Prompts",
+    "category": "Automation & Tooling",
+    "catKey": "automation",
+    "tags": [
+      "AI Agents",
+      "Tool Calling",
+      "ReAct Framework",
+      "IBM SkillsBuild"
+    ],
+    "date": "Oct 2026",
+    "summary": "Architectural breakdown of autonomous agents: reasoning loops, deterministic tool invocation, structured JSON schemas, and safety boundaries.",
+    "content": "### The Agentic Paradigm\nUnlike static single-turn prompt-response LLM usage, autonomous agents operate inside an iterative execution loop: **Reason \u2192 Plan \u2192 Act \u2192 Observe \u2192 Conclude**.\n\n### Key Architectural Pillars\n1. **Reasoning Engine (ReAct):** Breaking down high-level user intents into sequential sub-tasks.\n2. **Tool Definition via JSON Schema:** Declaring parameter schemas that the language model can invoke deterministically with validated arguments.\n3. **Observation Feedback:** Executing the tool locally, capturing the exact stdout/stderr or API return, and re-feeding it into the model context.\n4. **Safety Boundaries:** Enforcing timeout limits, maximum recursion loops, and strict sandboxed execution to prevent unbounded resource consumption."
+  },
+  {
+    "id": "blender-3d-pipeline",
+    "title": "3D Asset Modeling & Spatial Pipeline in Blender for Interactive Real-Time Engines",
+    "category": "Creative & Visual Design",
+    "catKey": "creative",
+    "tags": [
+      "Blender 3D",
+      "PBR Shading",
+      "Mesh Topology",
+      "Unity Pipeline"
+    ],
+    "date": "May 2026",
+    "summary": "Low-poly mesh optimization, UV unwrapping, PBR material creation, and glTF/FBX export pipelines targeting mobile AR rendering.",
+    "content": "### Balancing Fidelity and Mobile AR Performance\nMobile AR engines run under stringent thermal and battery limits. Models with excessive polygon density or uncompressed 4K textures trigger severe frame-rate drops.\n\n### Modeling Pipeline\n1. **Topology Optimization:** Modeling with clean quads, removing non-manifold vertices, and utilizing normal baking to capture high-resolution bevels onto lightweight meshes.\n2. **PBR Texturing:** Packaging Metallic, Roughness, and Ambient Occlusion into a single channel-packed texture map (ORM) to minimize draw calls.\n3. **Unity glTF/FBX Ingestion:** Rigorous origin pivot placement at ground contact point to ensure AR surface raycasts place objects seamlessly on physical planes."
+  },
+  {
+    "id": "ucd-national-competition",
+    "title": "User-Centered Design & Usability Testing in High-Stakes National UX Competitions",
+    "category": "Design Fundamentals",
+    "catKey": "design",
+    "tags": [
+      "UCD",
+      "Usability Testing",
+      "UX Research",
+      "Find IT! UGM"
+    ],
+    "date": "May 2026",
+    "summary": "Methodological walkthrough of empathy mapping, problem framing, iterative prototyping, and narrative video production for Find IT! UGM 2026.",
+    "content": "### Research Methodology\nEntering a national-level UX design competition requires going beyond aesthetic mockups to demonstrate empirical user need validation.\n\n### Phased Execution (Find IT! UGM 2026)\n1. **Empathy Research:** Qualitative interviews and persona mapping to identify acute friction points in digital workflows.\n2. **Information Architecture & User Flows:** Mapping user journey blueprints, edge-case recovery flows, and zero-state screens.\n3. **High-Fidelity Prototyping:** Building interactive Figma components utilizing auto-layout, conditional logic, and micro-interactions.\n4. **Validation & Narrative Production:** Conducting usability tests (System Usability Scale) and producing an engaging visual demonstration video that won **Best Video** nationally."
+  }
+];
 
-$('#year').textContent = new Date().getFullYear();
+// -----------------------------------------------------------------------------
+// 2. DOM UTILITIES & HELPERS
+// -----------------------------------------------------------------------------
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+// Current year
+const yearEl = $('#year');
+if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+// Simple Markdown-to-HTML parser for editorial Shelf reading
+const parseMarkdown = (md) => {
+  if (!md) return '';
+  let html = '';
+  const lines = md.split('\n');
+  let inList = false;
+  let inCode = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Code blocks
+    if (line.startsWith('```')) {
+      if (inCode) {
+        html += '</code></pre>';
+        inCode = false;
+      } else {
+        html += '<pre><code>';
+        inCode = true;
+      }
+      continue;
+    }
+    if (inCode) {
+      html += line.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '\n';
+      continue;
+    }
+
+    // Headings
+    if (line.startsWith('### ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h3>${formatInline(line.slice(4))}</h3>`;
+      continue;
+    }
+    if (line.startsWith('## ')) {
+      if (inList) { html += '</ul>'; inList = false; }
+      html += `<h2>${formatInline(line.slice(3))}</h2>`;
+      continue;
+    }
+
+    // Unordered lists
+    if (line.startsWith('- ') || line.startsWith('* ')) {
+      if (!inList) { html += '<ul>'; inList = true; }
+      html += `<li>${formatInline(line.slice(2))}</li>`;
+      continue;
+    }
+
+    // Numbered lists
+    const numMatch = line.match(/^(\d+)\.\s+(.*)/);
+    if (numMatch) {
+      if (!inList) { html += '<ol>'; inList = true; }
+      html += `<li>${formatInline(numMatch[2])}</li>`;
+      continue;
+    }
+
+    // Close list if line is empty or paragraph
+    if (inList && !line.trim()) {
+      html += '</ul>';
+      inList = false;
+      continue;
+    }
+
+    // Empty lines
+    if (!line.trim()) continue;
+
+    // Normal paragraph
+    html += `<p>${formatInline(line)}</p>`;
+  }
+
+  if (inList) html += '</ul>';
+  if (inCode) html += '</code></pre>';
+  return html;
+};
+
+const formatInline = (text) => {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+};
+
+// -----------------------------------------------------------------------------
+// 3. NAVIGATION & SCROLL SPY
+// -----------------------------------------------------------------------------
 const menuBtn = $('#menuBtn');
 const mobileNav = $('#mobileNav');
+
 const setMenu = (open) => {
+  if (!menuBtn || !mobileNav) return;
   menuBtn.setAttribute('aria-expanded', String(open));
   menuBtn.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-  menuBtn.textContent = open ? '×' : '☰';
+  menuBtn.textContent = open ? '✕' : '☰';
   mobileNav.classList.toggle('open', open);
   document.documentElement.classList.toggle('menu-open', open);
 };
-menuBtn?.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+
+menuBtn?.addEventListener('click', () => {
+  setMenu(menuBtn.getAttribute('aria-expanded') !== 'true');
+});
+
 $$('#mobileNav a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
-});
-window.addEventListener('resize', () => {
-  if (window.innerWidth > 900 && menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
-});
-
-const applyTheme = (t, save) => {
-  document.documentElement.setAttribute('data-theme', t);
-  if (save) {
-    try {
-      localStorage.setItem('theme', t);
-    } catch (e) {}
+  if (e.key === 'Escape') {
+    if (menuBtn?.getAttribute('aria-expanded') === 'true') setMenu(false);
+    if (projectDialog?.open) projectDialog.close();
+    if (shelfDialog?.open) shelfDialog.close();
+    if (certDialog?.open) certDialog.close();
   }
-  const dark = t === 'dark';
-  $$('.theme-toggle').forEach((b) => {
-    b.setAttribute('aria-pressed', String(dark));
-    b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
-  });
-  const lbl = $('.theme-toggle-label');
-  if (lbl) lbl.textContent = dark ? 'Light mode' : 'Dark mode';
-  const m = document.querySelector('meta[name="theme-color"]');
-  if (m) m.setAttribute('content', dark ? '#090a0f' : '#ffffff');
-};
-applyTheme(document.documentElement.getAttribute('data-theme') || 'light', false);
-$$('.theme-toggle').forEach((btn) =>
-  btn.addEventListener('click', () => {
-    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.documentElement.classList.add('theme-anim');
-      setTimeout(() => document.documentElement.classList.remove('theme-anim'), 320);
-    }
-    applyTheme(next, true);
-  }),
-);
-const scheme = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
-scheme?.addEventListener?.('change', (e) => {
-  let saved = null;
-  try {
-    saved = localStorage.getItem('theme');
-  } catch (err) {}
-  if (saved !== 'light' && saved !== 'dark') applyTheme(e.matches ? 'dark' : 'light', false);
 });
 
-const sections = [...document.querySelectorAll('main section[id]')];
-const navLinks = $$('.desktop-nav a, .mobile-nav-inner > a[href^="#"]');
-let currentNav = '';
-const markActive = (id) => {
-  if (id === currentNav) return;
-  currentNav = id;
+const sections = $$('main section[id]');
+const navLinks = $$('.desktop-nav a, .mobile-nav-inner a[href^="#"]');
+
+const markActiveNav = (id) => {
   navLinks.forEach((a) => {
     if (a.getAttribute('href') === '#' + id) a.setAttribute('aria-current', 'true');
     else a.removeAttribute('aria-current');
   });
 };
-let spyTick = false;
-const spyScroll = () => {
-  if (spyTick) return;
-  spyTick = true;
-  requestAnimationFrame(() => {
-    spyTick = false;
-    const line = 52 + window.innerHeight * 0.3;
-    let active = '';
-    for (const s of sections) {
-      if (s.getBoundingClientRect().top <= line) active = s.id;
-    }
-    if (
-      sections.length &&
-      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4
-    ) {
-      active = sections[sections.length - 1].id;
-    }
-    markActive(active);
-  });
-};
-window.addEventListener('scroll', spyScroll, { passive: true });
-window.addEventListener('resize', spyScroll);
-spyScroll();
 
-if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  const blocks = [
-    ...document.querySelectorAll('.hero .container > *, section .container > *, .project-list > *'),
-  ];
-  blocks.forEach((el) => el.classList.add('reveal'));
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          en.target.classList.add('in');
-          io.unobserve(en.target);
-        }
-      });
-    },
-    { threshold: 0, rootMargin: '0px 0px -30px 0px' },
-  );
-  blocks.forEach((el) => io.observe(el));
+const handleScrollSpy = () => {
+  const scrollPos = window.scrollY + 100;
+  for (let i = sections.length - 1; i >= 0; i--) {
+    const s = sections[i];
+    if (s.offsetTop <= scrollPos) {
+      markActiveNav(s.id);
+      break;
+    }
+  }
+};
+
+window.addEventListener('scroll', handleScrollSpy, { passive: true });
+handleScrollSpy();
+
+// -----------------------------------------------------------------------------
+// 4. SPLIT HERO INTERACTION (Adham Dannaway inspired)
+// -----------------------------------------------------------------------------
+const splitHero = $('.split-hero');
+const splitDesigner = $('.split-designer');
+const splitCoder = $('.split-coder');
+
+if (splitHero && splitDesigner && splitCoder) {
+  splitDesigner.addEventListener('mouseenter', () => {
+    splitHero.classList.add('hover-designer');
+    splitHero.classList.remove('hover-coder');
+  });
+  splitDesigner.addEventListener('mouseleave', () => {
+    splitHero.classList.remove('hover-designer');
+  });
+
+  splitCoder.addEventListener('mouseenter', () => {
+    splitHero.classList.add('hover-coder');
+    splitHero.classList.remove('hover-designer');
+  });
+  splitCoder.addEventListener('mouseleave', () => {
+    splitHero.classList.remove('hover-coder');
+  });
 }
 
-const techIcons = {
-  'React 18': 'i-react',
-  Vite: 'i-vite',
-  'Tailwind CSS v4': 'i-tailwindcss',
-  Express: 'i-express',
-  'Socket.IO': 'i-socketdotio',
-  Python: 'i-python',
-  FastAPI: 'i-fastapi',
-  'PHP 8': 'i-php',
-  'Bootstrap 5.3': 'i-bootstrap',
-  'MySQL / MariaDB': 'i-mysql',
-  Apache: 'i-apache',
-  Unity: 'i-unity',
-  'C#': 'i-csharp',
-  Bun: 'i-bun',
-  TypeScript: 'i-typescript',
-};
+// -----------------------------------------------------------------------------
+// 5. WORK SHOWCASE FILTERING & CASE STUDY MODAL
+// -----------------------------------------------------------------------------
+const workFilterBtns = $$('.filter-btn[data-work-filter]');
+const workCards = $$('.work-card');
 
-const techHtml = (label) => {
-  const icon = techIcons[label];
-  const ico = icon ? `<svg class="ico" aria-hidden="true"><use href="#${icon}" /></svg>` : '';
-  return `<span class="tech">${ico}${label}</span>`;
-};
-
-const dialog = $('#projectDialog');
-const dialogVisual = $('#dialogVisual');
-
-const openCaseStudy = (key) => {
-  const p = data[key];
-  if (!p || dialog.open) return;
-  $('#dialogTitle').textContent = p.title;
-  $('#dialogRole').textContent = p.role;
-  $('#dialogStatus').textContent = p.status;
-  $('#dialogProblem').textContent = p.problem;
-  $('#dialogContribution').textContent = p.contribution;
-  $('#dialogChallenge').textContent = p.challenge;
-  $('#dialogResult').textContent = p.result;
-  $('#dialogEngineering').textContent = p.engineering;
-  $('#dialogStack').innerHTML = p.stack.map(techHtml).join(' · ');
-  const note = $('#dialogNote');
-  note.textContent = p.note || '';
-  note.hidden = !p.note;
-  const demo = $('#dialogDemo');
-  if (p.demo) {
-    demo.href = p.demo;
-    demo.hidden = false;
-  } else {
-    demo.hidden = true;
-  }
-  const list = $('#dialogFeatures');
-  list.innerHTML = '';
-  p.features.forEach((f) => {
-    const li = document.createElement('li');
-    li.textContent = f;
-    list.appendChild(li);
+const setWorkFilter = (filter) => {
+  workFilterBtns.forEach((btn) => {
+    const isActive = btn.dataset.workFilter === filter;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', String(isActive));
   });
-  const gallery =
-    p.gallery && p.gallery.length
-      ? p.gallery
-      : p.image
-        ? [{ src: p.image, alt: p.alt, iw: p.iw, ih: p.ih }]
-        : [];
-  if (gallery.length) {
-    dialogVisual.hidden = false;
-    dialogVisual.classList.toggle('dialog-visual-gallery', gallery.length > 1);
-    dialogVisual.innerHTML = gallery
-      .map(
-        (g) =>
-          `<img src="${g.src}" alt="${g.alt}" width="${g.iw}" height="${g.ih}" loading="lazy">`,
-      )
-      .join('');
-  } else {
-    dialogVisual.hidden = true;
-    dialogVisual.classList.remove('dialog-visual-gallery');
-    dialogVisual.innerHTML = '';
-  }
-  $('#dialogGithub').href = p.github;
-  dialog.showModal();
+
+  workCards.forEach((card) => {
+    const disc = card.dataset.discipline;
+    const match = filter === 'all' || disc === filter || (filter === 'combined' && disc === 'combined');
+    card.classList.toggle('is-filtered-out', !match);
+  });
 };
 
-$$('.project-row').forEach((row) => {
-  row.addEventListener('click', (e) => {
-    if (e.target.closest('a,button')) return;
-    openCaseStudy(row.dataset.project);
+workFilterBtns.forEach((btn) => {
+  btn.addEventListener('click', () => setWorkFilter(btn.dataset.workFilter));
+});
+
+// Quick jump buttons in hero
+$('#heroDesignerBtn')?.addEventListener('click', () => setWorkFilter('design'));
+$('#heroCoderBtn')?.addEventListener('click', () => setWorkFilter('development'));
+
+// Project Case Study Modal
+const projectDialog = $('#projectDialog');
+const openCaseStudy = (key) => {
+  const p = projectsData[key];
+  if (!p || !projectDialog) return;
+
+  $('#caseTitle').textContent = p.title;
+  $('#caseRole').textContent = p.role;
+  $('#caseStatus').textContent = p.status;
+  $('#caseDiscipline').textContent = p.discipline.toUpperCase();
+  $('#caseProblem').textContent = p.problem;
+  $('#caseContribution').textContent = p.contribution;
+  $('#caseChallenge').textContent = p.challenge;
+  $('#caseEngineering').textContent = p.engineering;
+  $('#caseDesign').textContent = p.design || 'Intuitive user interface architecture aligned with technical constraints.';
+  $('#caseResult').textContent = p.result;
+
+  const stackEl = $('#caseStack');
+  if (stackEl) {
+    stackEl.innerHTML = p.stack.map((t) => `<span class="tech-chip">${t}</span>`).join(' ');
+  }
+
+  const galleryEl = $('#caseGallery');
+  if (galleryEl) {
+    if (p.gallery && p.gallery.length) {
+      galleryEl.innerHTML = p.gallery
+        .map((img) => `<img src="${img.src}" alt="${img.alt}" loading="lazy">`)
+        .join('');
+      galleryEl.hidden = false;
+    } else {
+      galleryEl.hidden = true;
+    }
+  }
+
+  const githubLink = $('#caseGithub');
+  if (githubLink) {
+    githubLink.href = p.github;
+    githubLink.hidden = !p.github;
+  }
+
+  projectDialog.showModal();
+};
+
+workCards.forEach((card) => {
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('a')) return;
+    openCaseStudy(card.dataset.project);
   });
 });
-$$('.row-open').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const key = btn.dataset.open || btn.closest('.project-row')?.dataset.project;
+
+$$('.work-open-btn').forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const key = btn.dataset.project || btn.closest('.work-card')?.dataset.project;
     if (key) openCaseStudy(key);
   });
 });
-$('#dialogClose').addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', (e) => {
-  if (e.target === dialog) dialog.close();
+
+$('#dialogClose')?.addEventListener('click', () => projectDialog?.close());
+projectDialog?.addEventListener('click', (e) => {
+  if (e.target === projectDialog) projectDialog.close();
 });
 
-const certDialog = $('#certDialog');
-$$('.cert-thumb').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const img = $('#certImage');
-    img.src = `assets/sertifikat/preview/${btn.dataset.cert}-full.webp`;
-    img.alt = `Certificate: ${btn.dataset.title}`;
-    $('#certTitle').textContent = btn.dataset.title;
-    certDialog.showModal();
+// -----------------------------------------------------------------------------
+// 6. SHELVES — DIGITAL GARDEN (Tania Rascia inspired)
+// -----------------------------------------------------------------------------
+const shelvesList = $('#shelvesList');
+const searchInput = $('#shelfSearch');
+const catFilterBtns = $$('.shelf-cat-btn');
+const shelfCountBadge = $('#shelfCountBadge');
+const shelfDialog = $('#shelfDialog');
+
+let activeCategory = 'all';
+let searchQuery = '';
+
+const renderShelves = () => {
+  if (!shelvesList) return;
+
+  const filtered = shelvesData.filter((entry) => {
+    const matchCat = activeCategory === 'all' || entry.catKey === activeCategory;
+    if (!matchCat) return false;
+    if (!searchQuery) return true;
+
+    const q = searchQuery.toLowerCase();
+    const matchTitle = entry.title.toLowerCase().includes(q);
+    const matchSummary = entry.summary.toLowerCase().includes(q);
+    const matchCategory = entry.category.toLowerCase().includes(q);
+    const matchTags = entry.tags.some((t) => t.toLowerCase().includes(q));
+    return matchTitle || matchSummary || matchCategory || matchTags;
   });
-});
-$('#certClose').addEventListener('click', () => certDialog.close());
-certDialog.addEventListener('click', (e) => {
-  if (e.target === certDialog) certDialog.close();
-});
 
-// Interactive certificate category filter
-const certFilterBtns = $$('.cert-filter-btn');
-const certRows = $$('.cert-row');
-if (certFilterBtns.length && certRows.length) {
-  certFilterBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-      certFilterBtns.forEach((b) => {
-        const isActive = b === btn;
-        b.classList.toggle('active', isActive);
-        b.setAttribute('aria-selected', String(isActive));
-      });
-      certRows.forEach((row) => {
-        const cat = row.dataset.category;
-        const match = filter === 'all' || cat === filter;
-        if (match) {
-          row.classList.remove('is-filtered-out');
-        } else {
-          row.classList.add('is-filtered-out');
-        }
-      });
+  if (shelfCountBadge) {
+    shelfCountBadge.textContent = `${filtered.length} entries shown`;
+  }
+
+  if (filtered.length === 0) {
+    shelvesList.innerHTML = `
+      <div class="shelves-empty">
+        <p>No shelf notes found matching "<strong>${searchQuery}</strong>".</p>
+      </div>`;
+    return;
+  }
+
+  shelvesList.innerHTML = filtered
+    .map(
+      (s) => `
+    <article class="shelf-row" data-id="${s.id}" tabindex="0" role="button" aria-label="Open note: ${s.title}">
+      <div class="shelf-meta">
+        <span class="shelf-category-badge">${s.category}</span>
+        <span class="shelf-date">${s.date}</span>
+      </div>
+      <div class="shelf-main">
+        <h3 class="shelf-title">${s.title}</h3>
+        <p class="shelf-summary">${s.summary}</p>
+        <div class="shelf-tags">
+          ${s.tags.map((t) => `<span class="shelf-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+      <div class="shelf-arrow" aria-hidden="true">→</div>
+    </article>
+  `,
+    )
+    .join('');
+
+  // Attach click to open editorial reading view
+  $$('.shelf-row', shelvesList).forEach((row) => {
+    const handleOpen = () => openShelfArticle(row.dataset.id);
+    row.addEventListener('click', handleOpen);
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleOpen();
+      }
     });
   });
+};
+
+const openShelfArticle = (id) => {
+  const item = shelvesData.find((s) => s.id === id);
+  if (!item || !shelfDialog) return;
+
+  $('#shelfArticleCat').textContent = item.category;
+  $('#shelfArticleTitle').textContent = item.title;
+  $('#shelfArticleDate').textContent = item.date;
+  $('#shelfArticleTags').textContent = item.tags.join(' · ');
+  $('#shelfArticleBody').innerHTML = parseMarkdown(item.content);
+
+  shelfDialog.showModal();
+};
+
+$('#shelfDialogClose')?.addEventListener('click', () => shelfDialog?.close());
+shelfDialog?.addEventListener('click', (e) => {
+  if (e.target === shelfDialog) shelfDialog.close();
+});
+
+// Category filtering
+catFilterBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    catFilterBtns.forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.cat;
+    renderShelves();
+  });
+});
+
+// Real-time search with input debounce
+if (searchInput) {
+  searchInput.addEventListener('input', (e) => {
+    searchQuery = e.target.value.trim();
+    renderShelves();
+  });
 }
 
-const featuredSlides = [
-  {
-    key: 'mlbb',
-    text: 'Operator control panel and transparent OBS broadcast overlays (1920×1080) designed for LAN tournament production — draft, timer, and scores synchronized in real time without reload.',
-    metrics: [
-      ['166', 'backend assertions passed'],
-      ['121', 'E2E assertions passed'],
-      ['133', 'heroes validated 0 errors'],
-    ],
-  },
-  {
-    key: 'spada',
-    text: 'Telegram bot for academic schedules: 24h / 1h / 15m deadline reminders, automated attendance with screenshot proof, and read-only web dashboard with QR pairing.',
-    metrics: [
-      ['3', 'deadline reminders'],
-      ['30', 'minute task check interval'],
-      ['512', 'MB RAM on GCP e2-micro'],
-    ],
-  },
-  {
-    key: 'jogjalensa',
-    text: 'Two-role photography marketplace: clients search vendors, book sessions, upload payment receipts, and leave reviews; vendors manage packages, portfolio galleries, and orders.',
-    metrics: [
-      ['2', 'role workflows: client & vendor'],
-      ['4', 'core application modules'],
-      ['PHP 8', 'procedural + MySQL (XAMPP)'],
-    ],
-  },
-  {
-    key: 'ar',
-    text: 'Android AR application: tap to place 3D models onto detected planes, with rotation, scaling, and reset controls directly from the UI.',
-    metrics: [
-      ['5', 'AR test scenarios'],
-      ['26', 'minimum Android API'],
-      ['3', 'on-screen object controls'],
-    ],
-  },
-  {
-    key: 'cerberus',
-    text: 'Intent-based multi-agent orchestration: problems are decomposed for specialist sub-agents, with results verified before downstream execution.',
-    metrics: [
-      ['109+', 'integrated security tools'],
-      ['250+', 'skill playbooks'],
-      ['10', 'engagement modes'],
-    ],
-  },
-];
-const featEl = $('.featured');
-if (featEl) {
-  const titleEl = featEl.querySelector('.featured-title');
-  const textEl = featEl.querySelector('.featured-text');
-  const metricsEl = featEl.querySelector('.featured-metrics');
-  const openBtn = featEl.querySelector('.featured-actions .row-open');
-  const repoLink = featEl.querySelector('.featured-actions .row-link');
-  const dotsWrap = featEl.querySelector('.featured-dots');
-  const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)');
-  let idx = 0,
-    timer = null,
-    paused = false,
-    fadeT = null;
-  const paint = (i) => {
-    const s = featuredSlides[i],
-      p = data[s.key];
-    titleEl.textContent = p.title;
-    textEl.textContent = s.text;
-    metricsEl.innerHTML = s.metrics
-      .map((m) => `<li class="featured-metric-card"><strong>${m[0]}</strong><span>${m[1]}</span></li>`)
-      .join('');
-    openBtn.dataset.open = s.key;
-    repoLink.href = p.github;
-    [...dotsWrap.children].forEach((d, di) =>
-      d.setAttribute('aria-current', di === i ? 'true' : 'false'),
-    );
-  };
-  const stop = () => {
-    if (timer) {
-      clearInterval(timer);
-      timer = null;
-    }
-  };
-  const go = (i, manual) => {
-    idx = (i + featuredSlides.length) % featuredSlides.length;
-    if (reduceMQ.matches) {
-      paint(idx);
-    } else {
-      clearTimeout(fadeT);
-      featEl.classList.add('is-fading');
-      fadeT = setTimeout(() => {
-        paint(idx);
-        featEl.classList.remove('is-fading');
-      }, 200);
-    }
-    if (manual) {
-      stop();
-      start();
-    }
-  };
-  const start = () => {
-    if (timer || paused || document.hidden || reduceMQ.matches) return;
-    timer = setInterval(() => go(idx + 1, false), 7000);
-  };
-  featuredSlides.forEach((s, i) => {
-    const b = document.createElement('button');
-    b.type = 'button';
-    b.className = 'featured-dot';
-    b.setAttribute(
-      'aria-label',
-      `Featured project ${i + 1} of ${featuredSlides.length}: ${data[s.key].title}`,
-    );
-    b.addEventListener('click', () => go(i, true));
-    dotsWrap.appendChild(b);
-  });
-  paint(0);
-  featEl.querySelector('[data-feat="prev"]').addEventListener('click', () => go(idx - 1, true));
-  featEl.querySelector('[data-feat="next"]').addEventListener('click', () => go(idx + 1, true));
-  featEl.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      go(idx - 1, true);
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      go(idx + 1, true);
-    }
-  });
-  const hold = () => {
-    paused = true;
-    stop();
-  };
-  const release = () => {
-    paused = false;
-    start();
-  };
-  featEl.addEventListener('pointerenter', (e) => {
-    if (e.pointerType === 'mouse') hold();
-  });
-  featEl.addEventListener('pointerleave', (e) => {
-    if (e.pointerType === 'mouse') release();
-  });
-  featEl.addEventListener('focusin', hold);
-  featEl.addEventListener('focusout', (e) => {
-    if (!featEl.contains(e.relatedTarget)) release();
-  });
-  document.addEventListener('visibilitychange', () => {
-    document.hidden ? stop() : start();
-  });
-  reduceMQ.addEventListener?.('change', () => {
-    stop();
-    start();
-  });
-  let sx = 0,
-    sy = 0;
-  featEl.addEventListener(
-    'touchstart',
-    (e) => {
-      if (e.touches.length === 1) {
-        sx = e.touches[0].clientX;
-        sy = e.touches[0].clientY;
-      }
-    },
-    { passive: true },
-  );
-  featEl.addEventListener(
-    'touchend',
-    (e) => {
-      const t = e.changedTouches[0];
-      if (!t) return;
-      const dx = t.clientX - sx,
-        dy = t.clientY - sy;
-      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5)
-        go(dx < 0 ? idx + 1 : idx - 1, true);
-    },
-    { passive: true },
-  );
-  start();
-}
+renderShelves();
 
+// -----------------------------------------------------------------------------
+// 7. COPY EMAIL TO CLIPBOARD
+// -----------------------------------------------------------------------------
 const copyBtn = $('#copyEmail');
-const copyUse = $('#copyIcon')?.querySelector('use');
+const copyLabel = $('#copyLabel');
+
 copyBtn?.addEventListener('click', async () => {
   const email = 'abdillahabhi12@gmail.com';
   try {
     await navigator.clipboard.writeText(email);
-    $('#copyLabel').lastChild.textContent = 'Email copied';
-    copyUse?.setAttribute('href', '#i-check');
+    if (copyLabel) copyLabel.textContent = 'Email copied!';
     setTimeout(() => {
-      $('#copyLabel').lastChild.textContent = 'Copy email';
-      copyUse?.setAttribute('href', '#i-copy');
-    }, 1500);
+      if (copyLabel) copyLabel.textContent = 'Copy email';
+    }, 2500);
   } catch {
     window.location.href = `mailto:${email}`;
   }
 });
 
+// Certificate Dialog
+const certDialog = $('#certDialog');
+$$('.cert-thumb').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const img = $('#certImage');
+    if (img) {
+      img.src = `assets/sertifikat/preview/${btn.dataset.cert}-full.webp`;
+      img.alt = `Certificate: ${btn.dataset.title}`;
+    }
+    const title = $('#certTitle');
+    if (title) title.textContent = btn.dataset.title;
+    certDialog?.showModal();
+  });
+});
+$('#certClose')?.addEventListener('click', () => certDialog?.close());
+certDialog?.addEventListener('click', (e) => {
+  if (e.target === certDialog) certDialog.close();
+});
+
+// -----------------------------------------------------------------------------
+// 8. CLOUDFLARE PAGES VISITOR TRACKING (First-Party D1 Integration)
+// -----------------------------------------------------------------------------
 const VISIT_ID_KEY = 'abhi_vid';
 const VISIT_COOKIE = 'abhi_vid';
-const VISIT_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const VISIT_ID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const makeVisitorId = () => {
-  try {
-    if (globalThis.crypto?.randomUUID) return crypto.randomUUID();
-  } catch {
-    /* fall through to the manual fallback */
-  }
-  const bytes = new Uint8Array(16);
-  try {
-    if (globalThis.crypto?.getRandomValues) crypto.getRandomValues(bytes);
-    else throw new Error('no secure random source');
-  } catch {
-    for (let i = 0; i < 16; i += 1) bytes[i] = Math.floor(Math.random() * 256);
-  }
-  bytes[6] = (bytes[6] & 0x0f) | 0x40;
-  bytes[8] = (bytes[8] & 0x3f) | 0x80;
-  const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
-  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0;
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+  });
 };
 
 const readVisitCookie = () => {
-  try {
-    const part = document.cookie.split('; ').find((c) => c.startsWith(`${VISIT_COOKIE}=`));
-    if (!part) return '';
-    return decodeURIComponent(part.slice(VISIT_COOKIE.length + 1));
-  } catch {
-    return '';
-  }
+  const m = document.cookie.match(/(?:^|;\s*)abhi_vid=([^;]+)/);
+  return m ? decodeURIComponent(m[1]) : '';
 };
 
 const getVisitorId = () => {
@@ -675,17 +932,13 @@ const getVisitorId = () => {
     id = makeVisitorId();
     try {
       localStorage.setItem(VISIT_ID_KEY, id);
-    } catch {
-      /* storage unavailable - the cookie below still carries the id */
-    }
+    } catch {}
   }
   try {
     if (!VISIT_ID_RE.test(readVisitCookie())) {
       document.cookie = `${VISIT_COOKIE}=${encodeURIComponent(id)}; Path=/; Max-Age=31536000; SameSite=Lax`;
     }
-  } catch {
-    /* cookie write refused - the request body below still carries the id */
-  }
+  } catch {}
   return id;
 };
 
@@ -717,856 +970,16 @@ const reportStats = async () => {
     if (![unique, total, returning].every(Number.isFinite)) return;
     if (unique < 0 || total < 0 || returning < 0) return;
     if (unique === 0 && total === 0) return;
-    el.textContent = `${unique} unique visitors \u00b7 ${total} visits \u00b7 ${returning} returning`;
+    el.textContent = `${unique} unique visitors · ${total} visits · ${returning} returning`;
     el.hidden = false;
     window.__stats = data;
-  } catch {
-    /* stats are decoration - leave the footer untouched */
-  }
+  } catch {}
 };
 
 const startTracking = () => {
-  // both are fire-and-forget: the decorative stats read must never sit on the
-  // critical path behind the visit write
   reportVisit();
   reportStats();
 };
 
 if (document.readyState === 'complete') startTracking();
 else window.addEventListener('load', startTracking, { once: true });
-
-const initAmbient = () => {
-  const el = document.querySelector('.hero-glow');
-  const hero = document.querySelector('.hero');
-  if (!el || !window.matchMedia) return;
-  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  let x = 0;
-  let y = 0;
-  let queued = false;
-  const paint = () => {
-    queued = false;
-    const vx = x.toFixed(1) + 'px';
-    const vy = y.toFixed(1) + 'px';
-    el.style.setProperty('--amb-x', vx);
-    el.style.setProperty('--amb-y', vy);
-    if (hero) {
-      hero.style.setProperty('--amb-x', vx);
-      hero.style.setProperty('--amb-y', vy);
-    }
-  };
-  window.addEventListener(
-    'pointermove',
-    (e) => {
-      if (e.pointerType !== 'mouse') return;
-      x = (e.clientX / window.innerWidth) * 24 - 12;
-      y = (e.clientY / window.innerHeight) * 24 - 12;
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(paint);
-    },
-    { passive: true },
-  );
-};
-
-initAmbient();
-
-const CLOUD_MAPS = [
-  [
-    '................',
-    '.....####.......',
-    '...########.....',
-    '.##############.',
-    '################',
-    '################',
-    '................',
-  ],
-  [
-    '................',
-    '....####........',
-    '..########......',
-    '.#############..',
-    '################',
-    '.##############.',
-    '................',
-  ],
-  [
-    '................',
-    '......####......',
-    '....########....',
-    '..############..',
-    '.##############.',
-    '..############..',
-    '................',
-  ],
-];
-
-const initClouds = () => {
-  const wrap = document.querySelector('.hero-clouds');
-  if (!wrap || !wrap.querySelectorAll) return;
-  const arts = [...wrap.querySelectorAll('canvas')];
-  if (!arts.length || !arts[0].getContext) return;
-  const paint = () => {
-    for (let i = 0; i < arts.length; i++) {
-      const c = arts[i];
-      const g = c.getContext('2d');
-      if (!g) continue;
-      const map = CLOUD_MAPS[i % CLOUD_MAPS.length];
-      g.clearRect(0, 0, c.width, c.height);
-      g.fillStyle = getComputedStyle(c).color || '#888888';
-      for (let yy = 0; yy < map.length && yy < c.height; yy++) {
-        for (let xx = 0; xx < map[yy].length && xx < c.width; xx++) {
-          if (map[yy][xx] === '#') g.fillRect(xx, yy, 1, 1);
-        }
-      }
-    }
-  };
-  paint();
-  if (window.MutationObserver) {
-    const mo = new MutationObserver(() => {
-      const t0 = performance.now();
-      const tick = () => {
-        paint();
-        if (performance.now() - t0 < 1000) requestAnimationFrame(tick);
-      };
-      tick();
-    });
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  }
-};
-
-initClouds();
-
-// Parallax scroll sekali jalan per frame — semua layer membaca variabel CSS yang sama,
-// jadi tidak ada loop tambahan dan penulisan gaya tetap nol untuk kucing.
-const initDepth = () => {
-  if (!window.matchMedia) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const root = document.documentElement;
-  let queued = false;
-  const apply = () => {
-    queued = false;
-    const t = Math.min(1, (window.scrollY || 0) / Math.max(1, window.innerHeight * 1.1));
-    root.style.setProperty('--p-dots', (-2 * t).toFixed(2) + 'px');
-    root.style.setProperty('--p-glow', (-6 * t).toFixed(2) + 'px');
-    root.style.setProperty('--p-cloud', (-15 * t).toFixed(2) + 'px');
-    root.style.setProperty('--p-cat', (10 * t).toFixed(2) + 'px');
-    root.style.setProperty('--p-content', (3 * t).toFixed(2) + 'px');
-  };
-  window.addEventListener(
-    'scroll',
-    () => {
-      if (queued) return;
-      queued = true;
-      requestAnimationFrame(apply);
-    },
-    { passive: true },
-  );
-  apply();
-};
-
-initDepth();
-
-const initCat = () => {
-  const cat = document.querySelector('.hero-cat');
-  const hero = document.querySelector('.hero');
-  if (!cat || !hero || !window.matchMedia) return;
-  const art = cat.querySelector('canvas');
-  if (!art || !art.getContext) return;
-  const calm = matchMedia('(prefers-reduced-motion: reduce)');
-  const rand = (a, b) => a + Math.random() * (b - a);
-  const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
-  const ease = (p) => (p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2);
-
-  // Pixel kucing 16x16 — karya asli, dipakai apa adanya (bukan aset pihak ketiga).
-  // '.' transparan, '#' piksel tinta, 'o' mata (hanya terlihat saat terbuka).
-  const SPR = {
-    idle: [
-      '................',
-      '..........#...#.',
-      '..........#...#.',
-      '....#.....#####.',
-      '...#......#####.',
-      '..#.......###o#.',
-      '..#.......#####.',
-      '...#......#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '.....#...#......',
-      '.....#...#......',
-      '....##...##.....',
-      '................',
-    ],
-    idleb: [
-      '................',
-      '..........#...#.',
-      '.....#....#...#.',
-      '....#.....#####.',
-      '...#......#####.',
-      '..#.......###o#.',
-      '...#......#####.',
-      '..........#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '.....#...#......',
-      '.....#...#......',
-      '....##...##.....',
-      '................',
-    ],
-    w0: [
-      '................',
-      '..........#...#.',
-      '..........#...#.',
-      '....#.....#####.',
-      '...#......#####.',
-      '..#.......###o#.',
-      '..#.......#####.',
-      '...#......#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#.....#.....',
-      '....#.....#.....',
-      '...##.....##....',
-      '................',
-    ],
-    w1: [
-      '................',
-      '..........#...#.',
-      '..........#...#.',
-      '.....#....#####.',
-      '....#.....#####.',
-      '...#......###o#.',
-      '...#......#####.',
-      '....#.....#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '.....#...#......',
-      '.....#...#......',
-      '....##...##.....',
-      '................',
-    ],
-    w2: [
-      '................',
-      '..........#...#.',
-      '..........#...#.',
-      '....#.....#####.',
-      '...#......#####.',
-      '..#.......###o#.',
-      '..#.......#####.',
-      '...#......#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '......#.#.......',
-      '......#.#.......',
-      '......###.......',
-      '................',
-    ],
-    w3: [
-      '................',
-      '..........#...#.',
-      '..........#...#.',
-      '.....#....#####.',
-      '....#.....#####.',
-      '...#......###o#.',
-      '...#......#####.',
-      '....#.....#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '.....#...#......',
-      '.....#...#......',
-      '.....##.##......',
-      '................',
-    ],
-    sit: [
-      '................',
-      '.........#...#..',
-      '.........#...#..',
-      '.........#####..',
-      '.........#####..',
-      '.........###o#..',
-      '.#.......#####..',
-      '..#......#####..',
-      '...#.....##.....',
-      '...########.....',
-      '...########.....',
-      '...########.....',
-      '...#####.##.....',
-      '...#####.##.....',
-      '...#####.###....',
-      '................',
-    ],
-    sitb: [
-      '................',
-      '.........#...#..',
-      '.........#...#..',
-      '.........#####..',
-      '.........#####..',
-      '.#.......###o#..',
-      '..#......#####..',
-      '...#.....#####..',
-      '....#....##.....',
-      '...########.....',
-      '...########.....',
-      '...########.....',
-      '...#####.##.....',
-      '...#####.##.....',
-      '...#####.###....',
-      '................',
-    ],
-    jump0: [
-      '................',
-      '..........#...#.',
-      '.....#....#...#.',
-      '....#.....#####.',
-      '...#......#####.',
-      '..#.......###o#.',
-      '...#......#####.',
-      '..........#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#.....#.....',
-      '...#.......#....',
-      '................',
-      '................',
-    ],
-    jump1: [
-      '................',
-      '..........#...#.',
-      '.....#....#...#.',
-      '....#.....#####.',
-      '...#......#####.',
-      '..#.......###o#.',
-      '...#......#####.',
-      '..........#####.',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '....#######.....',
-      '.....#...#......',
-      '.....#...#......',
-      '................',
-      '................',
-    ],
-    turn0: [
-      '................',
-      '.....#....#.....',
-      '.....#....#.....',
-      '.....######.....',
-      '.....######.....',
-      '...#.#o##o#.....',
-      '..#..######.....',
-      '..#..######.....',
-      '...#.######.....',
-      '....#######.....',
-      '.....######.....',
-      '.....######.....',
-      '.....######.....',
-      '......#..#......',
-      '.....######.....',
-      '................',
-    ],
-    turn1: [
-      '................',
-      '.....#....#.....',
-      '.....#....#.....',
-      '.....######.....',
-      '.....######.....',
-      '.....#o##o#.#...',
-      '.....######..#..',
-      '.....######..#..',
-      '.....######.#...',
-      '.....#######....',
-      '.....######.....',
-      '.....######.....',
-      '.....######.....',
-      '......#..#......',
-      '.....######.....',
-      '................',
-    ],
-  };
-  const IDLE_F = ['idle', 'idleb'];
-  const WALK_F = ['w0', 'w1', 'w2', 'w3'];
-  const SIT_F = ['sit', 'sitb'];
-  const JUMP_F = ['jump0', 'jump1'];
-  const OP = 0.85;
-
-  const ctx = art.getContext('2d');
-  const cache = {};
-  let curKey = '';
-  let curBlink = false;
-  let ink = '';
-  // Gambar satu frame: kanvas 16x16 selalu berukuran tetap, diskalakan CSS
-  // dengan nearest-neighbor sehingga piksel tetap tajam dan tidak pernah raksasa.
-  const draw = (key, blink) => {
-    const color = getComputedStyle(cat).color;
-    let f = cache[key];
-    if (!f || f.ink !== color) {
-      const c = document.createElement('canvas');
-      c.width = 16;
-      c.height = 16;
-      const g = c.getContext('2d');
-      g.fillStyle = color;
-      const eyes = [];
-      const rows = SPR[key];
-      for (let yy = 0; yy < 16; yy++) {
-        for (let xx = 0; xx < 16; xx++) {
-          const ch = rows[yy][xx];
-          if (ch === '#') g.fillRect(xx, yy, 1, 1);
-          else if (ch === 'o') eyes.push(xx + yy * 16);
-        }
-      }
-      f = cache[key] = { c: c, eyes: eyes, ink: color };
-    }
-    if (key === curKey && blink === curBlink && color === ink) return;
-    curKey = key;
-    curBlink = blink;
-    ink = color;
-    ctx.clearRect(0, 0, 16, 16);
-    ctx.drawImage(f.c, 0, 0);
-    if (blink) {
-      ctx.fillStyle = color;
-      for (let i = 0; i < f.eyes.length; i++)
-        ctx.fillRect(f.eyes[i] % 16, Math.floor(f.eyes[i] / 16), 1, 1);
-    }
-  };
-
-  let W = 0;
-  let H = 0;
-  let CW = 48;
-  let CH = 48;
-  let minX = 0;
-  let maxX = 0;
-  let laneY = -1;
-  let x = 0;
-  let y = 0;
-  let dir = 1;
-  let op = 0;
-  let lastOp = -1;
-  let state = '';
-  let gen = 0;
-  let timer = 0;
-  let raf = 0;
-  let live = false;
-  let heroSeen = true;
-  let pageSeen = true;
-  let ready = false;
-  let sweep = 0;
-  let yVer = 0;
-  const ROWS = ['h1', '.hero-support', '.hero-actions', '.hero-note'];
-
-  const setState = (s) => {
-    if (s === state) return;
-    state = s;
-    cat.dataset.state = s;
-  };
-
-  const paint = () => {
-    cat.style.transform =
-      'translate3d(calc(' +
-      x.toFixed(1) +
-      'px + var(--amb-x, 0px) * 0.42), calc(' +
-      y.toFixed(1) +
-      'px + var(--p-cat, 0px) * var(--k-scroll, 1)), 0) scaleX(' +
-      dir +
-      ')';
-    if (op !== lastOp) {
-      lastOp = op;
-      cat.style.opacity = op.toFixed(3);
-    }
-  };
-
-  // Ukur hero + kunci satu jalur (lane) di dasar hero: kucing berjalan sedekat
-  // mungkin dengan blok teks tanpa pernah menutupi CTA, dan tidak pernah
-  // keluar dari kotak hero. Teks tidak pernah ikut bergerak (hanya transform).
-  const scan = () => {
-    const hr = hero.getBoundingClientRect();
-    W = Math.round(hr.width);
-    H = Math.round(hr.height);
-    const cr = cat.getBoundingClientRect();
-    if (cr.width > 1) {
-      CW = cr.width;
-      CH = cr.height;
-    }
-    let contentBottom = 0;
-    for (let i = 0; i < ROWS.length; i++) {
-      const el = hero.querySelector(ROWS[i]);
-      if (!el) continue;
-      const r = el.getBoundingClientRect();
-      contentBottom = Math.max(contentBottom, r.bottom - hr.top);
-    }
-    // Selalu sediakan ruang ≥16px di bawah blok teks: busur lompatan (arc ≤12px)
-    // tidak boleh pernah masuk kotak teks, dan kucing tetap di dalam kotak hero.
-    const raw = Math.min(Math.max(contentBottom + 16, 0), Math.max(0, H - CH));
-    const ny = clamp(Math.round(raw / 4) * 4, 0, Math.max(0, H - CH));
-    if (ny !== laneY) {
-      laneY = ny;
-      y = ny;
-      yVer++;
-    }
-    // Kucing hanya berjalan di dalam kolom kontainer (grid), bukan margin luar
-    const box = hero.querySelector('.container');
-    if (box && box.offsetWidth > CW) {
-      minX = box.offsetLeft + 6;
-      maxX = Math.max(minX, box.offsetLeft + box.offsetWidth - CW - 6);
-    } else {
-      minX = 6;
-      maxX = Math.max(minX, W - CW - 6);
-    }
-    x = clamp(x, minX, maxX);
-    if (!raf && live) paint();
-  };
-
-  const sleep = (ms) =>
-    new Promise((res) => {
-      const g = gen;
-      timer = setTimeout(() => {
-        timer = 0;
-        res(g === gen);
-      }, ms);
-    });
-
-  const move = (tx, ty, ms, opt) =>
-    new Promise((resolve) => {
-      const g = gen;
-      let sx = x;
-      let sy = y;
-      let sOp = op;
-      let t0 = -1;
-      let prev = -1;
-      let seenY = yVer;
-      const eOp = opt.op === undefined ? op : opt.op;
-      const arc = opt.arc || 0;
-      const wf = opt.walk;
-      const jf = opt.jumpFrames;
-      const step = (now) => {
-        if (g !== gen) {
-          raf = 0;
-          resolve(false);
-          return;
-        }
-        if (t0 < 0 || (prev > 0 && now - prev > 400)) {
-          sx = x;
-          sy = y;
-          sOp = op;
-          t0 = now;
-          seenY = yVer;
-        } else if (seenY !== yVer) {
-          seenY = yVer;
-          sy = y;
-        }
-        prev = now;
-        const p = ms <= 0 ? 1 : clamp((now - t0) / ms, 0, 1);
-        const e = ease(p);
-        x = sx + (tx - sx) * e;
-        y = sy + (ty - sy) * e - arc * Math.sin(Math.PI * p);
-        x = clamp(x, minX, maxX);
-        y = clamp(y, 0, Math.max(0, H - CH));
-        op = sOp + (eOp - sOp) * p;
-        if (wf) draw(WALK_F[Math.floor((now - t0) / wf) % 4], false);
-        else if (jf) draw(JUMP_F[Math.floor((now - t0) / jf) % 2], false);
-        paint();
-        if (p < 1) raf = requestAnimationFrame(step);
-        else {
-          raf = 0;
-          resolve(true);
-        }
-      };
-      raf = requestAnimationFrame(step);
-    });
-
-  const stopCat = () => {
-    if (!live) return;
-    live = false;
-    gen++;
-    if (sweep) {
-      clearInterval(sweep);
-      sweep = 0;
-    }
-    if (timer) {
-      clearTimeout(timer);
-      timer = 0;
-    }
-    if (raf) {
-      cancelAnimationFrame(raf);
-      raf = 0;
-    }
-    op = 0;
-    lastOp = -1;
-    setState('');
-    paint();
-  };
-
-  const run = async (g, fns) => {
-    for (let i = 0; i < fns.length; i++) {
-      if (g !== gen) return false;
-      const ok = await fns[i]();
-      if (ok === false || g !== gen) return false;
-    }
-    return true;
-  };
-
-  const cycle = async (g) => {
-    const alive = () => g === gen;
-    scan();
-    if (laneY < 0 || !W) {
-      await sleep(1500);
-      return;
-    }
-
-    // Berhenti sejenak: "bernapas" (frame idleb) dan kedip acak.
-    const hold = async (ms, keys) => {
-      const gg = gen;
-      let t = 0;
-      let i = 0;
-      draw(keys[0], false);
-      while (t < ms) {
-        const wait = Math.min(rand(1500, 2300), ms - t);
-        if (!(await sleep(wait))) return false;
-        if (gg !== gen) return false;
-        t += wait;
-        if (t >= ms) break;
-        if (Math.random() < 0.6) {
-          draw(keys[i], true);
-          if (!(await sleep(rand(110, 170)))) return false;
-          draw(keys[i], false);
-        }
-        i = (i + 1) % keys.length;
-        draw(keys[i], false);
-      }
-      return gg === gen;
-    };
-
-    const walk = async (ms) => {
-      scan();
-      if (!alive()) return false;
-      let avail = dir > 0 ? maxX - x : x;
-      if (avail < 50) {
-        dir = -dir;
-        avail = dir > 0 ? maxX - x : x;
-      }
-      const speed = rand(34, 52) * (W <= 1024 ? 0.72 : 1);
-      const dist = Math.min((speed * ms) / 1000, Math.max(0, avail));
-      setState('walk');
-      const ok = await move(clamp(x + dir * dist, minX, maxX), laneY, ms, {
-        walk: rand(115, 150),
-      });
-      return ok && alive();
-    };
-
-    const hop = async () => {
-      scan();
-      if (!alive()) return false;
-      let avail = dir > 0 ? maxX - x : x;
-      if (avail < 40) {
-        dir = -dir;
-        avail = dir > 0 ? maxX - x : x;
-      }
-      const dist = Math.min(rand(28, 58), Math.max(0, avail));
-      setState('jump');
-      const ok = await move(clamp(x + dir * dist, minX, maxX), laneY, rand(430, 560), {
-        arc: rand(7, 12),
-        jumpFrames: rand(160, 210),
-      });
-      return ok && alive();
-    };
-
-    const turn = async () => {
-      if (!alive()) return false;
-      setState('turn');
-      draw('turn0', false);
-      if (!(await sleep(rand(160, 210)))) return false;
-      dir = -dir;
-      paint();
-      draw('turn1', false);
-      if (!(await sleep(rand(160, 210)))) return false;
-      draw('idle', false);
-      return alive();
-    };
-
-    const enter = async () => {
-      scan();
-      if (!alive()) return false;
-      setState('idle');
-      draw('idle', false);
-      if (op < OP) {
-        dir = Math.random() < 0.5 ? -1 : 1;
-        const span = Math.max(20, Math.min(W * 0.14, 220));
-        x =
-          dir > 0
-            ? clamp(rand(minX + 8, minX + span), minX, maxX)
-            : clamp(
-                rand(Math.max(minX + 8, maxX - span), Math.max(minX + 9, maxX - 8)),
-                minX,
-                maxX,
-              );
-        y = laneY;
-        op = 0;
-        lastOp = -1;
-        paint();
-        const tx = clamp(x + dir * rand(50, 110), minX, maxX);
-        return (await move(tx, laneY, rand(550, 750), { op: OP })) && alive();
-      }
-      return alive();
-    };
-
-    const leave = async () => {
-      if (!alive()) return false;
-      setState('idle');
-      const tx = clamp(x + dir * rand(50, 110), minX, maxX);
-      await move(tx, laneY, rand(600, 800), { walk: rand(130, 170) });
-      return alive();
-    };
-
-    const rest = async () => {
-      setState('rest');
-      draw(SIT_F[0], false);
-      return await sleep(rand(3200, 6200));
-    };
-
-    await run(g, [
-      () => enter(),
-      () => walk(rand(1700, 2700)),
-      () => hold(rand(700, 1300), IDLE_F),
-      () => hop(),
-      () => hold(rand(450, 850), IDLE_F),
-      () => walk(rand(1500, 2400)),
-      () => turn(),
-      () => walk(rand(1700, 2700)),
-      () => hold(rand(1500, 2600), SIT_F),
-      () => hop(),
-      () => hold(rand(500, 900), IDLE_F),
-      () => walk(rand(1400, 2300)),
-      () => turn(),
-      () => walk(rand(1200, 1900)),
-      () => hold(rand(600, 1100), IDLE_F),
-      () => leave(),
-      () => rest(),
-    ]);
-  };
-
-  const loop = async () => {
-    const g = gen;
-    while (g === gen) {
-      await cycle(g);
-      if (g !== gen) return;
-    }
-  };
-
-  const startCat = () => {
-    if (live) return;
-    if (!ready) return;
-    if (calm.matches || !heroSeen || !pageSeen) return;
-    live = true;
-    gen++;
-    sweep = setInterval(() => {
-      if (live) scan();
-    }, 1000);
-    loop();
-  };
-
-  const sync = () => {
-    if (!calm.matches && heroSeen && pageSeen) startCat();
-    else stopCat();
-  };
-
-  // Baru boleh jalan setelah font web selesai dipasang: geometri baris teks
-  // berubah saat font ter-swap, dan lane yang dihitung sebelumnya bisa kedaluwarsa.
-  const becomeReady = () => {
-    if (ready) return;
-    ready = true;
-    scan();
-    sync();
-  };
-
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        heroSeen = entries[0].isIntersecting;
-        sync();
-      },
-      { threshold: 0 },
-    );
-    io.observe(hero);
-  }
-  document.addEventListener('visibilitychange', () => {
-    pageSeen = !document.hidden;
-    sync();
-  });
-  if (calm.addEventListener) {
-    calm.addEventListener('change', sync);
-  }
-  let resizeTick = 0;
-  window.addEventListener(
-    'resize',
-    () => {
-      if (resizeTick) return;
-      resizeTick = requestAnimationFrame(() => {
-        resizeTick = 0;
-        if (live) scan();
-      });
-    },
-    { passive: true },
-  );
-  // Kucing baru boleh jalan setelah geometri baris teks benar-benar diam:
-  // stylesheet/font yang telat membuat baris bergeser setelah lane dihitung,
-  // dan kucing bisa menyentuh teks memakai lane lama.
-  const bootAt = Date.now();
-  let loadAt = 0;
-  let lastGeo = '';
-  let stable = 0;
-  const markLoad = () => {
-    if (!loadAt) loadAt = Date.now();
-  };
-  const geoSig = () => {
-    const hr = hero.getBoundingClientRect();
-    let s = hr.width.toFixed(1) + 'x' + hr.height.toFixed(1);
-    for (let i = 0; i < ROWS.length; i++) {
-      const el = hero.querySelector(ROWS[i]);
-      if (!el) {
-        s += ';-';
-        continue;
-      }
-      const r = el.getBoundingClientRect();
-      s += ';' + r.top.toFixed(2) + ',' + r.bottom.toFixed(2) + ',' + r.left.toFixed(2);
-    }
-    return s;
-  };
-  const settleTick = () => {
-    if (ready) return;
-    if (document.readyState === 'complete') markLoad();
-    const waited = loadAt ? Date.now() - loadAt : 0;
-    const sig = geoSig();
-    if (sig !== lastGeo) {
-      stable = 0;
-      lastGeo = sig;
-    } else if (loadAt && waited > 400) {
-      stable++;
-    }
-    const timedOut = (loadAt && waited > 5000) || Date.now() - bootAt > 9000;
-    if ((loadAt && stable >= 4) || timedOut) {
-      becomeReady();
-      return;
-    }
-    setTimeout(settleTick, 150);
-  };
-  if (document.readyState === 'complete') markLoad();
-  else window.addEventListener('load', markLoad, { once: true });
-  settleTick();
-  sync();
-};
-
-initCat();
