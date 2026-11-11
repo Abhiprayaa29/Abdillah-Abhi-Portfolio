@@ -43,28 +43,32 @@ const projectsData = {
     "design": "Designed professional esports dark broadcast aesthetic, high-contrast tournament typography, timer meters, and operator interface with instant keyboard shortcuts.",
     "result": "Deployed for competitive LAN tournament production with zero-latency synchronization between operators and live broadcast feeds.",
     "stack": ["Node.js", "Express", "Socket.IO", "OBS Studio", "TailwindCSS", "JavaScript"],
-    "github": "https://github.com/Abhiprayaa29/MLBB-Draft-Studio",
-    "image": "assets/mlbb-draft-studio-aamon.png",
+    "github": "https://github.com/Abhiprayaa29/mlbb-draft-studio",
+    "image": "assets/projects/mlbb/control-panel-operator.webp",
     "gallery": [
-      { "src": "assets/mlbb-draft-studio-aamon.png", "alt": "MLBB Draft Studio live tournament draft screen with hero selection and timers" }
+      { "src": "assets/projects/mlbb/control-panel-operator.webp", "alt": "MLBB Draft Studio tournament dual-workstation operator console with live pick/ban selectors" },
+      { "src": "assets/projects/mlbb/overlay-draft.webp", "alt": "MLBB Draft Studio transparent 1080p OBS broadcast stream overlay" },
+      { "src": "assets/projects/mlbb/control-panel-grid.webp", "alt": "MLBB Draft Studio hero selection matrix and preset coordinator" }
     ]
   },
-  "lahanaman": {
-    "title": "LahanAman — Landslide Vulnerability WebGIS & Decision Support",
+  "bike-sharing": {
+    "title": "Bike Sharing Analytics — Exploratory Data Analysis & Streamlit App",
     "discipline": "development",
-    "role": "WebGIS Developer & Spatial Researcher",
-    "status": "Completed Research Project",
-    "problem": "Disaster management agencies in disaster-prone hilly areas lack intuitive web-accessible spatial platforms to calculate and visualize multi-variable landslide vulnerability.",
-    "contribution": "Developed interactive WebGIS decision support system integrating slope analysis, geological rock formations, soil thickness, and rainfall precipitation layers.",
-    "challenge": "Processing and rendering heterogeneous spatial GeoJSON polygons with responsive attribute filtering without frontend performance degradation.",
-    "engineering": "Spatial multi-criteria decision modeling (AHP), GeoJSON spatial layers, responsive coordinate query inspector, and geospatial data normalization.",
-    "design": "Designed clean cartographic choropleth legends, multi-layer toggle drawer, and localized disaster mitigation guidance summaries.",
-    "result": "Functional spatial decision support platform visualizing disaster risk zones with actionable evacuation directives.",
-    "stack": ["JavaScript", "WebGIS", "GeoJSON", "Leaflet", "HTML/CSS"],
-    "github": "https://github.com/Abhiprayaa29/LahanAman-SistemInformasiGeografis",
-    "image": "assets/projects/ipguard/ipguard-vault.png",
+    "role": "Data Scientist & Analytics Developer",
+    "status": "Completed Dicoding Project & Live Streamlit App",
+    "problem": "Urban bike-sharing systems struggle to optimize fleet distribution without empirical analysis of weather patterns, temperature curves, and rush-hour demand spikes.",
+    "contribution": "Conducted end-to-end data analysis on Capital Bikeshare datasets (2011–2012): data gathering, cleaning, EDA, quantile binning demand segmentation, and built an interactive Streamlit web dashboard deployed on Streamlit Community Cloud.",
+    "challenge": "Synthesizing non-linear demand spikes across rush hour commuter windows (08:00 and 17:00 on working days) versus smooth midday leisure curves on weekends.",
+    "engineering": "Python, Pandas data wrangling, NumPy, Plotly interactive visualizations, Matplotlib/Seaborn statistical plots, Streamlit web deployment.",
+    "design": "Designed clean data storytelling layouts with metric highlight cards, interactive filters for season and weather, and dual-axis correlation graphs.",
+    "result": "Deployed live on Streamlit Community Cloud with verified statistical insights driving optimal fleet rebalancing recommendations.",
+    "stack": ["Python", "Streamlit", "Pandas", "Plotly", "Data Analytics", "Seaborn"],
+    "github": "https://github.com/Abhiprayaa29/bike-sharing-dashboard",
+    "image": "assets/projects/bike-sharing/bike-sharing-plot-1.png",
     "gallery": [
-      { "src": "assets/projects/ipguard/ipguard-vault.png", "alt": "Spatial data visualization interface" }
+      { "src": "assets/projects/bike-sharing/bike-sharing-plot-1.png", "alt": "Hourly rental demand curve: Working days peak at 08:00 & 17:00 vs weekend leisure plateau" },
+      { "src": "assets/projects/bike-sharing/bike-sharing-plot-3.png", "alt": "Correlation between ambient temperature and daily rental volume with weather condition clustering (r=0.63)" },
+      { "src": "assets/projects/bike-sharing/bike-sharing-plot-5.png", "alt": "Seasonal demand distribution and quantile binning segmentation" }
     ]
   },
   "happy-budgeting": {
@@ -91,18 +95,18 @@ const projectsData = {
     "title": "SPADA Academic Assistant — Automated Notification Telegram Bot",
     "discipline": "development",
     "role": "Backend Developer & Automation Engineer",
-    "status": "Active Automation Tool",
+    "status": "Active Automation Tool & Web Dashboard",
     "problem": "University students frequently miss assignment deadlines and lecture announcements scattered across complex learning management portals.",
-    "contribution": "Built automated notification bot that monitors academic assignment queues, schedules daily deadline briefings, and delivers immediate alerts via Telegram.",
+    "contribution": "Built automated notification bot that monitors academic assignment queues, schedules daily deadline briefings, and delivers immediate alerts via Telegram with an accompanying web dashboard.",
     "challenge": "Handling asynchronous event webhooks and managing persistent student subscription states with high uptime.",
     "engineering": "FastAPI asynchronous service, python-telegram-bot framework, scheduled background workers, SQLite persistence.",
     "design": "Clean Telegram inline keyboard UX, markdown-formatted course briefs, and interactive snooze/acknowledgment commands.",
     "result": "Zero-maintenance personal academic notification pipeline with sub-second message delivery.",
     "stack": ["Python", "FastAPI", "Telegram Bot API", "Asyncio", "SQLite"],
-    "github": "https://github.com/Abhiprayaa29/SPADA-Telegram-Bot",
-    "image": "assets/projects/ipguard/ipguard-auth-request.png",
+    "github": "https://github.com/Abhiprayaa29/bot_spada",
+    "image": "assets/projects/spada-bot/spada-bot-preview.png",
     "gallery": [
-      { "src": "assets/projects/ipguard/ipguard-auth-request.png", "alt": "Automated notification queue and interactive mobile bot flow" }
+      { "src": "assets/projects/spada-bot/spada-bot-preview.png", "alt": "SPADA Telegram Bot automated academic notification card and system architecture" }
     ]
   },
   "simple-ar": {
@@ -117,10 +121,10 @@ const projectsData = {
     "design": "Modeled custom 3D assets in Blender, optimized polygon topology, and engineered intuitive gesture controls (rotate, pinch-scale, translate).",
     "result": "Reliable mobile AR experience with smooth 60fps tracking across diverse physical environments.",
     "stack": ["Unity", "C#", "AR Foundation", "ARCore", "Blender 3D"],
-    "github": "https://github.com/Abhiprayaa29/SimpleARPlacement-Unity",
-    "image": "assets/projects/ipguard/ipguard-vault.png",
+    "github": "https://github.com/Abhiprayaa29/simple-ar-placement",
+    "image": "assets/projects/simple-ar/simple-ar-placement-ui.webp",
     "gallery": [
-      { "src": "assets/projects/ipguard/ipguard-vault.png", "alt": "AR Foundation horizontal surface plane hit-testing and model visualization" }
+      { "src": "assets/projects/simple-ar/simple-ar-placement-ui.webp", "alt": "AR Foundation horizontal surface detection and interactive touch object placement on Android" }
     ]
   },
   "jogjalensa": {
@@ -142,39 +146,42 @@ const projectsData = {
     ]
   },
   "cerberus": {
-    "title": "Cerberus — Automated Network Defense & Threat Rule Engine",
+    "title": "Cerberus — AI Orchestrator for Penetration Testing Workflow",
     "discipline": "development",
-    "role": "Security Researcher & Developer",
-    "status": "Research Lab Tool",
-    "problem": "Small network environments lack lightweight, transparent intrusion detection and automated alert triage against known CVE exploit patterns.",
-    "contribution": "Engineered automated packet inspection and signature analysis script pipeline parsing network pcap streams and correlating attack signatures.",
-    "challenge": "Filtering false positive alerts from high-volume benign network traffic without dropping anomalous payloads.",
-    "engineering": "Python packet parsing, Scapy, Snort/Suricata rule syntax, regex signature engine, structured JSON alert output.",
-    "design": "Terminal dashboard with ANSI color highlighting and severity-ranked incident logs.",
-    "result": "Accurate detection of SQL injection payloads, directory traversal, and brute-force scans in simulated laboratory environments.",
-    "stack": ["Python", "Scapy", "Suricata Rules", "Network Security", "Linux"],
-    "github": "https://github.com/Abhiprayaa29",
-    "image": "assets/projects/ipguard/ipguard-verify-modal.png",
+    "role": "AI Agent Engineer & Security Developer",
+    "status": "Production Tool (OpenCode + oh-my-open-pentest)",
+    "problem": "Traditional penetration testing requires heavy manual coordination between reconnaissance, vulnerability scanning, verification, and reporting, creating significant analyst fatigue.",
+    "contribution": "Architected Cerberus, the autonomous AI orchestration agent inside oh-my-open-pentest (OpenCode framework) that plans engagements, delegates specialized tasks to sub-agents, verifies security findings, and drives the complete pentest lifecycle.",
+    "challenge": "Ensuring sub-agent containment, deterministic task delegation, and eliminating false positives before reporting.",
+    "engineering": "TypeScript, Bun runtime, OpenCode framework, autonomous multi-agent delegation patterns, structured Markdown report generation.",
+    "design": "Interactive terminal orchestration UI, agent status visualizer, and structured audit logs.",
+    "result": "Coordinated security testing teams with zero-babysitting autonomous task planning and verification.",
+    "stack": ["TypeScript", "Bun", "OpenCode", "AI Agents", "Cybersecurity", "Automation"],
+    "github": "https://github.com/Abhiprayaa29/Cerberus",
+    "image": "assets/projects/cerberus/orchestrator-atlas.webp",
     "gallery": [
-      { "src": "assets/projects/ipguard/ipguard-verify-modal.png", "alt": "Network security threat analysis interface" }
+      { "src": "assets/projects/cerberus/orchestrator-atlas.webp", "alt": "Cerberus AI orchestrator spawning parallel engineer agents for task verification" },
+      { "src": "assets/projects/cerberus/core-loop.webp", "alt": "Cerberus Plan-Delegate-Verify-Ship core execution loop" },
+      { "src": "assets/projects/cerberus/ultrawork-flow.webp", "alt": "Cerberus Ultrawork parallel orchestration workflow" }
     ]
   },
   "ucd-comp": {
-    "title": "User-Centered Design Case Study — National UI/UX Competition",
+    "title": "UX Competition Best Video Case Study — Find IT! UGM",
     "discipline": "design",
-    "role": "Lead UX Researcher & Designer",
-    "status": "National Finalist Selection",
+    "role": "Lead UX Researcher & Product Designer (Team Aku Ada Ide)",
+    "status": "Winner: Best Video Award & National Finalist (KMTETI FT UGM)",
     "problem": "Public transit commuters face severe cognitive friction when planning multi-modal trips across buses, commuter trains, and micro-transit under changing schedules.",
-    "contribution": "Conducted user research interviews, constructed user personas, empathy maps, journey frameworks, low-fidelity wireframes, and high-fidelity interactive Figma prototypes.",
+    "contribution": "Conducted user research interviews, constructed user personas, empathy maps, journey frameworks, low-fidelity wireframes, high-fidelity interactive Figma prototypes, and directed the award-winning concept demonstration video.",
     "challenge": "Designing an accessible interface for users of varying digital literacy levels while retaining rich live schedule data.",
     "engineering": "Heuristic evaluation (Nielsen 10), cognitive walkthroughs, System Usability Scale (SUS) benchmark testing.",
     "design": "High-contrast transit route maps, large accessible tap targets, unified timeline trip cards, and WCAG AA compliant color contrast.",
-    "result": "Recognized as national finalist for excellence in usability methodology and user-centered design fidelity.",
-    "stack": ["Figma", "User Research", "Usability Testing", "Heuristic Evaluation", "Prototyping"],
+    "result": "Awarded Winner: Best Video Award and selected as National Finalist at Find IT! 2026 (KMTETI Fakultas Teknik UGM).",
+    "stack": ["Figma", "User Research", "UCD", "Heuristic Evaluation", "Usability Testing"],
     "github": "https://github.com/Abhiprayaa29",
-    "image": "assets/projects/happy-budgeting/budgeting-dashboard.png",
+    "image": "assets/sertifikat/findit-2026-best-video.jpg",
     "gallery": [
-      { "src": "assets/projects/happy-budgeting/budgeting-dashboard.png", "alt": "National UCD Competition prototype case study screens" }
+      { "src": "assets/sertifikat/findit-2026-best-video.jpg", "alt": "Official Best Video Winner Certificate, UX Competition Find IT! 2026, KMTETI FT UGM" },
+      { "src": "assets/sertifikat/preview/findit-2026-finalis-full.webp", "alt": "National Finalist Certificate, Future Innovation and Discovery IT! 2026" }
     ]
   }
 };
