@@ -373,17 +373,51 @@ function initInteractiveSplitHero() {
   let currentSplit = 50.0;
   let targetSplit = 50.0;
   let isHoveringColumn = false;
+  let isPointerDown = false;
   let animFrameId = null;
 
   // Check prefers-reduced-motion
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Set CSS property
+  // Set CSS property for both the portrait clip-path AND the dynamic text reveal
   function updateDOMSplit(val) {
     portrait.style.setProperty('--split-percent', `${val.toFixed(2)}%`);
+
+    if (!heroGrid) return;
+
+    // Adham Dannaway dynamic text opacity and slide calculation:
+    // val = 100 is Designer (left)
+    // val = 0 is Coder (right)
+    // val = 50 is center neutral resting state (text hidden, focus on portrait + titles)
+    let dProgress = 0;
+    let cProgress = 0;
+    let dTitleOp = 0.85;
+    let cTitleOp = 0.85;
+
+    if (val > 51.0) {
+      // Scales smoothly from 0 at 51% to 1.0 at 75%
+      dProgress = Math.min(1, Math.max(0, (val - 51.0) / 24.0));
+      dTitleOp = 0.85 + (0.15 * dProgress);
+      cTitleOp = Math.max(0.25, 0.85 - (0.6 * dProgress));
+    } else if (val < 49.0) {
+      // Scales smoothly from 0 at 49% to 1.0 at 25%
+      cProgress = Math.min(1, Math.max(0, (49.0 - val) / 24.0));
+      cTitleOp = 0.85 + (0.15 * cProgress);
+      dTitleOp = Math.max(0.25, 0.85 - (0.6 * cProgress));
+    }
+
+    heroGrid.style.setProperty('--designer-opacity', dProgress.toFixed(3));
+    heroGrid.style.setProperty('--designer-transform-x', `${((1 - dProgress) * -18).toFixed(1)}px`);
+    heroGrid.style.setProperty('--designer-pointer', dProgress > 0.4 ? 'auto' : 'none');
+    heroGrid.style.setProperty('--designer-title-opacity', dTitleOp.toFixed(2));
+
+    heroGrid.style.setProperty('--coder-opacity', cProgress.toFixed(3));
+    heroGrid.style.setProperty('--coder-transform-x', `${((1 - cProgress) * 18).toFixed(1)}px`);
+    heroGrid.style.setProperty('--coder-pointer', cProgress > 0.4 ? 'auto' : 'none');
+    heroGrid.style.setProperty('--coder-title-opacity', cTitleOp.toFixed(2));
   }
 
-  // Animation Loop with smooth lerp easing
+  // Animation Loop with smooth lerp easing (Zeno's paradox)
   function animate() {
     if (prefersReducedMotion) {
       currentSplit = targetSplit;
@@ -415,7 +449,7 @@ function initInteractiveSplitHero() {
   if (designerCol) {
     designerCol.addEventListener('mouseenter', () => {
       isHoveringColumn = true;
-      setTarget(100.0); // Reveal full artistic designer portrait
+      setTarget(100.0); // Reveal full artistic designer portrait and text
     });
     designerCol.addEventListener('mouseleave', () => {
       isHoveringColumn = false;
@@ -430,7 +464,7 @@ function initInteractiveSplitHero() {
   if (coderCol) {
     coderCol.addEventListener('mouseenter', () => {
       isHoveringColumn = true;
-      setTarget(0.0);   // Reveal full clean photographic coder portrait
+      setTarget(0.0);   // Reveal full clean photographic coder portrait and text
     });
     coderCol.addEventListener('mouseleave', () => {
       isHoveringColumn = false;
@@ -442,18 +476,34 @@ function initInteractiveSplitHero() {
     });
   }
 
-  // 2. Interactive Pointer Movement Across Hero
+  // 2. Interactive Pointer Movement & Drag Across Hero
   if (heroGrid) {
-    heroGrid.addEventListener('pointermove', (e) => {
-      if (isHoveringColumn) return;
+    const handleMove = (clientX) => {
       const rect = heroGrid.getBoundingClientRect();
-      const x = e.clientX - rect.left;
+      const x = clientX - rect.left;
       // Invert percentage so left side = 100% Designer, right side = 0% Coder
       const pct = (1 - (x / rect.width)) * 100;
       setTarget(pct);
+    };
+
+    heroGrid.addEventListener('pointermove', (e) => {
+      if (isHoveringColumn) return;
+      handleMove(e.clientX);
+    });
+
+    heroGrid.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('a, button, input')) return;
+      isPointerDown = true;
+      isHoveringColumn = false;
+      handleMove(e.clientX);
+    });
+
+    window.addEventListener('pointerup', () => {
+      isPointerDown = false;
     });
 
     heroGrid.addEventListener('pointerleave', () => {
+      if (isPointerDown) return;
       isHoveringColumn = false;
       setTarget(50.0);
     });

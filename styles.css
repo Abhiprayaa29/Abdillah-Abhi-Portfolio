@@ -324,6 +324,15 @@ code, kbd, samp, pre {
   align-items: center;
   gap: 48px;
   margin-bottom: 56px;
+  /* Dynamic interaction properties for Adham Dannaway slide-reveal mechanic */
+  --designer-opacity: 0;
+  --designer-transform-x: -18px;
+  --designer-pointer: none;
+  --designer-title-opacity: 0.85;
+  --coder-opacity: 0;
+  --coder-transform-x: 18px;
+  --coder-pointer: none;
+  --coder-title-opacity: 0.85;
 }
 
 /* Left Hero Column: Designer */
@@ -361,6 +370,9 @@ code, kbd, samp, pre {
   margin-bottom: 18px;
   font-family: var(--font-editorial);
   text-transform: lowercase;
+  opacity: var(--designer-title-opacity, 0.85);
+  transition: opacity 220ms ease;
+  user-select: none;
 }
 
 .hero-title-coder {
@@ -371,6 +383,33 @@ code, kbd, samp, pre {
   line-height: 1;
   margin-bottom: 18px;
   font-family: var(--font-mono);
+  opacity: var(--coder-title-opacity, 0.85);
+  transition: opacity 220ms ease;
+  user-select: none;
+}
+
+/* Dynamic slide-reveal items for Designer */
+.hero-col-designer .hero-eyebrow,
+.hero-col-designer .hero-col-desc,
+.hero-col-designer .hero-disciplines-list,
+.hero-col-designer .hero-anchor-link {
+  opacity: var(--designer-opacity, 0);
+  transform: translateX(var(--designer-transform-x, -18px));
+  pointer-events: var(--designer-pointer, none);
+  transition: opacity 160ms ease-out, transform 160ms ease-out;
+  will-change: opacity, transform;
+}
+
+/* Dynamic slide-reveal items for Coder */
+.hero-col-coder .hero-eyebrow,
+.hero-col-coder .hero-col-desc,
+.hero-col-coder .hero-disciplines-list,
+.hero-col-coder .hero-anchor-link {
+  opacity: var(--coder-opacity, 0);
+  transform: translateX(var(--coder-transform-x, 18px));
+  pointer-events: var(--coder-pointer, none);
+  transition: opacity 160ms ease-out, transform 160ms ease-out;
+  will-change: opacity, transform;
 }
 
 .hero-col-desc {
@@ -1648,10 +1687,36 @@ code, kbd, samp, pre {
 }
 
 @media (max-width: 900px) {
-  /* Stack Split Hero on Tablet */
+  /* Stack Split Hero on Tablet and Mobile */
   .hero-editorial-grid {
     grid-template-columns: 1fr;
     gap: 40px;
+    --designer-opacity: 1;
+    --designer-transform-x: 0px;
+    --designer-pointer: auto;
+    --designer-title-opacity: 1;
+    --coder-opacity: 1;
+    --coder-transform-x: 0px;
+    --coder-pointer: auto;
+    --coder-title-opacity: 1;
+  }
+
+  .hero-col-designer .hero-eyebrow,
+  .hero-col-designer .hero-col-desc,
+  .hero-col-designer .hero-disciplines-list,
+  .hero-col-designer .hero-anchor-link,
+  .hero-col-coder .hero-eyebrow,
+  .hero-col-coder .hero-col-desc,
+  .hero-col-coder .hero-disciplines-list,
+  .hero-col-coder .hero-anchor-link {
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+  }
+
+  .hero-title-designer,
+  .hero-title-coder {
+    opacity: 1 !important;
   }
   
   .hero-col-designer {
