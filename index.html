@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
     <!-- Core Stylesheet with Version Cache-Buster -->
-    <link rel="stylesheet" href="./styles.css?v=20261111-v1" />
+    <link rel="stylesheet" href="./styles.css?v=20261111-v2" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -132,39 +132,20 @@
               </a>
             </div>
 
-            <!-- CENTER COLUMN: INTERACTIVE SPLIT PORTRAIT -->
+            <!-- CENTER COLUMN: ADHAM-INSPIRED ANIMATED CUTOUT PORTRAIT -->
             <div class="hero-portrait-stage">
-              <div class="split-portrait-frame" style="--split: 50%;">
-                <!-- Base Photographic Layer: Coder -->
+              <div class="adham-portrait-container" id="heroPortrait" style="--split-percent: 50%;">
+                <!-- Layer B: Coder (Base Photographic Cutout) -->
                 <picture>
-                  <source srcset="assets/portrait-coder.webp" type="image/webp" />
-                  <img class="portrait-layer portrait-coder" src="assets/portrait-coder.jpg" alt="Abhipraya — Coder photographic identity" width="640" height="800" />
+                  <source srcset="assets/portrait/portrait-cutout-coder.webp" type="image/webp" />
+                  <img class="adham-portrait-layer portrait-layer-coder" src="assets/portrait/portrait-cutout-coder.png" alt="Abhipraya — Coder photographic identity" width="680" height="820" />
                 </picture>
 
-                <!-- Top Art-Directed Layer: Designer (Clipped dynamically) -->
+                <!-- Layer A: Designer (Artistic Painted Cutout) -->
                 <picture>
-                  <source srcset="assets/portrait-designer.webp" type="image/webp" />
-                  <img class="portrait-layer portrait-designer" src="assets/portrait-designer.jpg" alt="Abhipraya — Designer creative art identity" width="640" height="800" />
+                  <source srcset="assets/portrait/portrait-cutout-designer.webp" type="image/webp" />
+                  <img class="adham-portrait-layer portrait-layer-designer" src="assets/portrait/portrait-cutout-designer.png" alt="Abhipraya — Designer creative painted identity" width="680" height="820" />
                 </picture>
-
-                <!-- Dynamic Divider Hairline & Grab Handle -->
-                <div class="portrait-divider-line">
-                  <div class="portrait-divider-handle" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="15 18 9 12 15 6"></polyline>
-                    </svg>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                      <polyline points="9 18 15 12 9 6"></polyline>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Mobile & Accessible Interactive Toggles -->
-              <div class="portrait-mobile-toggles" aria-label="Portrait identity controls">
-                <button type="button" class="split-toggle-btn" data-mode="designer">Designer</button>
-                <button type="button" class="split-toggle-btn active" data-mode="split">Split 50/50</button>
-                <button type="button" class="split-toggle-btn" data-mode="coder">&lt;Coder&gt;</button>
               </div>
             </div>
 
@@ -882,6 +863,6 @@
     </dialog>
 
     <!-- Core Script Engine with Cache-Buster -->
-    <script src="./script.js?v=20261111-v1"></script>
+    <script src="./script.js?v=20261111-v2"></script>
   </body>
 </html>

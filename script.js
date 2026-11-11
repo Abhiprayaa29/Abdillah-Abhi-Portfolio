@@ -359,34 +359,42 @@ const shelfCategories = [
 ];
 
 // =============================================================================
-// 2. SIGNATURE INTERACTIVE SPLIT-FACE PORTRAIT ENGINE
+// 2. SIGNATURE ADHAM-INSPIRED ANIMATED CUTOUT PORTRAIT ENGINE
 // =============================================================================
 
 function initInteractiveSplitHero() {
-  const stage = document.querySelector('.split-portrait-frame');
+  const portrait = document.getElementById('heroPortrait') || document.querySelector('.adham-portrait-container');
   const heroGrid = document.querySelector('.hero-editorial-grid');
   const designerCol = document.querySelector('.hero-col-designer');
   const coderCol = document.querySelector('.hero-col-coder');
-  const mobileToggles = document.querySelectorAll('.split-toggle-btn');
   
-  if (!stage) return;
+  if (!portrait) return;
 
   let currentSplit = 50.0;
   let targetSplit = 50.0;
-  let isDragging = false;
-  let isHovering = false;
+  let isHoveringColumn = false;
   let animFrameId = null;
+
+  // Check prefers-reduced-motion
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Set CSS property
   function updateDOMSplit(val) {
-    stage.style.setProperty('--split', `${val.toFixed(2)}%`);
+    portrait.style.setProperty('--split-percent', `${val.toFixed(2)}%`);
   }
 
   // Animation Loop with smooth lerp easing
   function animate() {
+    if (prefersReducedMotion) {
+      currentSplit = targetSplit;
+      updateDOMSplit(currentSplit);
+      animFrameId = null;
+      return;
+    }
+
     const diff = targetSplit - currentSplit;
     if (Math.abs(diff) > 0.05) {
-      currentSplit += diff * 0.12;
+      currentSplit += diff * 0.14;
       updateDOMSplit(currentSplit);
       animFrameId = requestAnimationFrame(animate);
     } else {
@@ -403,78 +411,61 @@ function initInteractiveSplitHero() {
     }
   }
 
-  // Pointer position calculation over portrait frame
-  function handlePointer(clientX) {
-    const rect = stage.getBoundingClientRect();
-    const x = clientX - rect.left;
-    const pct = (x / rect.width) * 100;
-    setTarget(pct);
-  }
-
-  // Mouse & Touch events on the frame
-  stage.addEventListener('pointerdown', (e) => {
-    isDragging = true;
-    stage.setPointerCapture(e.pointerId);
-    handlePointer(e.clientX);
-  });
-
-  stage.addEventListener('pointermove', (e) => {
-    if (isDragging) {
-      handlePointer(e.clientX);
-    } else {
-      // Subtle interactive hover over the frame
-      handlePointer(e.clientX);
-    }
-  });
-
-  stage.addEventListener('pointerup', (e) => {
-    if (isDragging) {
-      isDragging = false;
-      try { stage.releasePointerCapture(e.pointerId); } catch (_) {}
-    }
-  });
-
-  stage.addEventListener('pointerleave', () => {
-    if (!isDragging && !isHovering) {
-      setTarget(50.0);
-    }
-  });
-
-  // Desktop Column Hover Interactions:
-  // Hovering Designer column smoothly reveals more artistic layer (~78%)
+  // 1. Column Hover States (Full Designer 100% vs Full Coder 0%)
   if (designerCol) {
     designerCol.addEventListener('mouseenter', () => {
-      isHovering = true;
-      setTarget(78.0);
+      isHoveringColumn = true;
+      setTarget(100.0); // Reveal full artistic designer portrait
     });
     designerCol.addEventListener('mouseleave', () => {
-      isHovering = false;
-      setTarget(50.0);
+      isHoveringColumn = false;
+      setTarget(50.0);  // Return to 50/50 balance
+    });
+    // Mobile tap support
+    designerCol.addEventListener('click', () => {
+      setTarget(100.0);
     });
   }
 
-  // Hovering Coder column smoothly reveals more code/photographic layer (~22%)
   if (coderCol) {
     coderCol.addEventListener('mouseenter', () => {
-      isHovering = true;
-      setTarget(22.0);
+      isHoveringColumn = true;
+      setTarget(0.0);   // Reveal full clean photographic coder portrait
     });
     coderCol.addEventListener('mouseleave', () => {
-      isHovering = false;
+      isHoveringColumn = false;
+      setTarget(50.0);  // Return to 50/50 balance
+    });
+    // Mobile tap support
+    coderCol.addEventListener('click', () => {
+      setTarget(0.0);
+    });
+  }
+
+  // 2. Interactive Pointer Movement Across Hero
+  if (heroGrid) {
+    heroGrid.addEventListener('pointermove', (e) => {
+      if (isHoveringColumn) return;
+      const rect = heroGrid.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      // Invert percentage so left side = 100% Designer, right side = 0% Coder
+      const pct = (1 - (x / rect.width)) * 100;
+      setTarget(pct);
+    });
+
+    heroGrid.addEventListener('pointerleave', () => {
+      isHoveringColumn = false;
       setTarget(50.0);
     });
   }
 
-  // Mobile Toggles
-  mobileToggles.forEach(btn => {
-    btn.addEventListener('click', () => {
-      mobileToggles.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const mode = btn.dataset.mode;
-      if (mode === 'designer') setTarget(95.0);
-      else if (mode === 'coder') setTarget(5.0);
-      else setTarget(50.0);
-    });
+  // 3. Direct Tap on Portrait Toggles State on Mobile
+  let toggleState = 0; // 0: 50/50, 1: Designer (100), 2: Coder (0)
+  portrait.addEventListener('click', () => {
+    toggleState = (toggleState + 1) % 3;
+    if (toggleState === 1) setTarget(100.0);
+    else if (toggleState === 2) setTarget(0.0);
+    else setTarget(50.0);
   });
 
   // Initial render at 50%
