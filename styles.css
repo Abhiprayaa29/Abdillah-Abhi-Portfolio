@@ -790,6 +790,18 @@ code, kbd, samp, pre {
   display: block;
 }
 
+.project-video-wrapper {
+  background: #000;
+}
+
+.project-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: contain;
+  background: #000;
+}
+
 /* Project Content Column */
 .project-content-col {
   display: flex;
