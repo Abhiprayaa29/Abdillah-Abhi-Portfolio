@@ -706,6 +706,81 @@ code, kbd, samp, pre {
   margin-top: 8px;
 }
 
+.section-certificates {
+  padding: 96px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.certificate-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.certificate-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  transition: transform var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.certificate-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-secondary);
+}
+
+.certificate-preview {
+  display: block;
+  overflow: hidden;
+  background: #fff;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.certificate-preview img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1.42;
+  object-fit: contain;
+  transition: transform var(--transition-smooth);
+}
+
+.certificate-card:hover .certificate-preview img {
+  transform: scale(1.025);
+}
+
+.certificate-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 18px;
+}
+
+.certificate-issuer {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.certificate-card-body h3 {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.certificate-card-body > a {
+  margin-top: 2px;
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.certificate-card-body > a:hover {
+  text-decoration: underline;
+}
+
 .section-editorial-header {
   margin-bottom: 48px;
   display: flex;
@@ -1804,6 +1879,11 @@ code, kbd, samp, pre {
   .video-gallery-grid {
     gap: 24px;
   }
+
+  .certificate-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
   
   .about-editorial-grid {
     grid-template-columns: 1fr;
@@ -1834,7 +1914,15 @@ code, kbd, samp, pre {
     padding: 72px 0;
   }
 
+  .section-certificates {
+    padding: 72px 0;
+  }
+
   .video-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .certificate-grid {
     grid-template-columns: 1fr;
   }
   
