@@ -849,7 +849,7 @@ function initThemeToggle() {
     if (!toggleBtn) return;
     if (theme === 'dark') {
       toggleBtn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
           <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -864,13 +864,43 @@ function initThemeToggle() {
       toggleBtn.setAttribute('aria-label', 'Switch to light mode');
     } else {
       toggleBtn.innerHTML = `
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       `;
       toggleBtn.setAttribute('aria-label', 'Switch to dark mode');
     }
   }
+}
+
+function initMobileNavigation() {
+  const toggle = document.getElementById('mobileMenuToggle');
+  const nav = document.getElementById('primaryNav');
+  if (!toggle || !nav) return;
+
+  const setOpen = (open, restoreFocus = false) => {
+    nav.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    if (restoreFocus) toggle.focus();
+  };
+
+  toggle.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  nav.addEventListener('click', event => {
+    if (event.target.closest('a[href^="#"]')) setOpen(false, true);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+      setOpen(false, true);
+    }
+  });
+  document.addEventListener('click', event => {
+    if (!nav.contains(event.target) && !toggle.contains(event.target)) setOpen(false);
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 640) setOpen(false);
+  });
 }
 
 // =============================================================================
@@ -887,7 +917,7 @@ function initContactAndAnalytics() {
         await navigator.clipboard.writeText(email);
         const originalText = copyBtn.innerHTML;
         copyBtn.innerHTML = `
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
           <span>Email Copied!</span>
         `;
         copyBtn.style.borderColor = 'var(--accent-primary)';
@@ -922,6 +952,7 @@ function initContactAndAnalytics() {
 
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
+  initMobileNavigation();
   initInteractiveSplitHero();
   initWorkSection();
   initShelves();
