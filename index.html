@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet" />
 
     <!-- Core Stylesheet with Version Cache-Buster -->
-    <link rel="stylesheet" href="./styles.css?v=20261113-v5" />
+    <link rel="stylesheet" href="./styles.css?v=20261113-v6" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -72,6 +72,7 @@
 
         <nav class="primary-nav" aria-label="Main Navigation">
           <a href="#work" class="nav-link">Work</a>
+          <a href="#videos" class="nav-link">Videos</a>
           <a href="#shelves" class="nav-link">Shelves</a>
           <a href="#notes" class="nav-link">Notes</a>
           <a href="#about" class="nav-link">About</a>
@@ -216,10 +217,10 @@
 
           <!-- Work Filter Bar -->
           <div class="work-filter-bar" role="tablist" aria-label="Project Discipline Filters">
-            <button class="filter-btn active" data-filter="all" type="button">All Projects (11)</button>
+            <button class="filter-btn active" data-filter="all" type="button">All Projects (9)</button>
             <button class="filter-btn" data-filter="hybrid" type="button">Hybrid (3)</button>
             <button class="filter-btn" data-filter="development" type="button">Development (4)</button>
-            <button class="filter-btn" data-filter="design" type="button">Design (4)</button>
+            <button class="filter-btn" data-filter="design" type="button">Design (2)</button>
           </div>
 
           <!-- Asymmetric Editorial Projects Stream -->
@@ -529,56 +530,51 @@
               </div>
             </article>
 
-            <!-- 10: PekanIT Eye AI Video -->
-            <article class="project-entry" data-discipline="design">
-              <div class="project-media-wrapper project-video-wrapper">
-                <video class="project-video" controls preload="metadata" playsinline aria-label="Video portofolio PekanIT Eye AI">
+          </div>
+        </div>
+      </section>
+
+      <!-- Video portfolio, separate from software projects -->
+      <section class="section-video-portfolio" id="videos">
+        <div class="container">
+          <div class="section-editorial-header">
+            <span class="section-label">Video Portfolio</span>
+            <h2 class="section-title">Selected Videos</h2>
+            <p class="section-desc">
+              Project demonstrations and event films, collected separately from the software project case studies.
+            </p>
+          </div>
+
+          <div class="video-gallery-grid">
+            <article class="video-gallery-card">
+              <div class="video-gallery-frame">
+                <video class="gallery-video" controls preload="metadata" playsinline aria-label="Video portofolio PekanIT Eye AI">
                   <source src="assets/videos/pekanit-eye-ai.mp4" type="video/mp4" />
                   Browser Anda tidak mendukung pemutaran video.
                 </video>
               </div>
-              <div class="project-content-col">
-                <div class="project-meta-eyebrow">
-                  <span class="discipline-tag">Video / AI</span>
-                  <span>·</span>
-                  <span>Project Showcase</span>
-                </div>
-                <h3 class="project-title">PekanIT — Eye AI</h3>
-                <p class="project-lead">
-                  Video showcase proyek Eye AI untuk PekanIT. Putar video untuk melihat demonstrasi proyek.
-                </p>
-                <div class="project-tech-stack">
-                  <span class="tech-tag">Artificial Intelligence</span>
-                  <span class="tech-tag">Project Demo</span>
-                </div>
+              <div class="project-meta-eyebrow">
+                <span class="discipline-tag">AI Project Demo</span>
+                <span>·</span>
+                <span>PekanIT</span>
               </div>
+              <h3 class="project-title">PekanIT — Eye AI</h3>
             </article>
 
-            <!-- 11: GEMASTIK Flood Reporting Video -->
-            <article class="project-entry" data-discipline="design">
-              <div class="project-media-wrapper project-video-wrapper">
-                <video class="project-video" controls preload="metadata" playsinline aria-label="Video portofolio GEMASTIK Flood Reporting">
+            <article class="video-gallery-card">
+              <div class="video-gallery-frame">
+                <video class="gallery-video" controls preload="metadata" playsinline aria-label="Video portofolio GEMASTIK Flood Reporting">
                   <source src="assets/videos/gemastik-flood-reporting.mp4" type="video/mp4" />
                   Browser Anda tidak mendukung pemutaran video.
                 </video>
               </div>
-              <div class="project-content-col">
-                <div class="project-meta-eyebrow">
-                  <span class="discipline-tag">Video / Social Impact</span>
-                  <span>·</span>
-                  <span>Project Showcase</span>
-                </div>
-                <h3 class="project-title">GEMASTIK — Flood Reporting</h3>
-                <p class="project-lead">
-                  Video showcase proyek pelaporan banjir untuk GEMASTIK. Putar video untuk melihat demonstrasi proyek.
-                </p>
-                <div class="project-tech-stack">
-                  <span class="tech-tag">Flood Reporting</span>
-                  <span class="tech-tag">Project Demo</span>
-                </div>
+              <div class="project-meta-eyebrow">
+                <span class="discipline-tag">Social Impact Project</span>
+                <span>·</span>
+                <span>GEMASTIK</span>
               </div>
+              <h3 class="project-title">Flood Reporting</h3>
             </article>
-
           </div>
         </div>
       </section>
@@ -873,6 +869,7 @@
         <div class="footer-nav">
           <a href="#top">Back to Top ↑</a>
           <a href="#work">Work</a>
+          <a href="#videos">Videos</a>
           <a href="#shelves">Shelves</a>
           <a href="#notes">Notes</a>
           <a href="#about">About</a>
