@@ -797,7 +797,7 @@ code, kbd, samp, pre {
 .project-video {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   object-fit: contain;
   background: #000;
 }
