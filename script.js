@@ -530,7 +530,146 @@ function initInteractiveSplitHero() {
 }
 
 // =============================================================================
-// 3. SELECTED WORK SECTION (FILTERS & CASE STUDY MODAL)
+// 3. SUBTLE POINTER SWARM
+// =============================================================================
+
+function initCursorSwarm() {
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!finePointer.matches || reducedMotion.matches) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.id = 'cursorSwarmCanvas';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(canvas);
+
+  const context = canvas.getContext('2d');
+  if (!context) {
+    canvas.remove();
+    return;
+  }
+
+  const particleCount = 22;
+  const particles = Array.from({ length: particleCount }, (_, index) => ({
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
+    phase: (Math.PI * 2 * index) / particleCount,
+    radius: 12 + ((index * 17) % 29),
+    size: 1.1 + ((index * 7) % 10) / 10
+  }));
+
+  let viewportWidth = 0;
+  let viewportHeight = 0;
+  let pixelRatio = 1;
+  let pointerX = 0;
+  let pointerY = 0;
+  let hasPointer = false;
+  let lastMoveAt = 0;
+  let frameId = null;
+  let accent = getComputedStyle(document.documentElement)
+    .getPropertyValue('--accent-primary').trim() || '#285DCA';
+
+  function resizeCanvas() {
+    viewportWidth = window.innerWidth;
+    viewportHeight = window.innerHeight;
+    pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = Math.round(viewportWidth * pixelRatio);
+    canvas.height = Math.round(viewportHeight * pixelRatio);
+    context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  }
+
+  function animate(now) {
+    context.clearRect(0, 0, viewportWidth, viewportHeight);
+    const opacity = Math.max(0, 1 - (now - lastMoveAt) / 900);
+
+    if (opacity <= 0) {
+      frameId = null;
+      return;
+    }
+
+    particles.forEach((particle) => {
+      const orbit = particle.radius * (0.78 + Math.sin(now * 0.002 + particle.phase) * 0.22);
+      const targetX = pointerX + Math.cos(particle.phase + now * 0.00045) * orbit;
+      const targetY = pointerY + Math.sin(particle.phase + now * 0.0006) * orbit * 0.72;
+
+      particle.vx = (particle.vx + (targetX - particle.x) * 0.035) * 0.78;
+      particle.vy = (particle.vy + (targetY - particle.y) * 0.035) * 0.78;
+      particle.x += particle.vx;
+      particle.y += particle.vy;
+    });
+
+    context.lineWidth = 0.8;
+    for (let i = 0; i < particles.length; i += 1) {
+      for (let j = i + 1; j < particles.length; j += 1) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const distance = Math.hypot(dx, dy);
+        if (distance > 38) continue;
+
+        context.globalAlpha = opacity * (1 - distance / 38) * 0.22;
+        context.strokeStyle = accent;
+        context.beginPath();
+        context.moveTo(particles[i].x, particles[i].y);
+        context.lineTo(particles[j].x, particles[j].y);
+        context.stroke();
+      }
+    }
+
+    particles.forEach((particle) => {
+      context.globalAlpha = opacity * 0.62;
+      context.fillStyle = accent;
+      context.beginPath();
+      context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      context.fill();
+    });
+
+    context.globalAlpha = opacity * 0.72;
+    context.beginPath();
+    context.arc(pointerX, pointerY, 1.7, 0, Math.PI * 2);
+    context.fill();
+    context.globalAlpha = 1;
+    frameId = requestAnimationFrame(animate);
+  }
+
+  function handlePointerMove(event) {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+
+    if (!hasPointer) {
+      particles.forEach((particle) => {
+        particle.x = pointerX;
+        particle.y = pointerY;
+      });
+      hasPointer = true;
+    }
+
+    lastMoveAt = performance.now();
+    if (frameId === null) frameId = requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', resizeCanvas, { passive: true });
+  window.addEventListener('pointermove', handlePointerMove, { passive: true });
+  const themeObserver = new MutationObserver(() => {
+    accent = getComputedStyle(document.documentElement)
+      .getPropertyValue('--accent-primary').trim() || '#285DCA';
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  reducedMotion.addEventListener('change', (event) => {
+    if (!event.matches) return;
+    if (frameId !== null) cancelAnimationFrame(frameId);
+    window.removeEventListener('pointermove', handlePointerMove);
+    window.removeEventListener('resize', resizeCanvas);
+    themeObserver.disconnect();
+    canvas.remove();
+  });
+  resizeCanvas();
+}
+
+// =============================================================================
+// 4. SELECTED WORK SECTION (FILTERS & CASE STUDY MODAL)
 // =============================================================================
 
 function initWorkSection() {
@@ -923,6 +1062,7 @@ function initContactAndAnalytics() {
 document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initInteractiveSplitHero();
+  initCursorSwarm();
   initWorkSection();
   initShelves();
   initContactAndAnalytics();

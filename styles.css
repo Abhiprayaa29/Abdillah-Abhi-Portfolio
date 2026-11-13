@@ -1982,3 +1982,19 @@ code, kbd, samp, pre {
     scroll-behavior: auto !important;
   }
 }
+
+#cursorSwarmCanvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  opacity: 0.78;
+}
+
+@media (pointer: coarse), (prefers-reduced-motion: reduce) {
+  #cursorSwarmCanvas {
+    display: none;
+  }
+}
