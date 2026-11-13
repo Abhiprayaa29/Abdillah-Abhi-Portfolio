@@ -2052,36 +2052,10 @@ button:active {
 
 /* Reduced Motion Mode */
 @media (prefers-reduced-motion: reduce) {
-  html.swarm-reveal-ready .swarm-target.swarm-pending {
-    clip-path: none !important;
-  }
-
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-html.swarm-reveal-ready .swarm-target.swarm-pending {
-  --swarm-mask: 100%;
-  clip-path: inset(0 var(--swarm-mask) 0 0);
-}
-
-html.swarm-reveal-ready .swarm-target.swarm-pending.swarm-vertical-mask {
-  clip-path: inset(0 0 var(--swarm-mask) 0);
-}
-
-html.swarm-reveal-ready .swarm-target.swarm-active {
-  will-change: clip-path;
-}
-
-.swarm-canvas {
-  position: fixed;
-  inset: 0 auto auto 0;
-  z-index: 999;
-  display: none;
-  max-width: none;
-  pointer-events: none;
 }
