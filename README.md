@@ -20,7 +20,7 @@ You can also open `index.html` directly, but a local server is recommended so al
 - `cv/Abdillah-Abhi-CV.pdf` — CV copied unchanged for the download/view action.
 - `assets/` — project screenshots and visuals (`assets/projects/` holds the verified repository imagery used by the project section).
 - `favicon.svg` / `og.svg` / `og.png` — lightweight metadata assets (Open Graph image is 1200×630).
-- `robots.txt` / `sitemap.xml` — crawl and sitemap hints for https://abhipraya.pages.dev/.
+- `robots.txt` / `sitemap.xml` — crawl hints for the canonical site https://abhipraya29.my.id/.
 - `react-vite-source/` — React/Vite/Tailwind implementation source.
 - `react-vite-source/AUDIT.md` — source audit and selection rationale.
 - `docs/VALIDATION.md` — current verification results (responsive, accessibility, print, Lighthouse).

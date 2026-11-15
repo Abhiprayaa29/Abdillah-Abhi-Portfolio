@@ -543,8 +543,12 @@ function initWorkSection() {
   // Filter Projects by Discipline
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
+      filterBtns.forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       const filter = btn.dataset.filter;
 
       projectEntries.forEach(entry => {
@@ -579,7 +583,7 @@ function initWorkSection() {
             <span>·</span>
             <span>${data.status}</span>
           </div>
-          <h2 class="article-headline">${data.title}</h2>
+          <h2 class="article-headline" id="projectDialogTitle">${data.title}</h2>
           <div class="article-metadata-strip">
             <span><strong>Role:</strong> ${data.role}</span>
           </div>
@@ -761,7 +765,7 @@ function openArticleReader(noteId) {
 
   body.innerHTML = `
     <article class="article-reader-container">
-      <h1 class="article-headline">${note.title}</h1>
+      <h1 class="article-headline" id="shelfDialogTitle">${note.title}</h1>
       <div class="article-metadata-strip">
         <span>Published ${note.date}</span>
         <span>·</span>

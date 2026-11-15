@@ -32,7 +32,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <!-- Core Stylesheet with Version Cache-Buster -->
-    <link rel="stylesheet" href="./styles.css?v=20261113-v10" />
+    <link rel="stylesheet" href="./styles.css?v=20261115-v11" />
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -189,7 +189,7 @@
             <div class="hero-person-subtitle">Designer &amp; Coder</div>
 
             <p class="hero-editorial-quote">
-              &ldquo;In the space between creativity and technology, I design meaningful digital experiences and engineer the systems that bring them to life.&rdquo;
+              &ldquo;I design thoughtful digital experiences and engineer reliable systems that bring them to life.&rdquo;
             </p>
 
             <div class="hero-affiliation-line">
@@ -221,11 +221,11 @@
           </div>
 
           <!-- Work Filter Bar -->
-          <div class="work-filter-bar" role="tablist" aria-label="Project Discipline Filters">
-            <button class="filter-btn active" data-filter="all" type="button">All Projects (9)</button>
-            <button class="filter-btn" data-filter="hybrid" type="button">Hybrid (3)</button>
-            <button class="filter-btn" data-filter="development" type="button">Development (4)</button>
-            <button class="filter-btn" data-filter="design" type="button">Design (2)</button>
+          <div class="work-filter-bar" role="group" aria-label="Project discipline filters">
+            <button class="filter-btn active" data-filter="all" type="button" aria-pressed="true">All Projects (9)</button>
+            <button class="filter-btn" data-filter="hybrid" type="button" aria-pressed="false">Hybrid (3)</button>
+            <button class="filter-btn" data-filter="development" type="button" aria-pressed="false">Development (4)</button>
+            <button class="filter-btn" data-filter="design" type="button" aria-pressed="false">Design (2)</button>
           </div>
 
           <!-- Asymmetric Editorial Projects Stream -->
@@ -981,8 +981,8 @@
         </div>
 
         <div class="footer-status-pill">
-          <span class="status-dot"></span>
-          <span id="visitorStats">Verified Deployment</span>
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="visitorStats">Visit count unavailable</span>
         </div>
       </div>
     </footer>
@@ -992,7 +992,7 @@
          =================================================================== -->
     
     <!-- Case Study Reader Dialog -->
-    <dialog id="projectDialog" class="editorial-dialog" aria-labelledby="projectDialogClose">
+    <dialog id="projectDialog" class="editorial-dialog" aria-labelledby="projectDialogTitle">
       <div class="dialog-header">
         <div class="dialog-breadcrumb">
           <span>Selected Work</span>
@@ -1007,7 +1007,7 @@
     </dialog>
 
     <!-- Shelves Article Reader Dialog -->
-    <dialog id="shelfDialog" class="editorial-dialog" aria-labelledby="shelfDialogClose">
+    <dialog id="shelfDialog" class="editorial-dialog" aria-labelledby="shelfDialogTitle">
       <div class="dialog-header">
         <div id="shelfDialogBreadcrumb" class="dialog-breadcrumb">
           <span>Shelves</span>
@@ -1020,6 +1020,6 @@
     </dialog>
 
     <!-- Core Script Engine with Cache-Buster -->
-    <script src="./script.js?v=20261113-v10"></script>
+    <script src="./script.js?v=20261115-v11"></script>
   </body>
 </html>
