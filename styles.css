@@ -736,6 +736,13 @@ button:active {
 
 .video-sequence-title {
   font-family: var(--font-editorial);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+  margin-top: 8px;
+}
+
+.video-gallery-event-title {
+  text-align: center;
 }
 
 .video-gallery-frame {
