@@ -770,6 +770,14 @@ button:active {
   margin-top: 8px;
 }
 
+.video-gallery-card .video-gallery-card-title {
+  margin: 0 0 16px;
+}
+
+.video-gallery-event-card .video-gallery-event-title {
+  margin: 8px 0 16px;
+}
+
 .section-certificates {
   padding: 96px 0;
   border-bottom: 1px solid var(--border-color);
