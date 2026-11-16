@@ -17,7 +17,7 @@ You can also open `index.html` directly, but a local server is recommended so al
 ## Included
 
 - `index.html` / `styles.css` / `script.js` — validated static delivery.
-- `cv/Abdillah-Abhi-CV.pdf` — CV copied unchanged for the download/view action.
+- `cv/Abhi_CV_Tech.pdf` — updated CV used by the download/view links.
 - `assets/` — project screenshots and visuals (`assets/projects/` holds the verified repository imagery used by the project section).
 - `favicon.svg` / `og.svg` / `og.png` — lightweight metadata assets (Open Graph image is 1200×630).
 - `robots.txt` / `sitemap.xml` — crawl hints for the canonical site https://abhipraya29.my.id/.
