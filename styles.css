@@ -735,10 +735,7 @@ button:active {
 }
 
 .video-sequence-title {
-  color: var(--text-primary);
   font-family: var(--font-editorial);
-  font-size: 0.9375rem;
-  line-height: 1.4;
 }
 
 .video-gallery-frame {
